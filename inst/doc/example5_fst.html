@@ -12,7 +12,7 @@
 
 
 
-<title>Eample 5: Tibble</title>
+<title>Example 5: Fst</title>
 
 
 
@@ -297,39 +297,56 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Eample 5: Tibble</h1>
+<h1 class="title toc-ignore">Example 5: Fst</h1>
 
 
 
-<p><code>tibble</code> is the name of a package, as well as a enhanced data.frame structure, which provides user lots of information automatically. I admire this design, and used to think of adding <code>as_tibble</code> to every end of function. This is, however, inefficient for data manipulation, which violates the principal of “fast”. But thanks to Houyun, he taught me a way to adjust the <code>print.data.frame</code> function, which I finally use for <code>pring.data.table</code> for an alternative way of printing data.table. Now let’s try it with the function <code>show_tibble</code>:</p>
+<p>The <a href="https://github.com/fstpackage/fst">fst</a> package for R provides a fast, easy and flexible way to serialize data frames. It has very amazing features, such as fast read and write of R data frames, super file compression and parse data frames without reading it. Considering all these features, now <a href="https://github.com/hope-data-science/tidyfst">tidyfst</a> could provide a new workflow to manipulate data more efficiently. The core idea is: We never need the whole data all at once, we only need the things we want and aggregate them to get the summary to provide target information.</p>
+<p><em>tidyfst</em> have provided the following functions to facilitate the workflow:</p>
+<ul>
+<li>parse_fst: Get information of the data.frame without reading it</li>
+<li>slice_fst: Select the target rows by number</li>
+<li>select_fst: Select the target columns for the task</li>
+<li>filter_fst: Conditional selection of rows</li>
+<li>import_fst: Read a fst file like <code>fst::read_fst</code> but always return a data.table</li>
+<li>export_fst: Write a fst file like <code>fst::write_fst</code> but always use largest compress factor (which yields smallest file)</li>
+</ul>
+<p>In such a workflow, you never need to read the whole data.frame into your RAM, you just select the target data, process them instantly and get the results all at once. You do not have to read the data to know the structure of data.frame, because we have <code>parse_fst</code>(a wrapper for <code>fst</code> in <em>fst</em> package). Now let’s give it a try.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyfst)</a>
 <a class="sourceLine" id="cb1-2" title="2"></a>
-<a class="sourceLine" id="cb1-3" title="3">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count_dt</span>(Species) -&gt;<span class="st"> </span>a</a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="kw">class</span>(a)</a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt; [1] &quot;data.table&quot; &quot;data.frame&quot;</span></a>
-<a class="sourceLine" id="cb1-6" title="6"></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="co"># turn on</span></a>
-<a class="sourceLine" id="cb1-8" title="8">print.data.table =<span class="st"> </span><span class="kw">show_tibble</span>(<span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt; The tibble mode has been turned on.</span></a>
-<a class="sourceLine" id="cb1-10" title="10">a</a>
-<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;       Species  n</span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt; 1:     setosa 50</span></a>
-<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; 2: versicolor 50</span></a>
-<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt; 3:  virginica 50</span></a>
-<a class="sourceLine" id="cb1-15" title="15"><span class="kw">class</span>(a)</a>
-<a class="sourceLine" id="cb1-16" title="16"><span class="co">#&gt; [1] &quot;data.table&quot; &quot;data.frame&quot;</span></a>
-<a class="sourceLine" id="cb1-17" title="17"></a>
-<a class="sourceLine" id="cb1-18" title="18"><span class="co"># shut off</span></a>
-<a class="sourceLine" id="cb1-19" title="19">print.data.table =<span class="st"> </span><span class="kw">show_tibble</span>(<span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb1-20" title="20"><span class="co">#&gt; The tibble mode has been shut off.</span></a>
-<a class="sourceLine" id="cb1-21" title="21">a</a>
-<a class="sourceLine" id="cb1-22" title="22"><span class="co">#&gt;       Species  n</span></a>
-<a class="sourceLine" id="cb1-23" title="23"><span class="co">#&gt; 1:     setosa 50</span></a>
-<a class="sourceLine" id="cb1-24" title="24"><span class="co">#&gt; 2: versicolor 50</span></a>
-<a class="sourceLine" id="cb1-25" title="25"><span class="co">#&gt; 3:  virginica 50</span></a>
-<a class="sourceLine" id="cb1-26" title="26"><span class="kw">class</span>(a)</a>
-<a class="sourceLine" id="cb1-27" title="27"><span class="co">#&gt; [1] &quot;data.table&quot; &quot;data.frame&quot;</span></a></code></pre></div>
-<p>We can find that the structure of variable <code>a</code> never changes, but the printing form of it could be altered to tibble or back to data.table using <code>show_tibble</code> function. You can choose the one you preferred.</p>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co"># Generate some random data frame with 10 million rows and various column types</span></a>
+<a class="sourceLine" id="cb1-4" title="4">nr_of_rows &lt;-<span class="st"> </span><span class="fl">1e7</span></a>
+<a class="sourceLine" id="cb1-5" title="5"></a>
+<a class="sourceLine" id="cb1-6" title="6">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb1-7" title="7">    <span class="dt">Logical =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>), <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.85</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>), nr_of_rows, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-8" title="8">    <span class="dt">Integer =</span> <span class="kw">sample</span>(1L<span class="op">:</span>100L, nr_of_rows, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-9" title="9">    <span class="dt">Real =</span> <span class="kw">sample</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>, <span class="dv">20</span>) <span class="op">/</span><span class="st"> </span><span class="dv">100</span>, nr_of_rows, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-10" title="10">    <span class="dt">Factor =</span> <span class="kw">as.factor</span>(<span class="kw">sample</span>(<span class="kw">labels</span>(UScitiesD), nr_of_rows, <span class="dt">replace =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1-11" title="11">  )</a>
+<a class="sourceLine" id="cb1-12" title="12"></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co"># write the fst file, make sure you do not have the file with same name in the directory</span></a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="kw">export_fst</span>(df,<span class="st">&quot;fst_test.fst&quot;</span>)</a>
+<a class="sourceLine" id="cb1-15" title="15"></a>
+<a class="sourceLine" id="cb1-16" title="16"><span class="co"># remove all variables in the environment</span></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</a></code></pre></div>
+<p>Now, we want to know the information in the data frame.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">parse_fst</span>(<span class="st">&quot;fst_test.fst&quot;</span>) -&gt;<span class="st"> </span>ft</a>
+<a class="sourceLine" id="cb2-2" title="2">ft</a></code></pre></div>
+<p>If we want to get the information in the <code>Factor</code> column, use:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">ft <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="st">  </span><span class="kw">select_fst</span>(Factor) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="st">  </span><span class="kw">count_dt</span>(Factor) -&gt;<span class="st"> </span>factor_info</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5">factor_info</a></code></pre></div>
+<p>If we want to calculate the mean of <code>Integer</code> by the group of <code>Factor</code>, use:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">ft <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="st">  </span><span class="kw">select_fst</span>(Integer,Factor) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="st">  </span><span class="kw">summarise_dt</span>(<span class="dt">avg =</span> <span class="kw">mean</span>(Integer),<span class="dt">by =</span> Factor) -&gt;<span class="st"> </span>avg_info</a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5">avg_info</a></code></pre></div>
+<p>In this workflow, we only select/filter/slice the data we need, and get the results directly from the pipeline. Therefore, we read the minimum needed data into RAM and release it and save only the results we want. This workflow could save memory for many exploratory big data analysis. Last, let’s delete the output file:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># delete the output file</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">unlink</span>(<span class="st">&quot;fst_test.fst&quot;</span>)</a></code></pre></div>
 
 
 

@@ -2,9 +2,12 @@
 % Please edit documentation in R/select_dt.R
 \name{select_dt}
 \alias{select_dt}
+\alias{select_if_dt}
 \title{Select column from data.frame}
 \usage{
 select_dt(data, ..., cols = NULL, negate = FALSE)
+
+select_if_dt(data, .if)
 }
 \arguments{
 \item{data}{data.frame}
@@ -16,25 +19,38 @@ functions.}
 
 \item{negate}{Applicable when regular expression is used.
 If \code{TRUE}, return the non-matched pattern. Default uses \code{FALSE}.}
+
+\item{.if}{Conditional function to select columns.
+When starts with `-`(minus symbol), return the negative columns.}
 }
 \value{
 data.table
 }
 \description{
-Analogous function for \code{select} in \pkg{dplyr}.
+Analogous function for \code{select} and \code{select_if} in \pkg{dplyr}.
 }
 \examples{
 iris \%>\% select_dt(Species)
 iris \%>\% select_dt(Sepal.Length,Sepal.Width)
+iris \%>\% select_dt(Sepal.Length:Petal.Length)
+iris \%>\% select_dt(-Sepal.Length)
+iris \%>\% select_dt(-Sepal.Length,-Petal.Length)
+iris \%>\% select_dt(-(Sepal.Length:Petal.Length))
 iris \%>\% select_dt(c("Sepal.Length","Sepal.Width"))
+iris \%>\% select_dt(1)
+iris \%>\% select_dt(-1)
 iris \%>\% select_dt(1:3)
+iris \%>\% select_dt(-(1:3))
 iris \%>\% select_dt(1,3)
 iris \%>\% select_dt("Pe")
 iris \%>\% select_dt("Pe",negate = TRUE)
 iris \%>\% select_dt("Pe|Sp")
 iris \%>\% select_dt(cols = 2:3)
 iris \%>\% select_dt(cols = names(iris)[2:3])
+
+iris \%>\% select_if_dt(is.factor)
+iris \%>\% select_if_dt(-is.factor)
 }
 \seealso{
-\code{\link[dplyr]{select}}
+\code{\link[dplyr]{select}}, \code{\link[dplyr]{select_if}}
 }
