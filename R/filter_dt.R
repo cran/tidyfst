@@ -13,16 +13,25 @@
 #' iris %>% filter_dt(Sepal.Length == max(Sepal.Length))
 
 #' @export
-
 filter_dt = function(data,...){
   dt = as_dt(data)
-  substitute(list(...)) %>%
-    deparse() %>%
-    str_extract("\\(.+\\)") %>%
-    str_sub(2,-2) %>%
-    str_replace_all(","," & ")-> dot_string
+ substitute(list(...)) %>%
+    lapply(deparse) %>%
+    .[-1] %>%
+    str_c(collapse = " & ") -> dot_string
+
   eval(parse(text = str_glue("dt[{dot_string}]")))
 }
 
-
+# past version of filter_dt
+# filter_dt = function(data,...){
+#   dt = as_dt(data)
+#   substitute(list(...)) %>%
+#     deparse() %>%
+#     str_c(collapse = "") %>%
+#     str_squish() %>%
+#     str_extract("\\(.+\\)") %>%
+#     str_sub(2,-2) -> dot_string
+#   eval(parse(text = str_glue("dt[{dot_string}]")))
+# }
 

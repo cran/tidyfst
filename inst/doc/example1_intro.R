@@ -8,11 +8,12 @@ knitr::opts_chunk$set(
 ## -----------------------------------------------------------------------------
 #  library(tidyfst)
 #  library(nycflights13)
+#  library(data.table)
 #  
 #  data.table(flights)
 
 ## -----------------------------------------------------------------------------
-#  filter_dt(flights, month == 1, day == 1)
+#  filter_dt(flights, month == 1 & day == 1)
 
 ## -----------------------------------------------------------------------------
 #  arrange_dt(flights, year, month, day)

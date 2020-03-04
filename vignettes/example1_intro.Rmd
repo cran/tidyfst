@@ -21,15 +21,16 @@ This part of vignette has referred to `dplyr`'s vignette in <https://dplyr.tidyv
 ```{r}
 library(tidyfst)
 library(nycflights13)
+library(data.table)
 
 data.table(flights)
 ```
 
 ## Filter rows with `filter_dt()`
 ```{r}
-filter_dt(flights, month == 1, day == 1)
+filter_dt(flights, month == 1 & day == 1)
 ```
-
+Note that comma could not be used in the expressions. Which means `filter_dt(flights, month == 1,day == 1)` would return error.
 ## Arrange rows with `arrange_dt()`
 ```{r}
 arrange_dt(flights, year, month, day)
@@ -299,7 +300,7 @@ flights %>%
     at_dt("_delay",summarise_dt,mean)
            )
 ```
-  Let me explain what happens here, especially in `group_dt`. First filter by condition `carrier == "AA"`, then group by three variables, which are `origin, dest, month`. Last, summarise by columns with "_delay" in the column names and get the mean value of all such variables(with "_delay" in their column names). This is a very creative design, utilizing `.SD` in *data.table* and upgrade the `group_by` function in *dplyr* (because you never need to `ungroup` now, just put the group operations in the `group_dt`). And **you can pipe in the group_dt function**. Let play with it a little bit further:
+  Let me explain what happens here, especially in `group_dt`. First filter by condition `carrier == "AA"`, then group by three variables, which are `origin, dest, month`. Last, summarise by columns with "_delay" in the column names and get the mean value of all such variables(with "_delay" in their column names). This is a very creative design, utilizing `.SD` in *data.table* and upgrade the `group_by` function in *dplyr* (because you never need to `ungroup` now, just put the group operations in the `group_dt`). And **you can pipe in the group_dt function**. Let's play with it a little bit further:
 ```{r}
 flights %>% 
   filter_dt(carrier == "AA") %>% 

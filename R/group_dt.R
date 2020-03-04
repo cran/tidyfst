@@ -2,7 +2,7 @@
 #' @title Data manipulation within groups
 #' @description Analogous function for \code{group_by} in \pkg{dplyr},
 #' but in another efficient way.
-#' @param data data.frame
+#' @param data A data.frame
 #' @param by Variables to group by,unquoted name of grouping variable of list of unquoted names of grouping variables.
 #' @param ... Any data manipulation arguments that could be implemented on a data.frame.
 #' @return data.table
@@ -16,7 +16,15 @@
 #'                   mutate_dt(max= max(Sepal.Length)) %>%
 #'                     summarise_dt(sum=sum(Sepal.Length)))
 #'
-#' # for summarise_dt, you can use "by" to calculate within the group
+#' # for users familiar with data.table, you can work on .SD directly
+#' # following codes get the first and last row from each group
+#' iris %>%
+#'   group_dt(
+#'     by = Species,
+#'     rbind(.SD[1],.SD[.N])
+#'   )
+#'
+#' #' # for summarise_dt, you can use "by" to calculate within the group
 #' mtcars %>%
 #'   summarise_dt(
 #'    disp = mean(disp),
@@ -35,32 +43,70 @@
 #'             summarise_dt(avg = mean(mpg)))
 
 
+
 #' @export
 
 group_dt = function(data,by = NULL,...){
   dt = as_dt(data)
+
   by = substitute(by)
+  deparse(by) -> by_deparse
+  if(by_deparse == "NULL") stop("Please provide the group(s).")
+  else if(!str_detect(by_deparse,"^\\.|^list\\("))
+    by_deparse %>%
+      str_c(".(",.,")") -> by_deparse
+
   substitute(list(...)) %>%
     deparse() %>%
     str_c(collapse = "") %>%
-   # str_squish() %>%
+    str_squish() %>%
     str_extract("\\(.+\\)") %>%
     str_sub(2,-2) -> dot_string
-  deparse(by) -> by_deparse
-  if(by_deparse == "NULL") stop("Please provide the group(s).")
-  else if(by_deparse %>% str_detect("^\\.|^list\\("))
-    eval(parse(text = str_glue("dt[,(.SD %>% {dot_string}),by = by]")))
-  else {
-    by_deparse %>%
-      str_c(".(",.,")") -> by
-    eval(parse(text = str_glue("dt[,(.SD %>% {dot_string}),by = {by}]")))
-  }
+
+  if(str_detect(dot_string,"\\.SD"))
+    to_eval = "dt[,{dot_string},by = {by_deparse}]"
+  else
+    dot_string %>%
+    strsplit("%>%") %>%
+    unlist() %>%
+    str_squish() %>%
+    lapply(dot_convert) %>%
+    str_c("[,",.,",","by = {by_deparse}]") %>%
+    str_c(collapse = "") %>%
+    str_c("dt",.) -> to_eval
+
+  eval(parse(text = str_glue(to_eval)))
+}
+
+# previous method, slow
+# group_dt = function(data,by = NULL,...){
+#   dt = as_dt(data)
+#   by = substitute(by)
+#   substitute(list(...)) %>%
+#     deparse() %>%
+#     str_c(collapse = "") %>%
+#    # str_squish() %>%
+#     str_extract("\\(.+\\)") %>%
+#     str_sub(2,-2) -> dot_string
+#   deparse(by) -> by_deparse
+#   if(by_deparse == "NULL") stop("Please provide the group(s).")
+#   else if(by_deparse %>% str_detect("^\\.|^list\\("))
+#     eval(parse(text = str_glue("dt[,(.SD %>% {dot_string}),by = by]")))
+#   else {
+#     by_deparse %>%
+#       str_c(".(",.,")") -> by
+#     eval(parse(text = str_glue("dt[,(.SD %>% {dot_string}),by = {by}]")))
+#   }
+# }
+
+dot_convert = function(string){
+  if(str_detect(string,",\\s*\\.\\s*,"))
+    str_replace(string,",\\s*\\.\\s*,",",.SD,") -> string
+  else if(str_detect(string,",s*\\.s*\\)"))
+    str_replace(string,",s*\\.s*\\)",",.SD\\)") -> string
+  else str_replace(string,"\\(","\\(.SD,") -> string
+  string
 }
 
 
-## general
-as_dt = function(data){
-  if(!is.data.frame(data)) stop("Only a data.frame could be received.")
-  as.data.table(data)
-}
 
