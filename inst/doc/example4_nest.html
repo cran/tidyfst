@@ -306,7 +306,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb1-2" title="2"></a>
 <a class="sourceLine" id="cb1-3" title="3"><span class="co"># nest by &quot;cyl&quot; column</span></a>
 <a class="sourceLine" id="cb1-4" title="4">mtcars_nested &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="st">  </span><span class="kw">nest_by</span>(<span class="st">&quot;cyl&quot;</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="st">  </span><span class="kw">nest_dt</span>(cyl) <span class="co"># you can use &quot;cyl&quot; too, very flexible</span></a>
 <a class="sourceLine" id="cb1-6" title="6"></a>
 <a class="sourceLine" id="cb1-7" title="7"><span class="co"># inspect the output data.table</span></a>
 <a class="sourceLine" id="cb1-8" title="8">mtcars_nested</a>
@@ -345,7 +345,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb3-17" title="17"><span class="co">#&gt;        9       10       11       12       13       14 </span></a>
 <a class="sourceLine" id="cb3-18" title="18"><span class="co">#&gt; 16.15065 16.33700 15.44907 15.43811 16.91800 16.04103</span></a></code></pre></div>
 <p>We could find that the “model_predict” is a list of numeric vectors. Let’s try to unnest the target column “model_predict”.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">mtcars_nested3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unnest_col</span>(model_predict)</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">mtcars_nested3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unnest_dt</span>(model_predict)</a>
 <a class="sourceLine" id="cb4-2" title="2"><span class="co">#&gt;       cyl model_predict</span></a>
 <a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt;     &lt;num&gt;         &lt;num&gt;</span></a>
 <a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt;  1:     6      21.12497</span></a>

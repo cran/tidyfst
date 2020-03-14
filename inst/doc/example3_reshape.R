@@ -17,19 +17,19 @@ relig_income
 
 ## ----warning=FALSE------------------------------------------------------------
 relig_income %>% 
-  longer_dt(group_to_keep = "religion",gathered_name = "income",gathered_value = "count")
+  longer_dt("religion",gathered_name = "income",gathered_value = "count")
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  billboard
 #  
 #  # tidyr way:
-#  # billboard %>%
-#  #   pivot_longer(
-#  #     cols = starts_with("wk"),
-#  #     names_to = "week",
-#  #     values_to = "rank",
-#  #     values_drop_na = TRUE
-#  #   )
+#   billboard %>%
+#     pivot_longer(
+#       cols = starts_with("wk"),
+#       names_to = "week",
+#       values_to = "rank",
+#       values_drop_na = TRUE
+#     )
 #  
 #  # tidyfst way:
 #  billboard %>%
@@ -45,7 +45,8 @@ relig_income %>%
 fish_encounters
 
 ## tidyr way:
-fish_encounters %>% pivot_wider(names_from = station, values_from = seen)
+fish_encounters %>% 
+  pivot_wider(names_from = station, values_from = seen)
 
 ## tidyfst way:
 fish_encounters %>% 

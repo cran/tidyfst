@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>tidyfst包实例分析</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">tidyfst包实例分析</h1>
+
+
+
+<p>我的R语言小伙伴最近分享了自己使用R来做工业级数据清洗的<a href="https://mp.weixin.qq.com/s/NVlCPss32j6Ohdrc9Edx-A">经验</a>，最近我自己在不断测试我的新包tidyfst，因此就拿这个data.table的案例来尝试一下。</p>
+<div id="测试数据构造" class="section level2">
+<h2>测试数据构造</h2>
+<p>本次测试，将不会加载data.table包，但是其实tidyfst里面无处不是data.table的元素，而且也导出了很多内置的data.table函数，比如as.data.table和data.table。所以这些代码在tidyfst中就可以自如地使用。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyfst)</a>
+<a class="sourceLine" id="cb1-2" title="2">diamonds &lt;-<span class="st"> </span>ggplot2<span class="op">::</span>diamonds</a>
+<a class="sourceLine" id="cb1-3" title="3">n =<span class="st"> </span><span class="dv">10000000</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5">dtranges &lt;-<span class="st"> </span><span class="kw">seq.Date</span>(<span class="dt">from =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2011-01-01&quot;</span>),</a>
+<a class="sourceLine" id="cb1-6" title="6">                     <span class="dt">to =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2020-01-01&quot;</span>),</a>
+<a class="sourceLine" id="cb1-7" title="7">                     <span class="dt">by =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-8" title="8">n1 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(diamonds), n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-9" title="9">dat1 &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(diamonds[n1, ])</a>
+<a class="sourceLine" id="cb1-10" title="10">dat1[, <span class="st">&quot;dt&quot;</span>] &lt;-<span class="st"> </span><span class="kw">sample</span>(dtranges, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)  <span class="co"># 增加dt列</span></a>
+<a class="sourceLine" id="cb1-11" title="11">n2 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(dat1), <span class="kw">nrow</span>(dat1)<span class="op">/</span><span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb1-12" title="12">dat1[n2, <span class="st">&quot;price&quot;</span>] &lt;-<span class="st"> </span><span class="ot">NA</span> <span class="co"># price列构造千分之一缺失值</span></a>
+<a class="sourceLine" id="cb1-13" title="13">dat2 &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">dt =</span> <span class="kw">sample</span>(dtranges, <span class="kw">min</span>(n<span class="op">/</span><span class="dv">1000</span>, <span class="kw">length</span>(dtranges))),</a>
+<a class="sourceLine" id="cb1-14" title="14">                   <span class="dt">price1 =</span> <span class="kw">sample</span>(<span class="dv">1000</span>, <span class="kw">min</span>(n<span class="op">/</span><span class="dv">1000</span>, <span class="kw">length</span>(dtranges)), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1-15" title="15"></a>
+<a class="sourceLine" id="cb1-16" title="16">dat3 &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">dt =</span> <span class="kw">sample</span>(dtranges, <span class="kw">min</span>(n<span class="op">/</span><span class="dv">1000</span>, <span class="kw">length</span>(dtranges))),</a>
+<a class="sourceLine" id="cb1-17" title="17">                   <span class="dt">price2 =</span> <span class="kw">sample</span>(<span class="dv">1000</span>, <span class="kw">min</span>(n<span class="op">/</span><span class="dv">1000</span>, <span class="kw">length</span>(dtranges)), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1-18" title="18"></a>
+<a class="sourceLine" id="cb1-19" title="19"><span class="kw">print</span>(dat1)</a></code></pre></div>
+</div>
+<div id="基础" class="section level2">
+<h2>基础</h2>
+<div id="小技巧" class="section level3">
+<h3>小技巧</h3>
+<p>后面的分析，经常要根据日期进行计算。所以，先对日期进行排序，就能够提高运行速度。在tidyfst中，可以使用<code>set_dt</code>函数来对数据进行原位的各种操作，其中就包括排序。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">set_dt</span>(dat1,<span class="dt">order_by =</span> <span class="st">&quot;dt&quot;</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2">dat1</a></code></pre></div>
+<p>那么，现在dat1的数据就按照日期排好序了。</p>
+</div>
+<div id="聚合" class="section level3">
+<h3>聚合</h3>
+<div id="求每种切割类型每种颜色钻石的平均价格中位数价格与最高价格" class="section level4">
+<h4>1.求每种切割类型、每种颜色钻石的平均价格、中位数价格与最高价格</h4>
+<p>在tidyfst中，我设置了一个<code>sys_time_print</code>函数，可以方便地输出<code>system.time()</code>函数返回的结果。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">sys_time_print</span>({</a>
+<a class="sourceLine" id="cb3-2" title="2">  r1_<span class="dv">1</span> &lt;-<span class="st"> </span>dat1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="st">    </span><span class="kw">summarise_dt</span>(</a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="dt">by =</span> .(cut,color),</a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="dt">mean_price =</span> <span class="kw">mean</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb3-6" title="6">      <span class="dt">median_price =</span> <span class="kw">median</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb3-7" title="7">      <span class="dt">max_price =</span> <span class="kw">max</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb3-8" title="8">    )</a>
+<a class="sourceLine" id="cb3-9" title="9">})</a>
+<a class="sourceLine" id="cb3-10" title="10">r1_<span class="dv">1</span></a></code></pre></div>
+<p>tidyfst是永远不可能比data.table快的，但是如果你觉得上面的代码更容易掌握、更容易读懂，而在日常工作中多花零点几秒的运行时间没有太大问题（实际上节省了大家的交流时间，甚至就是节省将来自己再次读懂自己代码的时间），tidyfst就值得拥有。</p>
+</div>
+<div id="求每天最高出售价格对应的那笔订单" class="section level4">
+<h4>2.求每天最高出售价格对应的那笔订单</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">sys_time_print</span>({</a>
+<a class="sourceLine" id="cb4-2" title="2">  r1_<span class="dv">2</span> &lt;-<span class="st"> </span>dat1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="st">    </span><span class="kw">arrange_dt</span>(dt,<span class="op">-</span>price) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="st">    </span><span class="kw">drop_na_dt</span>(price) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="st">    </span><span class="kw">group_dt</span>(</a>
+<a class="sourceLine" id="cb4-6" title="6">      <span class="dt">by =</span> dt,</a>
+<a class="sourceLine" id="cb4-7" title="7">      <span class="kw">head</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb4-8" title="8">    )</a>
+<a class="sourceLine" id="cb4-9" title="9">})</a>
+<a class="sourceLine" id="cb4-10" title="10">r1_<span class="dv">2</span></a></code></pre></div>
+</div>
+</div>
+<div id="join" class="section level3">
+<h3>join</h3>
+<div id="dat1与dat2以dt列左连接" class="section level4">
+<h4>1.dat1与dat2以dt列左连接</h4>
+<p>实质上，merge函数已经优化得很好。tidyfst设计<code>*_join</code>系列函数的时候，只是为了一种不一样的语法结构来帮助实现不同的连接，因为它确实更加直观一些。但是实质上它还是merge.data.table函数的包装版本。</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">sys_time_print</span>({</a>
+<a class="sourceLine" id="cb5-2" title="2">  r2_<span class="dv">1</span> &lt;-<span class="st"> </span>dat1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="st">    </span><span class="kw">left_join_dt</span>(dat2,<span class="dt">by =</span> <span class="st">&quot;dt&quot;</span>)</a>
+<a class="sourceLine" id="cb5-4" title="4">})</a>
+<a class="sourceLine" id="cb5-5" title="5">r2_<span class="dv">1</span></a></code></pre></div>
+</div>
+<div id="多重join" class="section level4">
+<h4>2.多重join</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">sys_time_print</span>({</a>
+<a class="sourceLine" id="cb6-2" title="2">  mymerge &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) <span class="kw">left_join_dt</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;dt&quot;</span>)</a>
+<a class="sourceLine" id="cb6-3" title="3">  r2_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">Reduce</span>(mymerge, <span class="kw">list</span>(dat1, dat2, dat3))</a>
+<a class="sourceLine" id="cb6-4" title="4">})</a>
+<a class="sourceLine" id="cb6-5" title="5">r2_<span class="dv">2</span></a></code></pre></div>
+</div>
+</div>
+<div id="长宽表转换" class="section level3">
+<h3>长宽表转换</h3>
+<div id="长表转宽表" class="section level4">
+<h4>1.长表转宽表</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">sys_time_print</span>({</a>
+<a class="sourceLine" id="cb7-2" title="2">  mean1 &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb7-3" title="3">  max1 &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">max</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb7-4" title="4">  r3_<span class="dv">1</span> &lt;-dat1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="st">    </span><span class="kw">wider_dt</span>(cut,</a>
+<a class="sourceLine" id="cb7-6" title="6">             <span class="dt">value_to_spread =</span> <span class="kw">c</span>(<span class="st">&quot;depth&quot;</span>, <span class="st">&quot;price&quot;</span>),</a>
+<a class="sourceLine" id="cb7-7" title="7">             <span class="dt">name_to_spread =</span> <span class="st">&quot;color&quot;</span>,</a>
+<a class="sourceLine" id="cb7-8" title="8">             <span class="dt">fun =</span> <span class="kw">list</span>(mean1,max1))</a>
+<a class="sourceLine" id="cb7-9" title="9">})</a>
+<a class="sourceLine" id="cb7-10" title="10">r3_<span class="dv">1</span></a></code></pre></div>
+</div>
+<div id="宽表转长表" class="section level4">
+<h4>2.宽表转长表</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">sys_time_print</span>({</a>
+<a class="sourceLine" id="cb8-2" title="2">  r3_<span class="dv">2</span> &lt;-dat1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="st">    </span><span class="kw">select_dt</span>(cut,color,x,y,z) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="st">    </span><span class="kw">longer_dt</span>(cut,color,</a>
+<a class="sourceLine" id="cb8-5" title="5">              <span class="dt">gathered_name =</span> <span class="st">&quot;xyz&quot;</span>,</a>
+<a class="sourceLine" id="cb8-6" title="6">              <span class="dt">gathered_value =</span> <span class="st">&quot;xyzvalue&quot;</span>)</a>
+<a class="sourceLine" id="cb8-7" title="7">})</a>
+<a class="sourceLine" id="cb8-8" title="8"></a>
+<a class="sourceLine" id="cb8-9" title="9">r3_<span class="dv">2</span> </a></code></pre></div>
+</div>
+</div>
+</div>
+<div id="高阶" class="section level2">
+<h2>高阶</h2>
+<div id="向上下填充空值" class="section level3">
+<h3>向上/下填充空值</h3>
+<p>对于填充空值来说，如果想要原位填充，目前只支持数值型，可以这样操作：</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">sys_time_print</span>({</a>
+<a class="sourceLine" id="cb9-2" title="2">  dat1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="st">    </span><span class="kw">set_dt</span>(<span class="dt">fill_cols =</span> <span class="st">&quot;price&quot;</span>)</a>
+<a class="sourceLine" id="cb9-4" title="4">})</a>
+<a class="sourceLine" id="cb9-5" title="5">dat1</a></code></pre></div>
+</div>
+<div id="添加子维度聚合结果为新列" class="section level3">
+<h3>添加子维度聚合结果为新列</h3>
+<div id="以dat1为例添加两列一列为以cutcolor聚合求price的均值另一列是求标准差" class="section level4">
+<h4>1.以dat1为例，添加两列，一列为以cut、color聚合求price的均值，另一列是求标准差</h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">sys_time_print</span>({</a>
+<a class="sourceLine" id="cb10-3" title="3">  <span class="kw">mutate_ref</span>(dat1,</a>
+<a class="sourceLine" id="cb10-4" title="4">           <span class="dt">mean_price =</span> <span class="kw">mean</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb10-5" title="5">           <span class="dt">sd_price =</span> <span class="kw">sd</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb10-6" title="6">           <span class="dt">by =</span> .(cut, color))</a>
+<a class="sourceLine" id="cb10-7" title="7">})</a>
+<a class="sourceLine" id="cb10-8" title="8"></a>
+<a class="sourceLine" id="cb10-9" title="9"><span class="kw">set_dt</span>(dat1,<span class="dt">order_by =</span> <span class="kw">c</span>(<span class="st">&quot;cut&quot;</span>,<span class="st">&quot;color&quot;</span>))</a>
+<a class="sourceLine" id="cb10-10" title="10">dat1</a></code></pre></div>
+</div>
+<div id="以dat1为例以dt分组添加一列序号id" class="section level4">
+<h4>2.以dat1为例，以dt分组添加一列序号id</h4>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">set_dt</span>(dat1,<span class="dt">order_by =</span> <span class="st">&quot;dt&quot;</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2"></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="kw">sys_time_print</span>({</a>
+<a class="sourceLine" id="cb11-4" title="4">  dat1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="st">  </span><span class="kw">group_dt</span>(</a>
+<a class="sourceLine" id="cb11-6" title="6">    <span class="dt">by =</span> dt,</a>
+<a class="sourceLine" id="cb11-7" title="7">    <span class="kw">mutate_dt</span>(<span class="dt">id =</span> <span class="kw">seq</span>(.N))</a>
+<a class="sourceLine" id="cb11-8" title="8">  ) -&gt;<span class="st"> </span>dat1</a>
+<a class="sourceLine" id="cb11-9" title="9">})</a>
+<a class="sourceLine" id="cb11-10" title="10">dat1</a></code></pre></div>
+</div>
+</div>
+<div id="移动函数" class="section level3">
+<h3>移动函数</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">set_dt</span>(dat1,<span class="dt">order_by =</span> <span class="st">&quot;color&quot;</span>)</a>
+<a class="sourceLine" id="cb12-2" title="2"></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="kw">sys_time_print</span>({</a>
+<a class="sourceLine" id="cb12-4" title="4">  dat1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="st">    </span><span class="kw">group_dt</span>(</a>
+<a class="sourceLine" id="cb12-6" title="6">      <span class="dt">by =</span> color,</a>
+<a class="sourceLine" id="cb12-7" title="7">      <span class="kw">mutate_dt</span>(</a>
+<a class="sourceLine" id="cb12-8" title="8">        <span class="dt">MA10_price =</span> <span class="kw">frollmean</span>(price, <span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb12-9" title="9">        <span class="dt">MSD10_price =</span> <span class="kw">frollapply</span>(price, <span class="dv">10</span>, <span class="dt">FUN =</span> sd)</a>
+<a class="sourceLine" id="cb12-10" title="10">      )</a>
+<a class="sourceLine" id="cb12-11" title="11">    ) -&gt;<span class="st"> </span>dat1</a>
+<a class="sourceLine" id="cb12-12" title="12">})</a>
+<a class="sourceLine" id="cb12-13" title="13"></a>
+<a class="sourceLine" id="cb12-14" title="14">dat1</a></code></pre></div>
+</div>
+</div>
+<div id="系统参数" class="section level2">
+<h2>系统参数</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
