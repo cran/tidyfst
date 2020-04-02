@@ -47,3 +47,10 @@ knitr::opts_chunk$set(
 #  # delete the output file
 #  unlink("fst_test.fst")
 
+## -----------------------------------------------------------------------------
+#  iris %>% as_fst() -> iris_fst
+#  mtcars %>% as_fst() -> mtcars_fst
+#  
+#  iris_fst
+#  mtcars_fst
+

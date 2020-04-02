@@ -347,6 +347,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>In this workflow, we only select/filter/slice the data we need, and get the results directly from the pipeline. Therefore, we read the minimum needed data into RAM and release it and save only the results we want. This workflow could save memory for many exploratory big data analysis. Last, let’s delete the output file:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># delete the output file</span></a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="kw">unlink</span>(<span class="st">&quot;fst_test.fst&quot;</span>)</a></code></pre></div>
+<p>After (&gt;=) version 0.9.3, tidyfst has also added a function <code>as_fst()</code>, which can turn any data.frame into a fst table and saved the data in the temporary file. This means that we might never have to save the object in the RAM ever (as long as it is a data.frame)! A small example:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_fst</span>() -&gt;<span class="st"> </span>iris_fst</a>
+<a class="sourceLine" id="cb6-2" title="2">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_fst</span>() -&gt;<span class="st"> </span>mtcars_fst</a>
+<a class="sourceLine" id="cb6-3" title="3"></a>
+<a class="sourceLine" id="cb6-4" title="4">iris_fst</a>
+<a class="sourceLine" id="cb6-5" title="5">mtcars_fst</a></code></pre></div>
+<p>So when you have generated a pretty large data.frame and do not want it to consume the cache in your computer, just save it and read it when needed using <code>as_fst</code>.</p>
 
 
 
