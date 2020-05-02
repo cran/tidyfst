@@ -56,3 +56,17 @@ df1 %>% inner_join_dt(df2, by = "x") %>% nrow()
 # But only two rows actually match
 df1 %>% semi_join_dt(df2, by = "x") %>% nrow()
 
+## -----------------------------------------------------------------------------
+x = iris[c(2,3,3,4),]
+x2 = iris[2:4,]
+y = iris[c(3:5),]
+
+intersect_dt(x, y)            # intersect
+intersect_dt(x, y, all=TRUE)  # intersect all
+setdiff_dt(x, y)              # except
+setdiff_dt(x, y, all=TRUE)    # except all
+union_dt(x, y)                # union
+union_dt(x, y, all=TRUE)      # union all
+setequal_dt(x, x2, all=FALSE) # setequal
+setequal_dt(x, x2)     
+
