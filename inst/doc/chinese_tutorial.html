@@ -402,7 +402,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb3-7" title="7">      <span class="dt">max_price =</span> <span class="kw">max</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb3-8" title="8">    )</a>
 <a class="sourceLine" id="cb3-9" title="9">})</a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; [1] &quot;Finished in 0.000s elapsed (0.000s cpu)&quot;</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; [1] &quot;Finished in 0.020s elapsed (0.050s cpu)&quot;</span></a>
 <a class="sourceLine" id="cb3-11" title="11">r1_<span class="dv">1</span></a>
 <a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;           cut color mean_price median_price max_price</span></a>
 <a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt;         &lt;ord&gt; &lt;ord&gt;      &lt;num&gt;        &lt;num&gt;     &lt;int&gt;</span></a>
@@ -455,7 +455,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb4-7" title="7">      <span class="kw">head</span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb4-8" title="8">    )</a>
 <a class="sourceLine" id="cb4-9" title="9">})</a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; [1] &quot;Finished in 0.030s elapsed (0.020s cpu)&quot;</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; [1] &quot;Finished in 0.020s elapsed (0.000s cpu)&quot;</span></a>
 <a class="sourceLine" id="cb4-11" title="11">r1_<span class="dv">2</span></a>
 <a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt;               dt carat       cut color clarity depth table price     x     y</span></a>
 <a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt;           &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></a>
@@ -494,7 +494,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb5-2" title="2">  r2_<span class="dv">1</span> &lt;-<span class="st"> </span>dat1 <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-3" title="3"><span class="st">    </span><span class="kw">left_join_dt</span>(dat2,<span class="dt">by =</span> <span class="st">&quot;dt&quot;</span>)</a>
 <a class="sourceLine" id="cb5-4" title="4">})</a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt; [1] &quot;Finished in 0.030s elapsed (0.060s cpu)&quot;</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt; [1] &quot;Finished in 0.030s elapsed (0.050s cpu)&quot;</span></a>
 <a class="sourceLine" id="cb5-6" title="6">r2_<span class="dv">1</span></a>
 <a class="sourceLine" id="cb5-7" title="7"><span class="co">#&gt; Key: &lt;dt&gt;</span></a>
 <a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x     y</span></a>
@@ -530,7 +530,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb6-2" title="2">  mymerge &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) <span class="kw">left_join_dt</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;dt&quot;</span>)</a>
 <a class="sourceLine" id="cb6-3" title="3">  r2_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">Reduce</span>(mymerge, <span class="kw">list</span>(dat1, dat2, dat3))</a>
 <a class="sourceLine" id="cb6-4" title="4">})</a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; [1] &quot;Finished in 0.040s elapsed (0.060s cpu)&quot;</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; [1] &quot;Finished in 0.030s elapsed (0.040s cpu)&quot;</span></a>
 <a class="sourceLine" id="cb6-6" title="6">r2_<span class="dv">2</span></a>
 <a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt; Key: &lt;dt&gt;</span></a>
 <a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x     y</span></a>
@@ -574,7 +574,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb7-7" title="7">             <span class="dt">name =</span> <span class="st">&quot;color&quot;</span>,</a>
 <a class="sourceLine" id="cb7-8" title="8">             <span class="dt">fun =</span> <span class="kw">list</span>(mean1,max1))</a>
 <a class="sourceLine" id="cb7-9" title="9">})</a>
-<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt; [1] &quot;Finished in 0.030s elapsed (0.010s cpu)&quot;</span></a>
+<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt; [1] &quot;Finished in 0.030s elapsed (0.030s cpu)&quot;</span></a>
 <a class="sourceLine" id="cb7-11" title="11">r3_<span class="dv">1</span></a>
 <a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt; Key: &lt;cut&gt;</span></a>
 <a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt;          cut depth_mean1_D depth_mean1_E depth_mean1_F depth_mean1_G</span></a>
@@ -629,7 +629,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb8-5" title="5">              <span class="dt">name =</span> <span class="st">&quot;xyz&quot;</span>,</a>
 <a class="sourceLine" id="cb8-6" title="6">              <span class="dt">value =</span> <span class="st">&quot;xyzvalue&quot;</span>)</a>
 <a class="sourceLine" id="cb8-7" title="7">})</a>
-<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt; [1] &quot;Finished in 0.020s elapsed (0.000s cpu)&quot;</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt; [1] &quot;Finished in 0.000s elapsed (0.000s cpu)&quot;</span></a>
 <a class="sourceLine" id="cb8-9" title="9"></a>
 <a class="sourceLine" id="cb8-10" title="10">r3_<span class="dv">2</span> </a>
 <a class="sourceLine" id="cb8-11" title="11"><span class="co">#&gt;               cut color    xyz xyzvalue</span></a>
@@ -696,7 +696,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb10-5" title="5">           <span class="dt">sd_price =</span> <span class="kw">sd</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
 <a class="sourceLine" id="cb10-6" title="6">           <span class="dt">by =</span> .(cut, color))</a>
 <a class="sourceLine" id="cb10-7" title="7">})</a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="co">#&gt; [1] &quot;Finished in 0.030s elapsed (0.040s cpu)&quot;</span></a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="co">#&gt; [1] &quot;Finished in 0.020s elapsed (0.010s cpu)&quot;</span></a>
 <a class="sourceLine" id="cb10-9" title="9"></a>
 <a class="sourceLine" id="cb10-10" title="10">dat1</a>
 <a class="sourceLine" id="cb10-11" title="11"><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></a>
@@ -736,7 +736,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb11-6" title="6">    <span class="kw">mutate_dt</span>(<span class="dt">id =</span> <span class="kw">seq</span>(.N))</a>
 <a class="sourceLine" id="cb11-7" title="7">  ) -&gt;<span class="st"> </span>dat1</a>
 <a class="sourceLine" id="cb11-8" title="8">})</a>
-<a class="sourceLine" id="cb11-9" title="9"><span class="co">#&gt; [1] &quot;Finished in 1.840s elapsed (1.810s cpu)&quot;</span></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="co">#&gt; [1] &quot;Finished in 1.740s elapsed (1.700s cpu)&quot;</span></a>
 <a class="sourceLine" id="cb11-10" title="10">dat1</a>
 <a class="sourceLine" id="cb11-11" title="11"><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x     y</span></a>
 <a class="sourceLine" id="cb11-12" title="12"><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></a>
@@ -779,7 +779,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb12-9" title="9">      )</a>
 <a class="sourceLine" id="cb12-10" title="10">    ) -&gt;<span class="st"> </span>dat1</a>
 <a class="sourceLine" id="cb12-11" title="11">})</a>
-<a class="sourceLine" id="cb12-12" title="12"><span class="co">#&gt; [1] &quot;Finished in 1.000s elapsed (1.000s cpu)&quot;</span></a>
+<a class="sourceLine" id="cb12-12" title="12"><span class="co">#&gt; [1] &quot;Finished in 0.860s elapsed (0.840s cpu)&quot;</span></a>
 <a class="sourceLine" id="cb12-13" title="13"></a>
 <a class="sourceLine" id="cb12-14" title="14">dat1</a>
 <a class="sourceLine" id="cb12-15" title="15"><span class="co">#&gt;         color         dt carat       cut clarity depth table price     x     y</span></a>
@@ -830,7 +830,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb13-16" title="16"><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></a>
 <a class="sourceLine" id="cb13-17" title="17"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb13-18" title="18"><span class="co">#&gt; other attached packages:</span></a>
-<a class="sourceLine" id="cb13-19" title="19"><span class="co">#&gt; [1] tidyfst_0.9.6</span></a>
+<a class="sourceLine" id="cb13-19" title="19"><span class="co">#&gt; [1] tidyfst_0.9.7</span></a>
 <a class="sourceLine" id="cb13-20" title="20"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb13-21" title="21"><span class="co">#&gt; loaded via a namespace (and not attached):</span></a>
 <a class="sourceLine" id="cb13-22" title="22"><span class="co">#&gt;  [1] Rcpp_1.0.3         knitr_1.28         magrittr_1.5       tidyselect_1.0.0  </span></a>
