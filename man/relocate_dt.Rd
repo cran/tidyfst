@@ -21,7 +21,7 @@ Applicable for "after" and "before" mode.}
 A data.table with rearranged columns.
 }
 \description{
-Use `relocate_dt()` to change column positions,
+Change the position of columns,
  using the same syntax as `select_dt()`. Check similar function
  as `relocate` in \pkg{dplyr}.
 }
@@ -47,4 +47,7 @@ df2 \%>\% relocate_dt(is.numeric,
 df2 \%>\% relocate_dt(is.numeric,
                     how="before",
                     where = is.character)
+}
+\seealso{
+\code{\link[dplyr]{relocate}}
 }

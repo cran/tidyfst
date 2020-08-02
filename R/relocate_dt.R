@@ -1,6 +1,6 @@
 
 #' @title Change column order
-#' @description Use `relocate_dt()` to change column positions,
+#' @description Change the position of columns,
 #'  using the same syntax as `select_dt()`. Check similar function
 #'  as `relocate` in \pkg{dplyr}.
 #' @param .data A data.frame
@@ -10,6 +10,7 @@
 #' @param where Destination of columns selected by \code{...}.
 #' Applicable for "after" and "before" mode.
 #' @return A data.table with rearranged columns.
+#' @seealso \code{\link[dplyr]{relocate}}
 
 #' @examples
 #' df <- data.table(a = 1, b = 1, c = 1, d = "a", e = "a", f = "a")

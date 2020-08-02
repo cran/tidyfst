@@ -1,7 +1,8 @@
 
 #' @title Summarise columns to single values
 #' @name summarise_dt
-#' @description Analogous function for \code{summarise}  in \pkg{dplyr}.
+#' @description Summarise group of values into one value for each group. If there is only one group, then only one value would be returned.
+#'  The summarise function should always return a single value.
 #' @param .data data.frame
 #' @param ... List of variables or name-value pairs of summary/modifications
 #'   functions for \code{summarise_dt}.Additional parameters to be passed to
@@ -20,12 +21,11 @@
 #' mtcars %>% summarise_dt(avg = mean(hp),by = .(cyl,vs))
 #'
 #' # the data.table way
-#' mtcars %>% summarise_dt(cyl_n = .N, by = .(cyl, vs)) # `.`` is short for list
+#' mtcars %>% summarise_dt(cyl_n = .N, by = .(cyl, vs)) # `.` is short for list
 #'
 #' iris %>% summarise_vars(is.numeric,min)
 #' iris %>% summarise_vars(-is.factor,min)
 #' iris %>% summarise_vars(1:4,min)
-#' iris %>% summarise_vars(.func = as.character)
 #'
 #' iris %>% summarise_vars(is.numeric,min,by ="Species")
 #' mtcars %>% summarise_vars(is.numeric,mean,by = "vs,am")

@@ -1,7 +1,7 @@
 
 
 #' @title Select distinct/unique rows in data.frame
-#' @description Analogous function for \code{distinct} in \pkg{dplyr}
+#' @description Select only unique/distinct rows from a data frame.
 #' @param .data data.frame
 #' @param ... Optional variables to use when determining uniqueness.
 #'  If there are multiple rows for a given combination of inputs,
@@ -27,14 +27,6 @@ distinct_dt = function(.data,...,.keep_all = FALSE){
   else unique(dt[,.SD,.SDcols = sel_name])
 }
 
-# distinct_dt = function(.data,...,.keep_all = FALSE){
-#   dt = as_dt(.data)
-#   if(length(substitute(...)) == 0) unique(dt)
-#   else{
-#     if(.keep_all) eval(substitute(dt[,.SD[1],by = .(...)]))
-#     else eval(substitute(unique(dt[,.(...),])))
-#   }
-# }
 
 
 

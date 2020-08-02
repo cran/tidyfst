@@ -1,7 +1,7 @@
 
 #' @title Select top (or bottom) n rows (by value)
-#' @description Analogous function for \code{top_n} and \code{top_frac} in \pkg{dplyr}, but with a different API.
-#'
+#' @description Get the top entries (rows) according to the values of specified columns.
+#'  One can get the top or bottom ones according to number or proportion.
 #' @param .data data.frame
 #' @param wt (Optional). The variable to use for ordering.
 #' If not specified, defaults to the last variable in the data.frame.
@@ -44,14 +44,13 @@ top_n_dt = function(.data,n,wt = NULL){
   dt = as_dt(.data)
   n_ = n
   wt_ = fifelse(is.null(substitute(wt)),
-               names(dt)[length(dt)],
-               deparse(substitute(wt)))
+                names(dt)[length(dt)],
+                deparse(substitute(wt)))
 
   if(n_ > 0) dt[frankv(dt,cols = wt_,order = -1,ties.method = "min") <= n_]
   else if(n_ < 0) dt[frankv(dt,cols = wt_,order = 1,ties.method = "min") <= -n_]
   else dt[0]
 }
-
 
 
 #' @rdname topn
