@@ -439,56 +439,96 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb6-45"><a href="#cb6-45"></a>fish_encounters <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb6-46"><a href="#cb6-46"></a><span class="st">  </span><span class="kw">wider_dt</span>(<span class="dt">name =</span> <span class="st">&quot;station&quot;</span>,<span class="dt">value =</span> <span class="st">&quot;seen&quot;</span>)</span>
 <span id="cb6-47"><a href="#cb6-47"></a><span class="co">#&gt; Key: &lt;fish&gt;</span></span>
-<span id="cb6-48"><a href="#cb6-48"></a><span class="co">#&gt;       fish Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2</span></span>
-<span id="cb6-49"><a href="#cb6-49"></a><span class="co">#&gt;     &lt;fctr&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb6-50"><a href="#cb6-50"></a><span class="co">#&gt;  1:   4842       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-51"><a href="#cb6-51"></a><span class="co">#&gt;  2:   4843       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-52"><a href="#cb6-52"></a><span class="co">#&gt;  3:   4844       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-53"><a href="#cb6-53"></a><span class="co">#&gt;  4:   4845       1     1      1     1       1    NA    NA    NA    NA</span></span>
-<span id="cb6-54"><a href="#cb6-54"></a><span class="co">#&gt;  5:   4847       1     1      1    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-55"><a href="#cb6-55"></a><span class="co">#&gt;  6:   4848       1     1      1     1      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-56"><a href="#cb6-56"></a><span class="co">#&gt;  7:   4849       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-57"><a href="#cb6-57"></a><span class="co">#&gt;  8:   4850       1     1     NA     1       1     1     1    NA    NA</span></span>
-<span id="cb6-58"><a href="#cb6-58"></a><span class="co">#&gt;  9:   4851       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-59"><a href="#cb6-59"></a><span class="co">#&gt; 10:   4854       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-60"><a href="#cb6-60"></a><span class="co">#&gt; 11:   4855       1     1      1     1       1    NA    NA    NA    NA</span></span>
-<span id="cb6-61"><a href="#cb6-61"></a><span class="co">#&gt; 12:   4857       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-62"><a href="#cb6-62"></a><span class="co">#&gt; 13:   4858       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-63"><a href="#cb6-63"></a><span class="co">#&gt; 14:   4859       1     1      1     1       1    NA    NA    NA    NA</span></span>
-<span id="cb6-64"><a href="#cb6-64"></a><span class="co">#&gt; 15:   4861       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-65"><a href="#cb6-65"></a><span class="co">#&gt; 16:   4862       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-66"><a href="#cb6-66"></a><span class="co">#&gt; 17:   4863       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-67"><a href="#cb6-67"></a><span class="co">#&gt; 18:   4864       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-68"><a href="#cb6-68"></a><span class="co">#&gt; 19:   4865       1     1      1    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-69"><a href="#cb6-69"></a><span class="co">#&gt; 2 variables not shown: [MAE &lt;int&gt;, MAW &lt;int&gt;]</span></span>
-<span id="cb6-70"><a href="#cb6-70"></a></span>
-<span id="cb6-71"><a href="#cb6-71"></a><span class="co"># if no keeped groups are selected, use all except for name and value columns</span></span></code></pre></div>
+<span id="cb6-48"><a href="#cb6-48"></a><span class="co">#&gt;       fish Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE</span></span>
+<span id="cb6-49"><a href="#cb6-49"></a><span class="co">#&gt;     &lt;fctr&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb6-50"><a href="#cb6-50"></a><span class="co">#&gt;  1:   4842       1     1      1     1       1     1     1     1     1     1</span></span>
+<span id="cb6-51"><a href="#cb6-51"></a><span class="co">#&gt;  2:   4843       1     1      1     1       1     1     1     1     1     1</span></span>
+<span id="cb6-52"><a href="#cb6-52"></a><span class="co">#&gt;  3:   4844       1     1      1     1       1     1     1     1     1     1</span></span>
+<span id="cb6-53"><a href="#cb6-53"></a><span class="co">#&gt;  4:   4845       1     1      1     1       1    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-54"><a href="#cb6-54"></a><span class="co">#&gt;  5:   4847       1     1      1    NA      NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-55"><a href="#cb6-55"></a><span class="co">#&gt;  6:   4848       1     1      1     1      NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-56"><a href="#cb6-56"></a><span class="co">#&gt;  7:   4849       1     1     NA    NA      NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-57"><a href="#cb6-57"></a><span class="co">#&gt;  8:   4850       1     1     NA     1       1     1     1    NA    NA    NA</span></span>
+<span id="cb6-58"><a href="#cb6-58"></a><span class="co">#&gt;  9:   4851       1     1     NA    NA      NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-59"><a href="#cb6-59"></a><span class="co">#&gt; 10:   4854       1     1     NA    NA      NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-60"><a href="#cb6-60"></a><span class="co">#&gt; 11:   4855       1     1      1     1       1    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-61"><a href="#cb6-61"></a><span class="co">#&gt; 12:   4857       1     1      1     1       1     1     1     1     1    NA</span></span>
+<span id="cb6-62"><a href="#cb6-62"></a><span class="co">#&gt; 13:   4858       1     1      1     1       1     1     1     1     1     1</span></span>
+<span id="cb6-63"><a href="#cb6-63"></a><span class="co">#&gt; 14:   4859       1     1      1     1       1    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-64"><a href="#cb6-64"></a><span class="co">#&gt; 15:   4861       1     1      1     1       1     1     1     1     1     1</span></span>
+<span id="cb6-65"><a href="#cb6-65"></a><span class="co">#&gt; 16:   4862       1     1      1     1       1     1     1     1     1    NA</span></span>
+<span id="cb6-66"><a href="#cb6-66"></a><span class="co">#&gt; 17:   4863       1     1     NA    NA      NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-67"><a href="#cb6-67"></a><span class="co">#&gt; 18:   4864       1     1     NA    NA      NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-68"><a href="#cb6-68"></a><span class="co">#&gt; 19:   4865       1     1      1    NA      NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-69"><a href="#cb6-69"></a><span class="co">#&gt;       MAW</span></span>
+<span id="cb6-70"><a href="#cb6-70"></a><span class="co">#&gt;     &lt;int&gt;</span></span>
+<span id="cb6-71"><a href="#cb6-71"></a><span class="co">#&gt;  1:     1</span></span>
+<span id="cb6-72"><a href="#cb6-72"></a><span class="co">#&gt;  2:     1</span></span>
+<span id="cb6-73"><a href="#cb6-73"></a><span class="co">#&gt;  3:     1</span></span>
+<span id="cb6-74"><a href="#cb6-74"></a><span class="co">#&gt;  4:    NA</span></span>
+<span id="cb6-75"><a href="#cb6-75"></a><span class="co">#&gt;  5:    NA</span></span>
+<span id="cb6-76"><a href="#cb6-76"></a><span class="co">#&gt;  6:    NA</span></span>
+<span id="cb6-77"><a href="#cb6-77"></a><span class="co">#&gt;  7:    NA</span></span>
+<span id="cb6-78"><a href="#cb6-78"></a><span class="co">#&gt;  8:    NA</span></span>
+<span id="cb6-79"><a href="#cb6-79"></a><span class="co">#&gt;  9:    NA</span></span>
+<span id="cb6-80"><a href="#cb6-80"></a><span class="co">#&gt; 10:    NA</span></span>
+<span id="cb6-81"><a href="#cb6-81"></a><span class="co">#&gt; 11:    NA</span></span>
+<span id="cb6-82"><a href="#cb6-82"></a><span class="co">#&gt; 12:    NA</span></span>
+<span id="cb6-83"><a href="#cb6-83"></a><span class="co">#&gt; 13:     1</span></span>
+<span id="cb6-84"><a href="#cb6-84"></a><span class="co">#&gt; 14:    NA</span></span>
+<span id="cb6-85"><a href="#cb6-85"></a><span class="co">#&gt; 15:     1</span></span>
+<span id="cb6-86"><a href="#cb6-86"></a><span class="co">#&gt; 16:    NA</span></span>
+<span id="cb6-87"><a href="#cb6-87"></a><span class="co">#&gt; 17:    NA</span></span>
+<span id="cb6-88"><a href="#cb6-88"></a><span class="co">#&gt; 18:    NA</span></span>
+<span id="cb6-89"><a href="#cb6-89"></a><span class="co">#&gt; 19:    NA</span></span>
+<span id="cb6-90"><a href="#cb6-90"></a></span>
+<span id="cb6-91"><a href="#cb6-91"></a><span class="co"># if no keeped groups are selected, use all except for name and value columns</span></span></code></pre></div>
 <p>If you want to fill with 0s, use:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>fish_encounters <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">wider_dt</span>(<span class="dt">name =</span> <span class="st">&quot;station&quot;</span>,<span class="dt">value =</span> <span class="st">&quot;seen&quot;</span>,<span class="dt">fill =</span> <span class="dv">0</span>)</span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; Key: &lt;fish&gt;</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt;       fish Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt;     &lt;fctr&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt;  1:   4842       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt;  2:   4843       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt;  3:   4844       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;  4:   4845       1     1      1     1       1     0     0     0     0</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt;  5:   4847       1     1      1     0       0     0     0     0     0</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;  6:   4848       1     1      1     1       0     0     0     0     0</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;  7:   4849       1     1      0     0       0     0     0     0     0</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;  8:   4850       1     1      0     1       1     1     1     0     0</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;  9:   4851       1     1      0     0       0     0     0     0     0</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; 10:   4854       1     1      0     0       0     0     0     0     0</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; 11:   4855       1     1      1     1       1     0     0     0     0</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; 12:   4857       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; 13:   4858       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; 14:   4859       1     1      1     1       1     0     0     0     0</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; 15:   4861       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; 16:   4862       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; 17:   4863       1     1      0     0       0     0     0     0     0</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; 18:   4864       1     1      0     0       0     0     0     0     0</span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; 19:   4865       1     1      1     0       0     0     0     0     0</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; 2 variables not shown: [MAE &lt;int&gt;, MAW &lt;int&gt;]</span></span></code></pre></div>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt;       fish Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt;     &lt;fctr&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt;  1:   4842       1     1      1     1       1     1     1     1     1     1</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt;  2:   4843       1     1      1     1       1     1     1     1     1     1</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt;  3:   4844       1     1      1     1       1     1     1     1     1     1</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;  4:   4845       1     1      1     1       1     0     0     0     0     0</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt;  5:   4847       1     1      1     0       0     0     0     0     0     0</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;  6:   4848       1     1      1     1       0     0     0     0     0     0</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;  7:   4849       1     1      0     0       0     0     0     0     0     0</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;  8:   4850       1     1      0     1       1     1     1     0     0     0</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;  9:   4851       1     1      0     0       0     0     0     0     0     0</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; 10:   4854       1     1      0     0       0     0     0     0     0     0</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; 11:   4855       1     1      1     1       1     0     0     0     0     0</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; 12:   4857       1     1      1     1       1     1     1     1     1     0</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; 13:   4858       1     1      1     1       1     1     1     1     1     1</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; 14:   4859       1     1      1     1       1     0     0     0     0     0</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; 15:   4861       1     1      1     1       1     1     1     1     1     1</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; 16:   4862       1     1      1     1       1     1     1     1     1     0</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; 17:   4863       1     1      0     0       0     0     0     0     0     0</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; 18:   4864       1     1      0     0       0     0     0     0     0     0</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; 19:   4865       1     1      1     0       0     0     0     0     0     0</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt;       MAW</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt;     &lt;int&gt;</span></span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt;  1:     1</span></span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt;  2:     1</span></span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt;  3:     1</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt;  4:     0</span></span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt;  5:     0</span></span>
+<span id="cb7-32"><a href="#cb7-32"></a><span class="co">#&gt;  6:     0</span></span>
+<span id="cb7-33"><a href="#cb7-33"></a><span class="co">#&gt;  7:     0</span></span>
+<span id="cb7-34"><a href="#cb7-34"></a><span class="co">#&gt;  8:     0</span></span>
+<span id="cb7-35"><a href="#cb7-35"></a><span class="co">#&gt;  9:     0</span></span>
+<span id="cb7-36"><a href="#cb7-36"></a><span class="co">#&gt; 10:     0</span></span>
+<span id="cb7-37"><a href="#cb7-37"></a><span class="co">#&gt; 11:     0</span></span>
+<span id="cb7-38"><a href="#cb7-38"></a><span class="co">#&gt; 12:     0</span></span>
+<span id="cb7-39"><a href="#cb7-39"></a><span class="co">#&gt; 13:     1</span></span>
+<span id="cb7-40"><a href="#cb7-40"></a><span class="co">#&gt; 14:     0</span></span>
+<span id="cb7-41"><a href="#cb7-41"></a><span class="co">#&gt; 15:     1</span></span>
+<span id="cb7-42"><a href="#cb7-42"></a><span class="co">#&gt; 16:     0</span></span>
+<span id="cb7-43"><a href="#cb7-43"></a><span class="co">#&gt; 17:     0</span></span>
+<span id="cb7-44"><a href="#cb7-44"></a><span class="co">#&gt; 18:     0</span></span>
+<span id="cb7-45"><a href="#cb7-45"></a><span class="co">#&gt; 19:     0</span></span></code></pre></div>
 <p>Note that the parameter of <code>name</code> and <code>value</code> should always be provided and should be explicit called (with the parameter names attached).</p>
 </div>
 <div id="more-complicated-example" class="section level2">
@@ -509,7 +549,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; 3:         3         26 2002-07-11 2004-04-05 2007-09-02             2</span></span>
 <span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt; 4:         4         32 2004-10-10 2009-08-27 2012-07-21             1</span></span>
 <span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; 5:         5         29 2000-12-05 2005-02-28       &lt;NA&gt;             2</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; 2 variables not shown: [gender_child2 &lt;int&gt;, gender_child3 &lt;int&gt;]</span></span></code></pre></div>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt;    gender_child2 gender_child3</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt;            &lt;int&gt;         &lt;int&gt;</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; 1:             2            NA</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; 2:            NA            NA</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; 3:             2             1</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt; 4:             1             1</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; 5:             1            NA</span></span></code></pre></div>
 <p>And want to reshape the data.table to be like this:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#     family_id age_mother  child        dob gender</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="co">#         &lt;int&gt;      &lt;int&gt; &lt;char&gt;     &lt;char&gt; &lt;char&gt;</span></span>

@@ -1,6 +1,6 @@
-1af9bcb1086be7e8a74b7410d79083cd *DESCRIPTION
+71096404939b12d44119a8600aa751d6 *DESCRIPTION
 fa46fdeb983d6f95819a21a3bebdd744 *LICENSE
-5913ac11c90169fc5ff87b6be0d0f710 *NAMESPACE
+fa5210d3e819373501fb405e6d26c4ea *NAMESPACE
 4671b91d1e2d5a948213f0d579cafe7d *R/arrange_dt.R
 e263d028c3597662eeaccca7b2e8a2fa *R/as_fst.R
 3a34ad4deae117fe7f7e8613d9300a34 *R/complete.R
@@ -9,7 +9,7 @@ e263d028c3597662eeaccca7b2e8a2fa *R/as_fst.R
 dec5fb9e35d169962ab2cc7ba3191b5f *R/distinct_dt.R
 d5a7b8c35c9139aa1ea62655ea2f43c2 *R/dt.R
 db2d6ea066d79ac0420ef0bf3493deea *R/dummy_dt.R
-7f585c03b02ef14fd910e630100d3cd3 *R/filter_dt.R
+bf3bd28272818b9bc2508331880b45a2 *R/filter_dt.R
 436d74ea2a3b69173a84c3697c64ced3 *R/fst.R
 538acb836ec4a36631d24548cf170498 *R/fst_io.R
 cdcd2107fabbe6888bf06413e0628b05 *R/group_by.R
@@ -24,8 +24,10 @@ d7ea563dc7ece3352bd859efb7399385 *R/longer_dt.R
 84553c3e1be4a2d33d96b52513c3aaba *R/nest_dt.R
 3f205e3ce9fa656041294f29c642f420 *R/nth.R
 c3d2da59e51c69faa3bead750a8fd5d8 *R/object_size.R
-8c62dd61607d450f35bffad7f2c69b1a *R/on_attach.R
+7de0566264dc83d8b2d3c53d7888efc3 *R/on_attach.R
+61e16e55b4e9dd284e38a363fa1795f3 *R/print.R
 df7f5f474474086141010aa828d60364 *R/pull_dt.R
+3642a894fb34995cdbfe23cccb022503 *R/rec.R
 f8230ef563869862eeba516c7ee861af *R/relocate_dt.R
 cd4c69833071097f7261bba92d14cc93 *R/rename_dt.R
 41da488bcf8f630f6f969944bca78b57 *R/replace_dt.R
@@ -35,7 +37,7 @@ ee8114e84b11441b2adc0779317ffcf0 *R/select_dt.R
 7874153512ccc815de6fc53c034612b9 *R/separate.R
 e44ce7a3e6267b357777b2de41a7bf26 *R/setops.R
 a916b15f6a68314fcc76df2a07de7dca *R/slice.R
-71586bc1288b2fd0286b5f7fd23aa015 *R/summarise_dt.R
+c3de78a06d6c273659daaa179c926b77 *R/summarise_dt.R
 a390ab8e94689cdc64b025ceb96ee704 *R/sys_time_print.R
 cedafb88e11db320a61ee80d82cf2d08 *R/tidymat.R
 61b67b6713310118a7ce077e7402dd21 *R/topn_dt.R
@@ -45,12 +47,13 @@ ce3f94777435eed21607d6f9f8516612 *R/unite.R
 c6b77b8bd641490f64e7c5c3b4484f3a *R/utf8_encoding.R
 b37e68a2157db714b842f6a48203e9e6 *R/wider_dt.R
 e50a1574a7e7d5770c7cbbd223ec2f50 *build/vignette.rds
+982ee58bd449b94151a80ea6ce37f209 *inst/CITATION
 fe10d12db033f8f40f5f6d73e83f55c1 *inst/doc/benchmark.R
 dd03a80267400d0c6de119fca29dfae4 *inst/doc/benchmark.Rmd
-4c8cba59a30a1c6e22f0e4f8e4ff4f75 *inst/doc/benchmark.html
+549251cfa2b5802481ca2fce3b9c9067 *inst/doc/benchmark.html
 b2b654a78a7b7aa39e88b0759819f566 *inst/doc/chinese_tutorial.R
 b1828f64b4f29294da80e6859269bdae *inst/doc/chinese_tutorial.Rmd
-9a6d7a1f66a9904f479c3204fe443f71 *inst/doc/chinese_tutorial.html
+2d8ac4236698fd7ad8696f9781898781 *inst/doc/chinese_tutorial.html
 83d5abdedda0eab98ccc7508fae4ddf8 *inst/doc/english_tutorial.R
 e46a9372ef94f038a70b9420c76578b6 *inst/doc/english_tutorial.Rmd
 776d0677e46f4b259cbf09c704c84f21 *inst/doc/english_tutorial.html
@@ -59,10 +62,10 @@ d6458b2417a05e6f1e081349a4f413e0 *inst/doc/example1_intro.R
 9377f22452143c3ab65e4974d258a50f *inst/doc/example1_intro.html
 0820f1647f2eab2be364332d4bebb0ba *inst/doc/example2_join.R
 cc962250db35cbfffb3f1d541b9046bc *inst/doc/example2_join.Rmd
-f29a43a877465b8a5eaa792584d1dfe3 *inst/doc/example2_join.html
+ad425717dbd66db00cc00f88428e0393 *inst/doc/example2_join.html
 dbff2259a94e8580e008cfe19a148c85 *inst/doc/example3_reshape.R
 b761a329703d5687775948e2aa1200ec *inst/doc/example3_reshape.Rmd
-f2e874b9e87029bb8637960e0d16c610 *inst/doc/example3_reshape.html
+8d1c0aee995f0ead890109e2cc399e22 *inst/doc/example3_reshape.html
 db0751dead62a002fc3a5f75b43c044e *inst/doc/example4_nest.R
 3934412d234fea297098d4be8f21a728 *inst/doc/example4_nest.Rmd
 ab5022f11d6ea54d0b174198ec7bd683 *inst/doc/example4_nest.html
@@ -97,8 +100,10 @@ aa1bdfc248c6510a2da46b4560250ca0 *man/missing.Rd
 2010828e62f9950fa34209d11608239e *man/nest.Rd
 6e98c5e63d0fc6fe43d40624d0f577ca *man/nth.Rd
 aae06fdca228b1f0562d1f76fc06e2d2 *man/object_size.Rd
+36d86166798df8c0e906a3401edcf82c *man/print_options.Rd
 712163eca2b64e73bf73dca98f128864 *man/pull_dt.Rd
-bd687bed1ea0eb55bbeab7ebc52a9f0b *man/reexports.Rd
+973001751b63406e9a5177ce654daa26 *man/rec.Rd
+9fb5fd91fcda6a8a3bbc1d55b5fb800a *man/reexports.Rd
 d05c599e6459c2aee4d18acd8416cb4a *man/relocate_dt.Rd
 a9c197e48951276c1c9141b4f177fdd5 *man/rename_dt.Rd
 af40dbc276bbd2f67981ed9840b685f6 *man/replace_dt.Rd
@@ -108,7 +113,7 @@ a7b3b008becea635b5a55e7495844074 *man/sample.Rd
 fad373d067911da975ebca591191dd0a *man/separate_dt.Rd
 fc8c29845ab032075cbf2cc43e344057 *man/setops.Rd
 62d93c6195017297fe0d6d1b92ce14a8 *man/slice.Rd
-a50ff5269f81b8f45a33a4a7996ab1b4 *man/summarise_dt.Rd
+994afe1a003b4381b76bf550803945ae *man/summarise_dt.Rd
 2f192b8f092fda4396268d721e08898c *man/sys_time_print.Rd
 c4379b130d9c0bdb212fe71d698c9e25 *man/t_dt.Rd
 95c24fbec9b0dd0a9ce4dfd9cfa9319c *man/tidymat.Rd
@@ -139,6 +144,7 @@ c2309ce3afbfbebd5f44affddb2a347e *tests/testthat/test-mutate_when.R
 b31606bcab386fa51f3153a57401d0af *tests/testthat/test-nest_dt.R
 b8f7522194ab2619446c742617a34133 *tests/testthat/test-nth.R
 471c47748a381bfbfa0d63dfc27d9538 *tests/testthat/test-pull.R
+03237563a8ae5de48a3086c38af3fa43 *tests/testthat/test-rec.R
 8a33794df7fcacaef9c2fe504150674c *tests/testthat/test-relocate_dt.R
 6b3eb842b47fa11564007d22c03ad17d *tests/testthat/test-rename_dt.R
 c3317ac8808eeb1a640dd7ef34f71df2 *tests/testthat/test-rownames.R

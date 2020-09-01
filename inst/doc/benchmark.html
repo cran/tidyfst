@@ -335,7 +335,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt;     between, first, last</span></span>
 <span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; The following objects are masked from &#39;package:tidyfst&#39;:</span></span>
 <span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt; </span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt;     cummean, nth</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt;     between, cummean, nth</span></span>
 <span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span></span>
 <span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; </span></span>
 <span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt;     filter, lag</span></span>
@@ -413,9 +413,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb2-29"><a href="#cb2-29"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
 <span id="cb2-30"><a href="#cb2-30"></a><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span id="cb2-31"><a href="#cb2-31"></a><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb2-32"><a href="#cb2-32"></a><span class="co">#&gt; 1 data.table   1.94ms   2.01ms    473.      2.21MB      0  </span></span>
-<span id="cb2-33"><a href="#cb2-33"></a><span class="co">#&gt; 2 tidyfst       2.1ms   2.19ms    443.    659.23KB      0  </span></span>
-<span id="cb2-34"><a href="#cb2-34"></a><span class="co">#&gt; 3 dplyr      271.79ms 285.33ms      3.48    4.11MB     19.1</span></span></code></pre></div>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="co">#&gt; 1 data.table   2.13ms   2.86ms    347.      2.21MB      0  </span></span>
+<span id="cb2-33"><a href="#cb2-33"></a><span class="co">#&gt; 2 tidyfst      2.35ms   3.63ms    268.    659.23KB      0  </span></span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="co">#&gt; 3 dplyr      276.16ms 302.49ms      3.29    4.07MB     18.1</span></span></code></pre></div>
 <p>We could find that spent time of tidyfst and data.table are quite similar, but much less than dplyr.</p>
 </div>
 <div id="q2" class="section level2">
@@ -448,9 +448,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
 <span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; 1 data.table  838.7us    1.1ms      898.    92.9KB      0  </span></span>
-<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; 2 tidyfst      1.02ms   1.05ms      932.    93.1KB      0  </span></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt; 3 dplyr        4.28ms   4.54ms      216.   299.7KB     24.0</span></span></code></pre></div>
+<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; 1 data.table   1.14ms   1.28ms      742.    92.9KB      0  </span></span>
+<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; 2 tidyfst       1.4ms   1.51ms      653.    93.1KB      0  </span></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt; 3 dplyr        3.87ms   4.29ms      225.   299.7KB     25.0</span></span></code></pre></div>
 </div>
 <div id="q3" class="section level2">
 <h2>Q3</h2>
@@ -470,9 +470,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 1 data.table   2.66ms   2.77ms     336.   396.38KB      0  </span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; 2 tidyfst      3.05ms   3.29ms     304.   842.55KB      0  </span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; 3 dplyr        13.9ms  14.47ms      69.1    1.41MB     46.1</span></span></code></pre></div>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 1 data.table   3.27ms   3.88ms     210.   396.38KB     23.3</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; 2 tidyfst      4.04ms   4.61ms     200.   842.55KB      0  </span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; 3 dplyr       14.15ms  14.59ms      68.3    1.44MB     29.3</span></span></code></pre></div>
 </div>
 <div id="q4" class="section level2">
 <h2>Q4</h2>
@@ -506,9 +506,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
 <span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; 1 data.table   1.27ms   1.33ms     682.      334KB      0  </span></span>
-<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; 2 tidyfst      4.04ms   4.22ms     216.      270KB     21.6</span></span>
-<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#&gt; 3 dplyr       69.37ms  73.52ms      13.7     535KB     20.5</span></span></code></pre></div>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; 1 data.table   1.97ms   2.43ms     402.      334KB      0  </span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; 2 tidyfst      4.54ms   5.18ms     185.      278KB      0  </span></span>
+<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#&gt; 3 dplyr       18.91ms  19.53ms      51.4     538KB     22.0</span></span></code></pre></div>
 <p>Take a look at the performance, <em>tidyfst</em> still lies between <em>data.table</em> and <em>dplyr</em>.</p>
 </div>
 <div id="q5" class="section level2">
@@ -543,9 +543,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt; # A tibble: 3 x 6</span></span>
 <span id="cb6-28"><a href="#cb6-28"></a><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt; 1 data.table   2.58ms    2.7ms    352.      1.02MB      0  </span></span>
-<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt; 2 tidyfst      3.18ms   3.28ms    294.      1.02MB      0  </span></span>
-<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt; 3 dplyr      138.62ms 150.04ms      6.67    4.64MB     22.7</span></span></code></pre></div>
+<span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt; 1 data.table   3.13ms   4.29ms    230.      1.02MB      0  </span></span>
+<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt; 2 tidyfst      3.73ms   4.07ms    203.      1.02MB      0  </span></span>
+<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt; 3 dplyr      145.87ms 153.82ms      6.16    4.64MB     20.3</span></span></code></pre></div>
 </div>
 <div id="last-words" class="section level2">
 <h2>Last words</h2>
@@ -571,17 +571,17 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; </span></span>
 <span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; other attached packages:</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; [1] bench_1.1.1       dplyr_1.0.0       data.table_1.13.0 tidyfst_0.9.8    </span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; [1] bench_1.1.1       dplyr_1.0.1       data.table_1.13.0 tidyfst_0.9.9    </span></span>
 <span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; </span></span>
 <span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt;  [1] Rcpp_1.0.4.6     knitr_1.29       magrittr_1.5     tidyselect_1.1.0</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt;  [5] R6_2.4.1         rlang_0.4.6      fansi_0.4.1      stringr_1.4.0   </span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt;  [9] tools_4.0.2      parallel_4.0.2   xfun_0.15        utf8_1.1.4      </span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt;  [1] Rcpp_1.0.5       knitr_1.29       magrittr_1.5     tidyselect_1.1.0</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt;  [5] R6_2.4.1         rlang_0.4.7      fansi_0.4.1      stringr_1.4.0   </span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt;  [9] tools_4.0.2      parallel_4.0.2   xfun_0.16        utf8_1.1.4      </span></span>
 <span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; [13] cli_2.0.2        htmltools_0.5.0  ellipsis_0.3.1   assertthat_0.2.1</span></span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; [17] yaml_2.2.1       digest_0.6.25    tibble_3.0.1     lifecycle_0.2.0 </span></span>
-<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; [21] crayon_1.3.4     purrr_0.3.4      vctrs_0.3.1      fst_0.9.2       </span></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; [17] yaml_2.2.1       digest_0.6.25    tibble_3.0.3     lifecycle_0.2.0 </span></span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; [21] crayon_1.3.4     purrr_0.3.4      vctrs_0.3.2      fst_0.9.2       </span></span>
 <span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; [25] glue_1.4.1       evaluate_0.14    rmarkdown_2.3    stringi_1.4.6   </span></span>
-<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; [29] compiler_4.0.2   pillar_1.4.4     generics_0.0.2   profmem_0.5.0   </span></span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; [29] compiler_4.0.2   pillar_1.4.6     generics_0.0.2   profmem_0.5.0   </span></span>
 <span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; [33] pkgconfig_2.0.3</span></span></code></pre></div>
 </div>
 
