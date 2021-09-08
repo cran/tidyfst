@@ -25,6 +25,7 @@
 \alias{rleidv}
 \alias{fcase}
 \alias{between}
+\alias{set}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -32,8 +33,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{data.table}{\code{\link[data.table]{as.data.table}}, \code{\link[data.table]{between}}, \code{\link[data.table]{CJ}}, \code{\link[data.table]{copy}}, \code{\link[data.table]{data.table}}, \code{\link[data.table]{fcase}}, \code{\link[data.table]{fcoalesce}}, \code{\link[data.table]{fintersect}}, \code{\link[data.table]{fread}}, \code{\link[data.table]{frollapply}}, \code{\link[data.table]{fsetdiff}}, \code{\link[data.table]{fsetequal}}, \code{\link[data.table]{funion}}, \code{\link[data.table]{fwrite}}, \code{\link[data.table]{key}}, \code{\link[data.table]{like}}, \code{\link[data.table]{rbindlist}}, \code{\link[data.table]{rleid}}, \code{\link[data.table]{rleidv}}, \code{\link[data.table]{tables}}, \code{\link[data.table]{uniqueN}}}
+  \item{data.table}{\code{\link[data.table:J]{CJ}}, \code{\link[data.table]{as.data.table}}, \code{\link[data.table]{between}}, \code{\link[data.table]{copy}}, \code{\link[data.table]{data.table}}, \code{\link[data.table]{fcase}}, \code{\link[data.table:coalesce]{fcoalesce}}, \code{\link[data.table:setops]{fintersect}}, \code{\link[data.table]{fread}}, \code{\link[data.table:froll]{frollapply}}, \code{\link[data.table:setops]{fsetdiff}}, \code{\link[data.table:setops]{fsetequal}}, \code{\link[data.table:setops]{funion}}, \code{\link[data.table]{fwrite}}, \code{\link[data.table:setkey]{key}}, \code{\link[data.table]{like}}, \code{\link[data.table]{rbindlist}}, \code{\link[data.table]{rleid}}, \code{\link[data.table:rleid]{rleidv}}, \code{\link[data.table:assign]{set}}, \code{\link[data.table]{tables}}, \code{\link[data.table:duplicated]{uniqueN}}}
 
-  \item{stringr}{\code{\link[stringr]{\%>\%}}}
+  \item{stringr}{\code{\link[stringr:pipe]{\%>\%}}}
 }}
 

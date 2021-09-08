@@ -14,39 +14,40 @@
 
 <title>tidyfst包实例分析</title>
 
-<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
-// v0.0.1
-// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
 
-document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByClassName("sourceCode");
-  for (var i = 0; i < codeList.length; i++) {
-    var linkList = codeList[i].getElementsByTagName('a');
-    for (var j = 0; j < linkList.length; j++) {
-      if (linkList[j].innerHTML === "") {
-        linkList[j].setAttribute('aria-hidden', 'true');
-      }
-    }
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
-});
-</script>
-
-
-<style type="text/css">code{white-space: pre;}</style>
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -66,7 +67,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -123,187 +124,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<style type="text/css">body {
-background-color: #fff;
-margin: 1em auto;
-max-width: 700px;
-overflow: visible;
-padding-left: 2em;
-padding-right: 2em;
-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-font-size: 14px;
-line-height: 1.35;
-}
-#TOC {
-clear: both;
-margin: 0 0 10px 10px;
-padding: 4px;
-width: 400px;
-border: 1px solid #CCCCCC;
-border-radius: 5px;
-background-color: #f6f6f6;
-font-size: 13px;
-line-height: 1.3;
-}
-#TOC .toctitle {
-font-weight: bold;
-font-size: 15px;
-margin-left: 5px;
-}
-#TOC ul {
-padding-left: 40px;
-margin-left: -1.5em;
-margin-top: 5px;
-margin-bottom: 5px;
-}
-#TOC ul ul {
-margin-left: -2em;
-}
-#TOC li {
-line-height: 16px;
-}
-table {
-margin: 1em auto;
-border-width: 1px;
-border-color: #DDDDDD;
-border-style: outset;
-border-collapse: collapse;
-}
-table th {
-border-width: 2px;
-padding: 5px;
-border-style: inset;
-}
-table td {
-border-width: 1px;
-border-style: inset;
-line-height: 18px;
-padding: 5px 5px;
-}
-table, table th, table td {
-border-left-style: none;
-border-right-style: none;
-}
-table thead, table tr.even {
-background-color: #f7f7f7;
-}
-p {
-margin: 0.5em 0;
-}
-blockquote {
-background-color: #f6f6f6;
-padding: 0.25em 0.75em;
-}
-hr {
-border-style: solid;
-border: none;
-border-top: 1px solid #777;
-margin: 28px 0;
-}
-dl {
-margin-left: 0;
-}
-dl dd {
-margin-bottom: 13px;
-margin-left: 13px;
-}
-dl dt {
-font-weight: bold;
-}
-ul {
-margin-top: 0;
-}
-ul li {
-list-style: circle outside;
-}
-ul ul {
-margin-bottom: 0;
-}
-pre, code {
-background-color: #f7f7f7;
-border-radius: 3px;
-color: #333;
-white-space: pre-wrap; 
-}
-pre {
-border-radius: 3px;
-margin: 5px 0px 10px 0px;
-padding: 10px;
-}
-pre:not([class]) {
-background-color: #f7f7f7;
-}
-code {
-font-family: Consolas, Monaco, 'Courier New', monospace;
-font-size: 85%;
-}
-p > code, li > code {
-padding: 2px 0px;
-}
-div.figure {
-text-align: center;
-}
-img {
-background-color: #FFFFFF;
-padding: 2px;
-border: 1px solid #DDDDDD;
-border-radius: 3px;
-border: 1px solid #CCCCCC;
-margin: 0 5px;
-}
-h1 {
-margin-top: 0;
-font-size: 35px;
-line-height: 40px;
-}
-h2 {
-border-bottom: 4px solid #f7f7f7;
-padding-top: 10px;
-padding-bottom: 2px;
-font-size: 145%;
-}
-h3 {
-border-bottom: 2px solid #f7f7f7;
-padding-top: 10px;
-font-size: 120%;
-}
-h4 {
-border-bottom: 1px solid #f7f7f7;
-margin-left: 8px;
-font-size: 105%;
-}
-h5, h6 {
-border-bottom: 1px solid #ccc;
-font-size: 105%;
-}
-a {
-color: #0033dd;
-text-decoration: none;
-}
-a:hover {
-color: #6666ff; }
-a:visited {
-color: #800080; }
-a:visited:hover {
-color: #BB00BB; }
-a[href^="http:"] {
-text-decoration: underline; }
-a[href^="https:"] {
-text-decoration: underline; }
 
-code > span.kw { color: #555; font-weight: bold; } 
-code > span.dt { color: #902000; } 
-code > span.dv { color: #40a070; } 
-code > span.bn { color: #d14; } 
-code > span.fl { color: #d14; } 
-code > span.ch { color: #d14; } 
-code > span.st { color: #d14; } 
-code > span.co { color: #888888; font-style: italic; } 
-code > span.ot { color: #007020; } 
-code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; } 
-code > span.er { color: #a61717; background-color: #e3d2d2; } 
-</style>
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
 
 
 
@@ -323,85 +145,85 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="测试数据构造" class="section level2">
 <h2>测试数据构造</h2>
 <p>本次测试，将不会加载data.table包，但是其实tidyfst里面无处不是data.table的元素，而且也导出了很多内置的data.table函数，比如as.data.table和data.table。所以这些代码在tidyfst中就可以自如地使用。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(tidyfst)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>diamonds &lt;-<span class="st"> </span>ggplot2<span class="op">::</span>diamonds</span>
-<span id="cb1-3"><a href="#cb1-3"></a>n =<span class="st"> </span><span class="fl">1e5</span>  <span class="co">#如果想做工业级测试，可以继续增加数量</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb1-5"><a href="#cb1-5"></a>dtranges &lt;-<span class="st"> </span><span class="kw">seq.Date</span>(<span class="dt">from =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2011-01-01&quot;</span>),</span>
-<span id="cb1-6"><a href="#cb1-6"></a>                     <span class="dt">to =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2020-01-01&quot;</span>),</span>
-<span id="cb1-7"><a href="#cb1-7"></a>                     <span class="dt">by =</span> <span class="dv">1</span>)</span>
-<span id="cb1-8"><a href="#cb1-8"></a>n1 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(diamonds), n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb1-9"><a href="#cb1-9"></a>dat1 &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(diamonds[n1, ])</span>
-<span id="cb1-10"><a href="#cb1-10"></a>dat1[, <span class="st">&quot;dt&quot;</span>] &lt;-<span class="st"> </span><span class="kw">sample</span>(dtranges, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)  <span class="co"># 增加dt列</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>n2 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(dat1), <span class="kw">nrow</span>(dat1)<span class="op">/</span><span class="dv">1000</span>)</span>
-<span id="cb1-12"><a href="#cb1-12"></a>dat1[n2, <span class="st">&quot;price&quot;</span>] &lt;-<span class="st"> </span><span class="ot">NA</span> <span class="co"># price列构造千分之一缺失值</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>dat2 &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">dt =</span> <span class="kw">sample</span>(dtranges, <span class="kw">min</span>(n<span class="op">/</span><span class="dv">1000</span>, <span class="kw">length</span>(dtranges))),</span>
-<span id="cb1-14"><a href="#cb1-14"></a>                   <span class="dt">price1 =</span> <span class="kw">sample</span>(<span class="dv">1000</span>, <span class="kw">min</span>(n<span class="op">/</span><span class="dv">1000</span>, <span class="kw">length</span>(dtranges)), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
-<span id="cb1-16"><a href="#cb1-16"></a>dat3 &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">dt =</span> <span class="kw">sample</span>(dtranges, <span class="kw">min</span>(n<span class="op">/</span><span class="dv">1000</span>, <span class="kw">length</span>(dtranges))),</span>
-<span id="cb1-17"><a href="#cb1-17"></a>                   <span class="dt">price2 =</span> <span class="kw">sample</span>(<span class="dv">1000</span>, <span class="kw">min</span>(n<span class="op">/</span><span class="dv">1000</span>, <span class="kw">length</span>(dtranges)), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb1-18"><a href="#cb1-18"></a></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="kw">print</span>(dat1)</span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#&gt;      1:  2.23   Premium     J     VS2  61.0    58 14867  8.39  8.36  5.11</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="co">#&gt;      2:  0.46     Ideal     F     SI2  61.5    54   758  4.98  5.01  3.07</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a><span class="co">#&gt;      3:  0.70     Ideal     H    VVS1  60.9    57  3611  5.70  5.78  3.50</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a><span class="co">#&gt;      4:  1.50   Premium     F     VS2  61.5    58 14719  7.34  7.32  4.51</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a><span class="co">#&gt;      5:  0.40 Very Good     G      IF  61.0    59  1154  4.75  4.79  2.91</span></span>
-<span id="cb1-27"><a href="#cb1-27"></a><span class="co">#&gt;     ---                                                                  </span></span>
-<span id="cb1-28"><a href="#cb1-28"></a><span class="co">#&gt;  99996:  1.14     Ideal     F     VS2  61.4    56  8017  6.73  6.78  4.14</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a><span class="co">#&gt;  99997:  0.39     Ideal     F     SI1  61.8    55   886  4.70  4.72  2.91</span></span>
-<span id="cb1-30"><a href="#cb1-30"></a><span class="co">#&gt;  99998:  2.00      Good     F     SI1  63.0    64 17869  7.67  7.76  4.86</span></span>
-<span id="cb1-31"><a href="#cb1-31"></a><span class="co">#&gt;  99999:  1.00   Premium     H     VS2  59.7    59  5139  6.57  6.52  3.91</span></span>
-<span id="cb1-32"><a href="#cb1-32"></a><span class="co">#&gt; 100000:  0.30     Ideal     G    VVS2  60.6    57   878  4.35  4.33  2.63</span></span>
-<span id="cb1-33"><a href="#cb1-33"></a><span class="co">#&gt;                 dt</span></span>
-<span id="cb1-34"><a href="#cb1-34"></a><span class="co">#&gt;             &lt;Date&gt;</span></span>
-<span id="cb1-35"><a href="#cb1-35"></a><span class="co">#&gt;      1: 2016-09-29</span></span>
-<span id="cb1-36"><a href="#cb1-36"></a><span class="co">#&gt;      2: 2011-10-22</span></span>
-<span id="cb1-37"><a href="#cb1-37"></a><span class="co">#&gt;      3: 2013-03-06</span></span>
-<span id="cb1-38"><a href="#cb1-38"></a><span class="co">#&gt;      4: 2014-06-11</span></span>
-<span id="cb1-39"><a href="#cb1-39"></a><span class="co">#&gt;      5: 2015-02-23</span></span>
-<span id="cb1-40"><a href="#cb1-40"></a><span class="co">#&gt;     ---           </span></span>
-<span id="cb1-41"><a href="#cb1-41"></a><span class="co">#&gt;  99996: 2013-11-22</span></span>
-<span id="cb1-42"><a href="#cb1-42"></a><span class="co">#&gt;  99997: 2014-11-10</span></span>
-<span id="cb1-43"><a href="#cb1-43"></a><span class="co">#&gt;  99998: 2019-02-21</span></span>
-<span id="cb1-44"><a href="#cb1-44"></a><span class="co">#&gt;  99999: 2017-01-15</span></span>
-<span id="cb1-45"><a href="#cb1-45"></a><span class="co">#&gt; 100000: 2019-05-19</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyfst)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>diamonds <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span>diamonds</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fl">1e5</span>  <span class="co">#如果想做工业级测试，可以继续增加数量</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dtranges <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">&quot;2011-01-01&quot;</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">to =</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-01-01&quot;</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(diamonds), n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(diamonds[n1, ])</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>dat1[, <span class="st">&quot;dt&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">sample</span>(dtranges, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)  <span class="co"># 增加dt列</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(dat1), <span class="fu">nrow</span>(dat1)<span class="sc">/</span><span class="dv">1000</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dat1[n2, <span class="st">&quot;price&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># price列构造千分之一缺失值</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">dt =</span> <span class="fu">sample</span>(dtranges, <span class="fu">min</span>(n<span class="sc">/</span><span class="dv">1000</span>, <span class="fu">length</span>(dtranges))),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">price1 =</span> <span class="fu">sample</span>(<span class="dv">1000</span>, <span class="fu">min</span>(n<span class="sc">/</span><span class="dv">1000</span>, <span class="fu">length</span>(dtranges)), <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>dat3 <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">dt =</span> <span class="fu">sample</span>(dtranges, <span class="fu">min</span>(n<span class="sc">/</span><span class="dv">1000</span>, <span class="fu">length</span>(dtranges))),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">price2 =</span> <span class="fu">sample</span>(<span class="dv">1000</span>, <span class="fu">min</span>(n<span class="sc">/</span><span class="dv">1000</span>, <span class="fu">length</span>(dtranges)), <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dat1)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1:  2.23   Premium     J     VS2  61.0    58 14867  8.39  8.36  5.11</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2:  0.46     Ideal     F     SI2  61.5    54   758  4.98  5.01  3.07</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3:  0.70     Ideal     H    VVS1  60.9    57  3611  5.70  5.78  3.50</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4:  1.50   Premium     F     VS2  61.5    58 14719  7.34  7.32  4.51</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5:  0.40 Very Good     G      IF  61.0    59  1154  4.75  4.79  2.91</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                                                                  </span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996:  1.14     Ideal     F     VS2  61.4    56  8017  6.73  6.78  4.14</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997:  0.39     Ideal     F     SI1  61.8    55   886  4.70  4.72  2.91</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998:  2.00      Good     F     SI1  63.0    64 17869  7.67  7.76  4.86</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999:  1.00   Premium     H     VS2  59.7    59  5139  6.57  6.52  3.91</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000:  0.30     Ideal     G    VVS2  60.6    57   878  4.35  4.33  2.63</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 dt</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1: 2016-09-29</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2: 2011-10-22</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3: 2013-03-06</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4: 2014-06-11</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5: 2015-02-23</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---           </span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996: 2013-11-22</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997: 2014-11-10</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998: 2019-02-21</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999: 2017-01-15</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000: 2019-05-19</span></span></code></pre></div>
 </div>
 <div id="基础" class="section level2">
 <h2>基础</h2>
 <div id="小技巧" class="section level3">
 <h3>小技巧</h3>
 <p>后面的分析，经常要根据日期进行计算。所以，先对日期进行排序，就能够提高运行速度。在tidyfst中，可以使用<code>arrange_dt</code>函数来对数据进行原位的各种操作，其中就包括排序。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>dat1 =<span class="st"> </span><span class="kw">arrange_dt</span>(dat1,dt)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>dat1</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44  2.76</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23  2.70</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66  4.10</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44  3.83</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03  3.28</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt;     ---                                                                  </span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42  2.73</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39  2.75</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19  2.58</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30  2.66</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40  2.74</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt;                 dt</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt;             &lt;Date&gt;</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt;      1: 2011-01-01</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt;      2: 2011-01-01</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt;      3: 2011-01-01</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt;      4: 2011-01-01</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt;      5: 2011-01-01</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#&gt;     ---           </span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt;  99996: 2020-01-01</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="co">#&gt;  99997: 2020-01-01</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt;  99998: 2020-01-01</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a><span class="co">#&gt;  99999: 2020-01-01</span></span>
-<span id="cb2-28"><a href="#cb2-28"></a><span class="co">#&gt; 100000: 2020-01-01</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">=</span> <span class="fu">arrange_dt</span>(dat1,dt)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dat1</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44  2.76</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23  2.70</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66  4.10</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44  3.83</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03  3.28</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                                                                  </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42  2.73</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39  2.75</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19  2.58</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30  2.66</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40  2.74</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 dt</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1: 2011-01-01</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2: 2011-01-01</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3: 2011-01-01</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4: 2011-01-01</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5: 2011-01-01</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---           </span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996: 2020-01-01</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997: 2020-01-01</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01</span></span></code></pre></div>
 <p>那么，现在dat1的数据就按照日期排好序了。</p>
 </div>
 <div id="聚合" class="section level3">
@@ -409,96 +231,96 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="求每种切割类型每种颜色钻石的平均价格中位数价格与最高价格" class="section level4">
 <h4>1.求每种切割类型、每种颜色钻石的平均价格、中位数价格与最高价格</h4>
 <p>在tidyfst中，我设置了一个<code>sys_time_print</code>函数，可以方便地输出<code>system.time()</code>函数返回的结果。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">sys_time_print</span>({</span>
-<span id="cb3-2"><a href="#cb3-2"></a>  r1_<span class="dv">1</span> &lt;-<span class="st"> </span>dat1 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="st">    </span><span class="kw">summarise_dt</span>(</span>
-<span id="cb3-4"><a href="#cb3-4"></a>      <span class="dt">by =</span> .(cut,color),</span>
-<span id="cb3-5"><a href="#cb3-5"></a>      <span class="dt">mean_price =</span> <span class="kw">mean</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb3-6"><a href="#cb3-6"></a>      <span class="dt">median_price =</span> <span class="kw">median</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb3-7"><a href="#cb3-7"></a>      <span class="dt">max_price =</span> <span class="kw">max</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb3-8"><a href="#cb3-8"></a>    )</span>
-<span id="cb3-9"><a href="#cb3-9"></a>})</span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; [1] &quot;Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>r1_<span class="dv">1</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;           cut color mean_price median_price max_price</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;         &lt;ord&gt; &lt;ord&gt;      &lt;num&gt;        &lt;num&gt;     &lt;int&gt;</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;  1: Very Good     H   4390.470       3394.0     18803</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;  2:      Good     G   3999.886       3303.0     18788</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;  3:     Ideal     F   3309.061       1751.0     18780</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;  4:   Premium     E   3481.628       1881.0     18426</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt;  5:      Fair     D   4237.899       3205.0     16386</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt;  6:   Premium     J   6416.235       5110.5     18706</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt;  7:   Premium     F   4347.158       2874.0     18791</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt;  8:     Ideal     D   2608.030       1550.5     18693</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;  9: Very Good     G   3900.558       2403.0     18818</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; 10: Very Good     E   3301.873       2051.0     18731</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt; 11:   Premium     G   4543.181       2780.0     18741</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt; 12:     Ideal     G   3751.035       1881.0     18806</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt; 13:     Ideal     E   2558.501       1429.0     18729</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; 14:   Premium     H   5215.019       4451.0     18795</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; 15:   Premium     I   5921.498       4545.5     18823</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; 16: Very Good     F   3792.863       2473.0     18777</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt; 17:      Good     D   3369.352       2661.0     18468</span></span>
-<span id="cb3-31"><a href="#cb3-31"></a><span class="co">#&gt; 18:      Fair     G   4186.403       2797.0     18574</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="co">#&gt; 19:      Good     E   3293.289       2407.0     18236</span></span>
-<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt; 20:   Premium     D   3796.609       2348.0     18286</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt; 21:     Ideal     H   3924.682       2320.0     18659</span></span>
-<span id="cb3-35"><a href="#cb3-35"></a><span class="co">#&gt; 22: Very Good     I   5475.587       4013.0     18500</span></span>
-<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt; 23:     Ideal     I   4434.030       2631.0     18779</span></span>
-<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt; 24:      Fair     J   5029.502       3422.0     18531</span></span>
-<span id="cb3-38"><a href="#cb3-38"></a><span class="co">#&gt; 25: Very Good     D   3437.133       2242.0     18526</span></span>
-<span id="cb3-39"><a href="#cb3-39"></a><span class="co">#&gt; 26:      Good     F   3518.548       2755.0     18686</span></span>
-<span id="cb3-40"><a href="#cb3-40"></a><span class="co">#&gt; 27:      Good     I   4966.745       3484.0     18707</span></span>
-<span id="cb3-41"><a href="#cb3-41"></a><span class="co">#&gt; 28:      Good     H   4098.280       3323.0     18640</span></span>
-<span id="cb3-42"><a href="#cb3-42"></a><span class="co">#&gt; 29:      Fair     H   5454.118       4134.5     18308</span></span>
-<span id="cb3-43"><a href="#cb3-43"></a><span class="co">#&gt; 30:      Fair     F   3790.703       2961.0     17995</span></span>
-<span id="cb3-44"><a href="#cb3-44"></a><span class="co">#&gt; 31:     Ideal     J   4972.801       4135.0     18508</span></span>
-<span id="cb3-45"><a href="#cb3-45"></a><span class="co">#&gt; 32: Very Good     J   5107.638       4126.5     18430</span></span>
-<span id="cb3-46"><a href="#cb3-46"></a><span class="co">#&gt; 33:      Fair     I   4278.831       3022.0     18242</span></span>
-<span id="cb3-47"><a href="#cb3-47"></a><span class="co">#&gt; 34:      Good     J   4578.490       3690.0     18325</span></span>
-<span id="cb3-48"><a href="#cb3-48"></a><span class="co">#&gt; 35:      Fair     E   3834.358       2996.5     15584</span></span>
-<span id="cb3-49"><a href="#cb3-49"></a><span class="co">#&gt;           cut color mean_price median_price max_price</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sys_time_print</span>({</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  r1_1 <span class="ot">&lt;-</span> dat1 <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_dt</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">by =</span> .(cut,color),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_price =</span> <span class="fu">mean</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">median_price =</span> <span class="fu">median</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_price =</span> <span class="fu">max</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>r1_1</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           cut color mean_price median_price max_price</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;ord&gt; &lt;ord&gt;      &lt;num&gt;        &lt;num&gt;     &lt;int&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1: Very Good     H   4390.470       3394.0     18803</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:      Good     G   3999.886       3303.0     18788</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:     Ideal     F   3309.061       1751.0     18780</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:   Premium     E   3481.628       1881.0     18426</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:      Fair     D   4237.899       3205.0     16386</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:   Premium     J   6416.235       5110.5     18706</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:   Premium     F   4347.158       2874.0     18791</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:     Ideal     D   2608.030       1550.5     18693</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9: Very Good     G   3900.558       2403.0     18818</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10: Very Good     E   3301.873       2051.0     18731</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11:   Premium     G   4543.181       2780.0     18741</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12:     Ideal     G   3751.035       1881.0     18806</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13:     Ideal     E   2558.501       1429.0     18729</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14:   Premium     H   5215.019       4451.0     18795</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15:   Premium     I   5921.498       4545.5     18823</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16: Very Good     F   3792.863       2473.0     18777</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17:      Good     D   3369.352       2661.0     18468</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18:      Fair     G   4186.403       2797.0     18574</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19:      Good     E   3293.289       2407.0     18236</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20:   Premium     D   3796.609       2348.0     18286</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 21:     Ideal     H   3924.682       2320.0     18659</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 22: Very Good     I   5475.587       4013.0     18500</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 23:     Ideal     I   4434.030       2631.0     18779</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 24:      Fair     J   5029.502       3422.0     18531</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25: Very Good     D   3437.133       2242.0     18526</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 26:      Good     F   3518.548       2755.0     18686</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27:      Good     I   4966.745       3484.0     18707</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 28:      Good     H   4098.280       3323.0     18640</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29:      Fair     H   5454.118       4134.5     18308</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 30:      Fair     F   3790.703       2961.0     17995</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 31:     Ideal     J   4972.801       4135.0     18508</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 32: Very Good     J   5107.638       4126.5     18430</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 33:      Fair     I   4278.831       3022.0     18242</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 34:      Good     J   4578.490       3690.0     18325</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35:      Fair     E   3834.358       2996.5     15584</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           cut color mean_price median_price max_price</span></span></code></pre></div>
 <p>tidyfst是永远不可能比data.table快的，但是如果你觉得上面的代码更容易掌握、更容易读懂，而在日常工作中多花零点几秒的运行时间没有太大问题（实际上节省了大家的交流时间，甚至就是节省将来自己再次读懂自己代码的时间），tidyfst就值得拥有。</p>
 </div>
 <div id="求每天最高出售价格对应的那笔订单" class="section level4">
 <h4>2.求每天最高出售价格对应的那笔订单</h4>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">sys_time_print</span>({</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  r1_<span class="dv">2</span> &lt;-<span class="st"> </span>dat1 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="st">    </span><span class="kw">arrange_dt</span>(dt,<span class="op">-</span>price) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="st">    </span><span class="kw">drop_na_dt</span>(price) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">    </span><span class="kw">group_dt</span>(</span>
-<span id="cb4-6"><a href="#cb4-6"></a>      <span class="dt">by =</span> dt,</span>
-<span id="cb4-7"><a href="#cb4-7"></a>      <span class="kw">head</span>(<span class="dv">1</span>)</span>
-<span id="cb4-8"><a href="#cb4-8"></a>    )</span>
-<span id="cb4-9"><a href="#cb4-9"></a>})</span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; [1] &quot;Finished in 0.050s elapsed (0.070s cpu)&quot;</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a>r1_<span class="dv">2</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;               dt carat       cut color clarity depth table price     x     y</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;           &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;    1: 2011-01-01  2.10   Premium     J     VS2  58.3    54 12401  8.49  8.45</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;    2: 2011-01-02  2.02   Premium     I     VS2  59.0    59 17893  8.34  8.27</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt;    3: 2011-01-03  1.61     Ideal     F     VS1  62.0    55 17414  7.55  7.52</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;    4: 2011-01-04  2.19   Premium     E     SI2  62.4    61 18232  8.31  8.23</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt;    5: 2011-01-05  2.05   Premium     H     VS2  60.7    61 16235  8.25  8.13</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt;   ---                                                                       </span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; 3284: 2019-12-28  2.22     Ideal     J     SI2  62.8    57 13703  8.33  8.29</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; 3285: 2019-12-29  2.10 Very Good     J     VS2  61.3    59 14229  8.21  8.27</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; 3286: 2019-12-30  1.55 Very Good     H     VS2  63.3    56 10546  7.38  7.32</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; 3287: 2019-12-31  1.51 Very Good     F    VVS2  63.1    56 17317  7.32  7.26</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; 3288: 2020-01-01  2.04   Premium     J     VS2  63.0    58 13734  8.02  7.99</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt;           z</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt;       &lt;num&gt;</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt;    1:  4.94</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt;    2:  4.90</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt;    3:  4.67</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt;    4:  5.16</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt;    5:  4.97</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt;   ---      </span></span>
-<span id="cb4-33"><a href="#cb4-33"></a><span class="co">#&gt; 3284:  5.22</span></span>
-<span id="cb4-34"><a href="#cb4-34"></a><span class="co">#&gt; 3285:  5.05</span></span>
-<span id="cb4-35"><a href="#cb4-35"></a><span class="co">#&gt; 3286:  4.65</span></span>
-<span id="cb4-36"><a href="#cb4-36"></a><span class="co">#&gt; 3287:  4.60</span></span>
-<span id="cb4-37"><a href="#cb4-37"></a><span class="co">#&gt; 3288:  5.04</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sys_time_print</span>({</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  r1_2 <span class="ot">&lt;-</span> dat1 <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange_dt</span>(dt,<span class="sc">-</span>price) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na_dt</span>(price) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_dt</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">by =</span> dt,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">head</span>(<span class="dv">1</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Finished in 0.020s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>r1_2</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               dt carat       cut color clarity depth table price     x     y</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    1: 2011-01-01  2.10   Premium     J     VS2  58.3    54 12401  8.49  8.45</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    2: 2011-01-02  2.02   Premium     I     VS2  59.0    59 17893  8.34  8.27</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    3: 2011-01-03  1.61     Ideal     F     VS1  62.0    55 17414  7.55  7.52</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    4: 2011-01-04  2.19   Premium     E     SI2  62.4    61 18232  8.31  8.23</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    5: 2011-01-05  2.05   Premium     H     VS2  60.7    61 16235  8.25  8.13</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ---                                                                       </span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3284: 2019-12-28  2.22     Ideal     J     SI2  62.8    57 13703  8.33  8.29</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3285: 2019-12-29  2.10 Very Good     J     VS2  61.3    59 14229  8.21  8.27</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3286: 2019-12-30  1.55 Very Good     H     VS2  63.3    56 10546  7.38  7.32</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3287: 2019-12-31  1.51 Very Good     F    VVS2  63.1    56 17317  7.32  7.26</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3288: 2020-01-01  2.04   Premium     J     VS2  63.0    58 13734  8.02  7.99</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           z</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       &lt;num&gt;</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    1:  4.94</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    2:  4.90</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    3:  4.67</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    4:  5.16</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    5:  4.97</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ---      </span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3284:  5.22</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3285:  5.05</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3286:  4.65</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3287:  4.60</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3288:  5.04</span></span></code></pre></div>
 </div>
 </div>
 <div id="join" class="section level3">
@@ -506,161 +328,161 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="dat1与dat2以dt列左连接" class="section level4">
 <h4>1.dat1与dat2以dt列左连接</h4>
 <p>实质上，merge函数已经优化得很好。tidyfst设计<code>*_join</code>系列函数的时候，只是为了一种不一样的语法结构来帮助实现不同的连接，因为它确实更加直观一些。但是实质上它还是merge.data.table函数的包装版本。</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">sys_time_print</span>({</span>
-<span id="cb5-2"><a href="#cb5-2"></a>  r2_<span class="dv">1</span> &lt;-<span class="st"> </span>dat1 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="st">    </span><span class="kw">left_join_dt</span>(dat2,<span class="dt">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a>})</span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; [1] &quot;Finished in 0.030s elapsed (0.020s cpu)&quot;</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>r2_<span class="dv">1</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x     y</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;      1: 2011-01-01  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;      2: 2011-01-01  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;      3: 2011-01-01  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;      4: 2011-01-01  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;      5: 2011-01-01  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;     ---                                                                       </span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;  99996: 2020-01-01  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  99997: 2020-01-01  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt;             z price1</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt;         &lt;num&gt;  &lt;int&gt;</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt;      1:  2.76     NA</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt;      2:  2.70     NA</span></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt;      3:  4.10     NA</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt;      4:  3.83     NA</span></span>
-<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt;      5:  3.28     NA</span></span>
-<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt;     ---             </span></span>
-<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt;  99996:  2.73     NA</span></span>
-<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt;  99997:  2.75     NA</span></span>
-<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt;  99998:  2.58     NA</span></span>
-<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#&gt;  99999:  2.66     NA</span></span>
-<span id="cb5-33"><a href="#cb5-33"></a><span class="co">#&gt; 100000:  2.74     NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sys_time_print</span>({</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  r2_1 <span class="ot">&lt;-</span> dat1 <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join_dt</span>(dat2,<span class="at">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Finished in 0.020s elapsed (0.010s cpu)&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>r2_1</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x     y</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1: 2011-01-01  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2: 2011-01-01  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3: 2011-01-01  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4: 2011-01-01  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5: 2011-01-01  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                                                                       </span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996: 2020-01-01  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997: 2020-01-01  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             z price1</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;  &lt;int&gt;</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1:  2.76     NA</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2:  2.70     NA</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3:  4.10     NA</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4:  3.83     NA</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5:  3.28     NA</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---             </span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996:  2.73     NA</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997:  2.75     NA</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998:  2.58     NA</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999:  2.66     NA</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000:  2.74     NA</span></span></code></pre></div>
 </div>
 <div id="多重join" class="section level4">
 <h4>2.多重join</h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">sys_time_print</span>({</span>
-<span id="cb6-2"><a href="#cb6-2"></a>  mymerge &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) <span class="kw">left_join_dt</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3"></a>  r2_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">Reduce</span>(mymerge, <span class="kw">list</span>(dat1, dat2, dat3))</span>
-<span id="cb6-4"><a href="#cb6-4"></a>})</span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; [1] &quot;Finished in 0.030s elapsed (0.030s cpu)&quot;</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>r2_<span class="dv">2</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x     y</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;      1: 2011-01-01  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;      2: 2011-01-01  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;      3: 2011-01-01  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;      4: 2011-01-01  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;      5: 2011-01-01  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;     ---                                                                       </span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;  99996: 2020-01-01  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt;  99997: 2020-01-01  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
-<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
-<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt;             z price1 price2</span></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt;         &lt;num&gt;  &lt;int&gt;  &lt;int&gt;</span></span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt;      1:  2.76     NA     NA</span></span>
-<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt;      2:  2.70     NA     NA</span></span>
-<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt;      3:  4.10     NA     NA</span></span>
-<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt;      4:  3.83     NA     NA</span></span>
-<span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt;      5:  3.28     NA     NA</span></span>
-<span id="cb6-28"><a href="#cb6-28"></a><span class="co">#&gt;     ---                    </span></span>
-<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt;  99996:  2.73     NA     NA</span></span>
-<span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt;  99997:  2.75     NA     NA</span></span>
-<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt;  99998:  2.58     NA     NA</span></span>
-<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt;  99999:  2.66     NA     NA</span></span>
-<span id="cb6-33"><a href="#cb6-33"></a><span class="co">#&gt; 100000:  2.74     NA     NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sys_time_print</span>({</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  mymerge <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="fu">left_join_dt</span>(x, y, <span class="at">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  r2_2 <span class="ot">&lt;-</span> <span class="fu">Reduce</span>(mymerge, <span class="fu">list</span>(dat1, dat2, dat3))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Finished in 0.020s elapsed (0.010s cpu)&quot;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>r2_2</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x     y</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1: 2011-01-01  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2: 2011-01-01  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3: 2011-01-01  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4: 2011-01-01  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5: 2011-01-01  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                                                                       </span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996: 2020-01-01  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997: 2020-01-01  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             z price1 price2</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;  &lt;int&gt;  &lt;int&gt;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1:  2.76     NA     NA</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2:  2.70     NA     NA</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3:  4.10     NA     NA</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4:  3.83     NA     NA</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5:  3.28     NA     NA</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                    </span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996:  2.73     NA     NA</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997:  2.75     NA     NA</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998:  2.58     NA     NA</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999:  2.66     NA     NA</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000:  2.74     NA     NA</span></span></code></pre></div>
 </div>
 </div>
 <div id="长宽表转换" class="section level3">
 <h3>长宽表转换</h3>
 <div id="长表转宽表" class="section level4">
 <h4>1.长表转宽表</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">sys_time_print</span>({</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  mean1 &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>  max1 &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">max</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb7-4"><a href="#cb7-4"></a>  r3_<span class="dv">1</span> &lt;-dat1 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="st">    </span><span class="kw">wider_dt</span>(cut,</span>
-<span id="cb7-6"><a href="#cb7-6"></a>             <span class="dt">value =</span> <span class="kw">c</span>(<span class="st">&quot;depth&quot;</span>, <span class="st">&quot;price&quot;</span>),</span>
-<span id="cb7-7"><a href="#cb7-7"></a>             <span class="dt">name =</span> <span class="st">&quot;color&quot;</span>,</span>
-<span id="cb7-8"><a href="#cb7-8"></a>             <span class="dt">fun =</span> <span class="kw">list</span>(mean1,max1))</span>
-<span id="cb7-9"><a href="#cb7-9"></a>})</span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt; [1] &quot;Finished in 0.040s elapsed (0.030s cpu)&quot;</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a>r3_<span class="dv">1</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; Key: &lt;cut&gt;</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;          cut depth_mean1_D depth_mean1_E depth_mean1_F depth_mean1_G</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;        &lt;ord&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; 1:      Fair      64.15688      63.09882      63.41129      64.33663</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; 2:      Good      62.32176      62.16065      62.18220      62.60212</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; 3: Very Good      61.70454      61.73751      61.73138      61.83043</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; 4:   Premium      61.18875      61.16850      61.25098      61.27894</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; 5:     Ideal      61.67241      61.68693      61.65616      61.70585</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt;    depth_mean1_H depth_mean1_I depth_mean1_J price_mean1_D price_mean1_E</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt;            &lt;num&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; 1:      64.44778      64.24571      64.75682      4237.899      3834.358</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; 2:      62.50826      62.56427      62.44288      3369.352      3293.289</span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; 3:      61.97838      61.90052      61.94553      3437.133      3301.873</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; 4:      61.31882      61.34123      61.42092      3796.609      3481.628</span></span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; 5:      61.72374      61.79243      61.80705      2608.030      2558.501</span></span>
-<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt;    price_mean1_F price_mean1_G price_mean1_H price_mean1_I price_mean1_J</span></span>
-<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt;            &lt;num&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;</span></span>
-<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; 1:      3790.703      4186.403      5454.118      4278.831      5029.502</span></span>
-<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; 2:      3518.548      3999.886      4098.280      4966.745      4578.490</span></span>
-<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt; 3:      3792.863      3900.558      4390.470      5475.587      5107.638</span></span>
-<span id="cb7-32"><a href="#cb7-32"></a><span class="co">#&gt; 4:      4347.158      4543.181      5215.019      5921.498      6416.235</span></span>
-<span id="cb7-33"><a href="#cb7-33"></a><span class="co">#&gt; 5:      3309.061      3751.035      3924.682      4434.030      4972.801</span></span>
-<span id="cb7-34"><a href="#cb7-34"></a><span class="co">#&gt;    depth_max1_D depth_max1_E depth_max1_F depth_max1_G depth_max1_H</span></span>
-<span id="cb7-35"><a href="#cb7-35"></a><span class="co">#&gt;           &lt;num&gt;        &lt;num&gt;        &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span></span>
-<span id="cb7-36"><a href="#cb7-36"></a><span class="co">#&gt; 1:         71.6         79.0         70.8         72.9         71.8</span></span>
-<span id="cb7-37"><a href="#cb7-37"></a><span class="co">#&gt; 2:         67.0         65.9         66.5         65.8         66.1</span></span>
-<span id="cb7-38"><a href="#cb7-38"></a><span class="co">#&gt; 3:         64.7         64.4         64.2         64.9         64.7</span></span>
-<span id="cb7-39"><a href="#cb7-39"></a><span class="co">#&gt; 4:         63.0         63.0         63.0         63.0         63.0</span></span>
-<span id="cb7-40"><a href="#cb7-40"></a><span class="co">#&gt; 5:         64.5         65.5         65.3         64.1         65.1</span></span>
-<span id="cb7-41"><a href="#cb7-41"></a><span class="co">#&gt;    depth_max1_I depth_max1_J price_max1_D price_max1_E price_max1_F</span></span>
-<span id="cb7-42"><a href="#cb7-42"></a><span class="co">#&gt;           &lt;num&gt;        &lt;num&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span></span>
-<span id="cb7-43"><a href="#cb7-43"></a><span class="co">#&gt; 1:         71.3         73.6        16386        15584        17995</span></span>
-<span id="cb7-44"><a href="#cb7-44"></a><span class="co">#&gt; 2:         65.9         66.0        18468        18236        18686</span></span>
-<span id="cb7-45"><a href="#cb7-45"></a><span class="co">#&gt; 3:         64.4         64.1        18526        18731        18777</span></span>
-<span id="cb7-46"><a href="#cb7-46"></a><span class="co">#&gt; 4:         63.0         63.0        18286        18426        18791</span></span>
-<span id="cb7-47"><a href="#cb7-47"></a><span class="co">#&gt; 5:         66.7         65.4        18693        18729        18780</span></span>
-<span id="cb7-48"><a href="#cb7-48"></a><span class="co">#&gt;    price_max1_G price_max1_H price_max1_I price_max1_J</span></span>
-<span id="cb7-49"><a href="#cb7-49"></a><span class="co">#&gt;           &lt;int&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span></span>
-<span id="cb7-50"><a href="#cb7-50"></a><span class="co">#&gt; 1:        18574        18308        18242        18531</span></span>
-<span id="cb7-51"><a href="#cb7-51"></a><span class="co">#&gt; 2:        18788        18640        18707        18325</span></span>
-<span id="cb7-52"><a href="#cb7-52"></a><span class="co">#&gt; 3:        18818        18803        18500        18430</span></span>
-<span id="cb7-53"><a href="#cb7-53"></a><span class="co">#&gt; 4:        18741        18795        18823        18706</span></span>
-<span id="cb7-54"><a href="#cb7-54"></a><span class="co">#&gt; 5:        18806        18659        18779        18508</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sys_time_print</span>({</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  mean1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  max1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">max</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  r3_1 <span class="ot">&lt;-</span>dat1 <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">wider_dt</span>(cut,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">value =</span> <span class="fu">c</span>(<span class="st">&quot;depth&quot;</span>, <span class="st">&quot;price&quot;</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">name =</span> <span class="st">&quot;color&quot;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">fun =</span> <span class="fu">list</span>(mean1,max1))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Finished in 0.010s elapsed (0.020s cpu)&quot;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>r3_1</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Key: &lt;cut&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          cut depth_mean1_D depth_mean1_E depth_mean1_F depth_mean1_G</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        &lt;ord&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:      Fair      64.15688      63.09882      63.41129      64.33663</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:      Good      62.32176      62.16065      62.18220      62.60212</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3: Very Good      61.70454      61.73751      61.73138      61.83043</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:   Premium      61.18875      61.16850      61.25098      61.27894</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:     Ideal      61.67241      61.68693      61.65616      61.70585</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    depth_mean1_H depth_mean1_I depth_mean1_J price_mean1_D price_mean1_E</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            &lt;num&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:      64.44778      64.24571      64.75682      4237.899      3834.358</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:      62.50826      62.56427      62.44288      3369.352      3293.289</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:      61.97838      61.90052      61.94553      3437.133      3301.873</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:      61.31882      61.34123      61.42092      3796.609      3481.628</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:      61.72374      61.79243      61.80705      2608.030      2558.501</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    price_mean1_F price_mean1_G price_mean1_H price_mean1_I price_mean1_J</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            &lt;num&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;         &lt;num&gt;</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:      3790.703      4186.403      5454.118      4278.831      5029.502</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:      3518.548      3999.886      4098.280      4966.745      4578.490</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:      3792.863      3900.558      4390.470      5475.587      5107.638</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:      4347.158      4543.181      5215.019      5921.498      6416.235</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:      3309.061      3751.035      3924.682      4434.030      4972.801</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    depth_max1_D depth_max1_E depth_max1_F depth_max1_G depth_max1_H</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;num&gt;        &lt;num&gt;        &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:         71.6         79.0         70.8         72.9         71.8</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:         67.0         65.9         66.5         65.8         66.1</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:         64.7         64.4         64.2         64.9         64.7</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:         63.0         63.0         63.0         63.0         63.0</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:         64.5         65.5         65.3         64.1         65.1</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    depth_max1_I depth_max1_J price_max1_D price_max1_E price_max1_F</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;num&gt;        &lt;num&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:         71.3         73.6        16386        15584        17995</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:         65.9         66.0        18468        18236        18686</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:         64.4         64.1        18526        18731        18777</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:         63.0         63.0        18286        18426        18791</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:         66.7         65.4        18693        18729        18780</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    price_max1_G price_max1_H price_max1_I price_max1_J</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;int&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:        18574        18308        18242        18531</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:        18788        18640        18707        18325</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:        18818        18803        18500        18430</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:        18741        18795        18823        18706</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:        18806        18659        18779        18508</span></span></code></pre></div>
 </div>
 <div id="宽表转长表" class="section level4">
 <h4>2.宽表转长表</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">sys_time_print</span>({</span>
-<span id="cb8-2"><a href="#cb8-2"></a>  r3_<span class="dv">2</span> &lt;-dat1 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">    </span><span class="kw">select_dt</span>(cut,color,x,y,z) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="st">    </span><span class="kw">longer_dt</span>(cut,color,</span>
-<span id="cb8-5"><a href="#cb8-5"></a>              <span class="dt">name =</span> <span class="st">&quot;xyz&quot;</span>,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>              <span class="dt">value =</span> <span class="st">&quot;xyzvalue&quot;</span>)</span>
-<span id="cb8-7"><a href="#cb8-7"></a>})</span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; [1] &quot;Finished in 0.110s elapsed (0.100s cpu)&quot;</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a></span>
-<span id="cb8-10"><a href="#cb8-10"></a>r3_<span class="dv">2</span> </span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt;               cut color    xyz xyzvalue</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt;             &lt;ord&gt; &lt;ord&gt; &lt;fctr&gt;    &lt;num&gt;</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;      1: Very Good     H      x     4.41</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;      2:      Good     G      x     4.26</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt;      3:     Ideal     F      x     6.69</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt;      4:   Premium     E      x     6.52</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt;      5:      Fair     D      x     4.92</span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt;     ---                                </span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; 299996:     Ideal     J      z     2.73</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; 299997:     Ideal     G      z     2.75</span></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt; 299998: Very Good     I      z     2.58</span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; 299999:     Ideal     G      z     2.66</span></span>
-<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#&gt; 300000:     Ideal     F      z     2.74</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sys_time_print</span>({</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  r3_2 <span class="ot">&lt;-</span>dat1 <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select_dt</span>(cut,color,x,y,z) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">longer_dt</span>(cut,color,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">name =</span> <span class="st">&quot;xyz&quot;</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">value =</span> <span class="st">&quot;xyzvalue&quot;</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>r3_2 </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               cut color    xyz xyzvalue</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;ord&gt; &lt;ord&gt; &lt;fctr&gt;    &lt;num&gt;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1: Very Good     H      x     4.41</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2:      Good     G      x     4.26</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3:     Ideal     F      x     6.69</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4:   Premium     E      x     6.52</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5:      Fair     D      x     4.92</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                                </span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 299996:     Ideal     J      z     2.73</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 299997:     Ideal     G      z     2.75</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 299998: Very Good     I      z     2.58</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 299999:     Ideal     G      z     2.66</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 300000:     Ideal     F      z     2.74</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -669,196 +491,197 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="向上下填充空值" class="section level3">
 <h3>向上/下填充空值</h3>
 <p>对于填充空值来说，可以这样操作：</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">sys_time_print</span>({</span>
-<span id="cb9-2"><a href="#cb9-2"></a>  dat1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fill_na_dt</span>(price) -&gt;<span class="st"> </span>dat1</span>
-<span id="cb9-3"><a href="#cb9-3"></a>})</span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; [1] &quot;Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>dat1</span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44  2.76</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23  2.70</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66  4.10</span></span>
-<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44  3.83</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03  3.28</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt;     ---                                                                  </span></span>
-<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42  2.73</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39  2.75</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19  2.58</span></span>
-<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30  2.66</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40  2.74</span></span>
-<span id="cb9-19"><a href="#cb9-19"></a><span class="co">#&gt;                 dt</span></span>
-<span id="cb9-20"><a href="#cb9-20"></a><span class="co">#&gt;             &lt;Date&gt;</span></span>
-<span id="cb9-21"><a href="#cb9-21"></a><span class="co">#&gt;      1: 2011-01-01</span></span>
-<span id="cb9-22"><a href="#cb9-22"></a><span class="co">#&gt;      2: 2011-01-01</span></span>
-<span id="cb9-23"><a href="#cb9-23"></a><span class="co">#&gt;      3: 2011-01-01</span></span>
-<span id="cb9-24"><a href="#cb9-24"></a><span class="co">#&gt;      4: 2011-01-01</span></span>
-<span id="cb9-25"><a href="#cb9-25"></a><span class="co">#&gt;      5: 2011-01-01</span></span>
-<span id="cb9-26"><a href="#cb9-26"></a><span class="co">#&gt;     ---           </span></span>
-<span id="cb9-27"><a href="#cb9-27"></a><span class="co">#&gt;  99996: 2020-01-01</span></span>
-<span id="cb9-28"><a href="#cb9-28"></a><span class="co">#&gt;  99997: 2020-01-01</span></span>
-<span id="cb9-29"><a href="#cb9-29"></a><span class="co">#&gt;  99998: 2020-01-01</span></span>
-<span id="cb9-30"><a href="#cb9-30"></a><span class="co">#&gt;  99999: 2020-01-01</span></span>
-<span id="cb9-31"><a href="#cb9-31"></a><span class="co">#&gt; 100000: 2020-01-01</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sys_time_print</span>({</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  dat1 <span class="sc">%&gt;%</span> <span class="fu">fill_na_dt</span>(price) <span class="ot">-&gt;</span> dat1</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>dat1</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44  2.76</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23  2.70</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66  4.10</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44  3.83</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03  3.28</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                                                                  </span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42  2.73</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39  2.75</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19  2.58</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30  2.66</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40  2.74</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 dt</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt;</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1: 2011-01-01</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2: 2011-01-01</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3: 2011-01-01</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4: 2011-01-01</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5: 2011-01-01</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---           </span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996: 2020-01-01</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997: 2020-01-01</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01</span></span></code></pre></div>
 </div>
 <div id="添加子维度聚合结果为新列" class="section level3">
 <h3>添加子维度聚合结果为新列</h3>
 <div id="以dat1为例添加两列一列为以cutcolor聚合求price的均值另一列是求标准差" class="section level4">
 <h4>1.以dat1为例，添加两列，一列为以cut、color聚合求price的均值，另一列是求标准差</h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">sys_time_print</span>({</span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="kw">mutate_dt</span>(dat1,</span>
-<span id="cb10-4"><a href="#cb10-4"></a>           <span class="dt">mean_price =</span> <span class="kw">mean</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb10-5"><a href="#cb10-5"></a>           <span class="dt">sd_price =</span> <span class="kw">sd</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb10-6"><a href="#cb10-6"></a>           <span class="dt">by =</span> .(cut, color))</span>
-<span id="cb10-7"><a href="#cb10-7"></a>})</span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; [1] &quot;Finished in 0.030s elapsed (0.030s cpu)&quot;</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a></span>
-<span id="cb10-10"><a href="#cb10-10"></a>dat1</span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44  2.76</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23  2.70</span></span>
-<span id="cb10-15"><a href="#cb10-15"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66  4.10</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44  3.83</span></span>
-<span id="cb10-17"><a href="#cb10-17"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03  3.28</span></span>
-<span id="cb10-18"><a href="#cb10-18"></a><span class="co">#&gt;     ---                                                                  </span></span>
-<span id="cb10-19"><a href="#cb10-19"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42  2.73</span></span>
-<span id="cb10-20"><a href="#cb10-20"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39  2.75</span></span>
-<span id="cb10-21"><a href="#cb10-21"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19  2.58</span></span>
-<span id="cb10-22"><a href="#cb10-22"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30  2.66</span></span>
-<span id="cb10-23"><a href="#cb10-23"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40  2.74</span></span>
-<span id="cb10-24"><a href="#cb10-24"></a><span class="co">#&gt;                 dt</span></span>
-<span id="cb10-25"><a href="#cb10-25"></a><span class="co">#&gt;             &lt;Date&gt;</span></span>
-<span id="cb10-26"><a href="#cb10-26"></a><span class="co">#&gt;      1: 2011-01-01</span></span>
-<span id="cb10-27"><a href="#cb10-27"></a><span class="co">#&gt;      2: 2011-01-01</span></span>
-<span id="cb10-28"><a href="#cb10-28"></a><span class="co">#&gt;      3: 2011-01-01</span></span>
-<span id="cb10-29"><a href="#cb10-29"></a><span class="co">#&gt;      4: 2011-01-01</span></span>
-<span id="cb10-30"><a href="#cb10-30"></a><span class="co">#&gt;      5: 2011-01-01</span></span>
-<span id="cb10-31"><a href="#cb10-31"></a><span class="co">#&gt;     ---           </span></span>
-<span id="cb10-32"><a href="#cb10-32"></a><span class="co">#&gt;  99996: 2020-01-01</span></span>
-<span id="cb10-33"><a href="#cb10-33"></a><span class="co">#&gt;  99997: 2020-01-01</span></span>
-<span id="cb10-34"><a href="#cb10-34"></a><span class="co">#&gt;  99998: 2020-01-01</span></span>
-<span id="cb10-35"><a href="#cb10-35"></a><span class="co">#&gt;  99999: 2020-01-01</span></span>
-<span id="cb10-36"><a href="#cb10-36"></a><span class="co">#&gt; 100000: 2020-01-01</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sys_time_print</span>({</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_dt</span>(dat1,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">mean_price =</span> <span class="fu">mean</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">sd_price =</span> <span class="fu">sd</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">by =</span> .(cut, color))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Finished in 0.060s elapsed (0.100s cpu)&quot;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>dat1</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44  2.76</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23  2.70</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66  4.10</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44  3.83</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03  3.28</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                                                                  </span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42  2.73</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39  2.75</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19  2.58</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30  2.66</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40  2.74</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 dt</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt;</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1: 2011-01-01</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2: 2011-01-01</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3: 2011-01-01</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4: 2011-01-01</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5: 2011-01-01</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---           </span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996: 2020-01-01</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997: 2020-01-01</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01</span></span></code></pre></div>
 </div>
 <div id="以dat1为例以dt分组添加一列序号id" class="section level4">
 <h4>2.以dat1为例，以dt分组添加一列序号id</h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">sys_time_print</span>({</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  dat1 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="st">  </span><span class="kw">group_dt</span>(</span>
-<span id="cb11-5"><a href="#cb11-5"></a>    <span class="dt">by =</span> dt,</span>
-<span id="cb11-6"><a href="#cb11-6"></a>    <span class="kw">mutate_dt</span>(<span class="dt">id =</span> <span class="kw">seq</span>(.N))</span>
-<span id="cb11-7"><a href="#cb11-7"></a>  ) -&gt;<span class="st"> </span>dat1</span>
-<span id="cb11-8"><a href="#cb11-8"></a>})</span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt; [1] &quot;Finished in 3.970s elapsed (3.640s cpu)&quot;</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a>dat1</span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x     y</span></span>
-<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt;      1: 2011-01-01  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44</span></span>
-<span id="cb11-14"><a href="#cb11-14"></a><span class="co">#&gt;      2: 2011-01-01  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23</span></span>
-<span id="cb11-15"><a href="#cb11-15"></a><span class="co">#&gt;      3: 2011-01-01  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66</span></span>
-<span id="cb11-16"><a href="#cb11-16"></a><span class="co">#&gt;      4: 2011-01-01  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44</span></span>
-<span id="cb11-17"><a href="#cb11-17"></a><span class="co">#&gt;      5: 2011-01-01  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03</span></span>
-<span id="cb11-18"><a href="#cb11-18"></a><span class="co">#&gt;     ---                                                                       </span></span>
-<span id="cb11-19"><a href="#cb11-19"></a><span class="co">#&gt;  99996: 2020-01-01  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42</span></span>
-<span id="cb11-20"><a href="#cb11-20"></a><span class="co">#&gt;  99997: 2020-01-01  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39</span></span>
-<span id="cb11-21"><a href="#cb11-21"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
-<span id="cb11-22"><a href="#cb11-22"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
-<span id="cb11-23"><a href="#cb11-23"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
-<span id="cb11-24"><a href="#cb11-24"></a><span class="co">#&gt;             z    id</span></span>
-<span id="cb11-25"><a href="#cb11-25"></a><span class="co">#&gt;         &lt;num&gt; &lt;int&gt;</span></span>
-<span id="cb11-26"><a href="#cb11-26"></a><span class="co">#&gt;      1:  2.76     1</span></span>
-<span id="cb11-27"><a href="#cb11-27"></a><span class="co">#&gt;      2:  2.70     2</span></span>
-<span id="cb11-28"><a href="#cb11-28"></a><span class="co">#&gt;      3:  4.10     3</span></span>
-<span id="cb11-29"><a href="#cb11-29"></a><span class="co">#&gt;      4:  3.83     4</span></span>
-<span id="cb11-30"><a href="#cb11-30"></a><span class="co">#&gt;      5:  3.28     5</span></span>
-<span id="cb11-31"><a href="#cb11-31"></a><span class="co">#&gt;     ---            </span></span>
-<span id="cb11-32"><a href="#cb11-32"></a><span class="co">#&gt;  99996:  2.73    27</span></span>
-<span id="cb11-33"><a href="#cb11-33"></a><span class="co">#&gt;  99997:  2.75    28</span></span>
-<span id="cb11-34"><a href="#cb11-34"></a><span class="co">#&gt;  99998:  2.58    29</span></span>
-<span id="cb11-35"><a href="#cb11-35"></a><span class="co">#&gt;  99999:  2.66    30</span></span>
-<span id="cb11-36"><a href="#cb11-36"></a><span class="co">#&gt; 100000:  2.74    31</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sys_time_print</span>({</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  dat1 <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_dt</span>(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> dt,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_dt</span>(<span class="at">id =</span> <span class="fu">seq</span>(.N))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="ot">-&gt;</span> dat1</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Finished in 1.120s elapsed (1.090s cpu)&quot;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>dat1</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x     y</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1: 2011-01-01  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2: 2011-01-01  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3: 2011-01-01  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4: 2011-01-01  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5: 2011-01-01  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                                                                       </span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996: 2020-01-01  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997: 2020-01-01  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             z    id</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt; &lt;int&gt;</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1:  2.76     1</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2:  2.70     2</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3:  4.10     3</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4:  3.83     4</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5:  3.28     5</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---            </span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996:  2.73    27</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997:  2.75    28</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998:  2.58    29</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999:  2.66    30</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000:  2.74    31</span></span></code></pre></div>
 </div>
 </div>
 <div id="移动函数" class="section level3">
 <h3>移动函数</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="kw">sys_time_print</span>({</span>
-<span id="cb12-3"><a href="#cb12-3"></a>  dat1 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="st">    </span><span class="kw">group_dt</span>(</span>
-<span id="cb12-5"><a href="#cb12-5"></a>      <span class="dt">by =</span> color,</span>
-<span id="cb12-6"><a href="#cb12-6"></a>      <span class="kw">mutate_dt</span>(</span>
-<span id="cb12-7"><a href="#cb12-7"></a>        <span class="dt">MA10_price =</span> <span class="kw">frollmean</span>(price, <span class="dv">10</span>),</span>
-<span id="cb12-8"><a href="#cb12-8"></a>        <span class="dt">MSD10_price =</span> <span class="kw">frollapply</span>(price, <span class="dv">10</span>, <span class="dt">FUN =</span> sd)</span>
-<span id="cb12-9"><a href="#cb12-9"></a>      )</span>
-<span id="cb12-10"><a href="#cb12-10"></a>    ) -&gt;<span class="st"> </span>dat1</span>
-<span id="cb12-11"><a href="#cb12-11"></a>})</span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt; [1] &quot;Finished in 1.280s elapsed (1.250s cpu)&quot;</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a></span>
-<span id="cb12-14"><a href="#cb12-14"></a>dat1</span>
-<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt;         color         dt carat       cut clarity depth table price     x     y</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a><span class="co">#&gt;         &lt;ord&gt;     &lt;Date&gt; &lt;num&gt;     &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a><span class="co">#&gt;      1:     H 2011-01-01  0.34 Very Good     VS2  62.4    60   537  4.41  4.44</span></span>
-<span id="cb12-18"><a href="#cb12-18"></a><span class="co">#&gt;      2:     H 2011-01-01  1.20   Premium     SI2  62.1    57  3965  6.84  6.69</span></span>
-<span id="cb12-19"><a href="#cb12-19"></a><span class="co">#&gt;      3:     H 2011-01-01  1.51   Premium     SI1  58.0    59 10063  7.57  7.54</span></span>
-<span id="cb12-20"><a href="#cb12-20"></a><span class="co">#&gt;      4:     H 2011-01-02  1.00   Premium     VS2  60.7    60  4930  6.55  6.49</span></span>
-<span id="cb12-21"><a href="#cb12-21"></a><span class="co">#&gt;      5:     H 2011-01-02  1.01     Ideal     SI2  61.1    56  4693  6.44  6.48</span></span>
-<span id="cb12-22"><a href="#cb12-22"></a><span class="co">#&gt;     ---                                                                       </span></span>
-<span id="cb12-23"><a href="#cb12-23"></a><span class="co">#&gt;  99996:     I 2019-12-30  0.54     Ideal     SI1  62.1    54  1057  5.24  5.26</span></span>
-<span id="cb12-24"><a href="#cb12-24"></a><span class="co">#&gt;  99997:     I 2019-12-31  0.90 Very Good     VS2  59.3    59  3992  6.27  6.30</span></span>
-<span id="cb12-25"><a href="#cb12-25"></a><span class="co">#&gt;  99998:     I 2019-12-31  0.30     Ideal     SI1  61.3    56   506  4.33  4.32</span></span>
-<span id="cb12-26"><a href="#cb12-26"></a><span class="co">#&gt;  99999:     I 2020-01-01  1.22   Premium     VS2  62.3    59  5832  6.79  6.83</span></span>
-<span id="cb12-27"><a href="#cb12-27"></a><span class="co">#&gt; 100000:     I 2020-01-01  0.28 Very Good     VS2  61.9    57   379  4.16  4.19</span></span>
-<span id="cb12-28"><a href="#cb12-28"></a><span class="co">#&gt;             z    id MA10_price MSD10_price</span></span>
-<span id="cb12-29"><a href="#cb12-29"></a><span class="co">#&gt;         &lt;num&gt; &lt;int&gt;      &lt;num&gt;       &lt;num&gt;</span></span>
-<span id="cb12-30"><a href="#cb12-30"></a><span class="co">#&gt;      1:  2.76     1         NA          NA</span></span>
-<span id="cb12-31"><a href="#cb12-31"></a><span class="co">#&gt;      2:  4.21    16         NA          NA</span></span>
-<span id="cb12-32"><a href="#cb12-32"></a><span class="co">#&gt;      3:  4.38    23         NA          NA</span></span>
-<span id="cb12-33"><a href="#cb12-33"></a><span class="co">#&gt;      4:  3.96     3         NA          NA</span></span>
-<span id="cb12-34"><a href="#cb12-34"></a><span class="co">#&gt;      5:  3.95    13         NA          NA</span></span>
-<span id="cb12-35"><a href="#cb12-35"></a><span class="co">#&gt;     ---                                   </span></span>
-<span id="cb12-36"><a href="#cb12-36"></a><span class="co">#&gt;  99996:  3.26    31     4239.9    3421.390</span></span>
-<span id="cb12-37"><a href="#cb12-37"></a><span class="co">#&gt;  99997:  3.73    29     4379.3    3375.145</span></span>
-<span id="cb12-38"><a href="#cb12-38"></a><span class="co">#&gt;  99998:  2.65    30     4044.3    3592.134</span></span>
-<span id="cb12-39"><a href="#cb12-39"></a><span class="co">#&gt;  99999:  4.24     5     3976.6    3546.612</span></span>
-<span id="cb12-40"><a href="#cb12-40"></a><span class="co">#&gt; 100000:  2.58    29     3949.0    3576.283</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sys_time_print</span>({</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  dat1 <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_dt</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">by =</span> color,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate_dt</span>(</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">MA10_price =</span> <span class="fu">frollmean</span>(price, <span class="dv">10</span>),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">MSD10_price =</span> <span class="fu">frollapply</span>(price, <span class="dv">10</span>, <span class="at">FUN =</span> sd)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> dat1</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Finished in 0.770s elapsed (0.750s cpu)&quot;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>dat1</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         color         dt carat       cut clarity depth table price     x     y</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;ord&gt;     &lt;Date&gt; &lt;num&gt;     &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1:     H 2011-01-01  0.34 Very Good     VS2  62.4    60   537  4.41  4.44</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2:     H 2011-01-01  1.20   Premium     SI2  62.1    57  3965  6.84  6.69</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3:     H 2011-01-01  1.51   Premium     SI1  58.0    59 10063  7.57  7.54</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4:     H 2011-01-02  1.00   Premium     VS2  60.7    60  4930  6.55  6.49</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5:     H 2011-01-02  1.01     Ideal     SI2  61.1    56  4693  6.44  6.48</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                                                                       </span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996:     I 2019-12-30  0.54     Ideal     SI1  62.1    54  1057  5.24  5.26</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997:     I 2019-12-31  0.90 Very Good     VS2  59.3    59  3992  6.27  6.30</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998:     I 2019-12-31  0.30     Ideal     SI1  61.3    56   506  4.33  4.32</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999:     I 2020-01-01  1.22   Premium     VS2  62.3    59  5832  6.79  6.83</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000:     I 2020-01-01  0.28 Very Good     VS2  61.9    57   379  4.16  4.19</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             z    id MA10_price MSD10_price</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt; &lt;int&gt;      &lt;num&gt;       &lt;num&gt;</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1:  2.76     1         NA          NA</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2:  4.21    16         NA          NA</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      3:  4.38    23         NA          NA</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      4:  3.96     3         NA          NA</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      5:  3.95    13         NA          NA</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     ---                                   </span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99996:  3.26    31     4239.9    3421.390</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99997:  3.73    29     4379.3    3375.145</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99998:  2.65    30     4044.3    3592.134</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99999:  4.24     5     3976.6    3546.612</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100000:  2.58    29     3949.0    3576.283</span></span></code></pre></div>
 </div>
 </div>
 <div id="系统参数" class="section level2">
 <h2>系统参数</h2>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">sessionInfo</span>()</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="co">#&gt; R version 4.0.2 (2020-06-22)</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#&gt; Running under: Windows 10 x64 (build 18362)</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#&gt; </span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt; Matrix products: default</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#&gt; </span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#&gt; locale:</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#&gt; [1] LC_COLLATE=C                              </span></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt; [2] LC_CTYPE=Chinese (Simplified)_China.936   </span></span>
-<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#&gt; [3] LC_MONETARY=Chinese (Simplified)_China.936</span></span>
-<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#&gt; [4] LC_NUMERIC=C                              </span></span>
-<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#&gt; [5] LC_TIME=Chinese (Simplified)_China.936    </span></span>
-<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#&gt; </span></span>
-<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#&gt; attached base packages:</span></span>
-<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt; </span></span>
-<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt; other attached packages:</span></span>
-<span id="cb13-19"><a href="#cb13-19"></a><span class="co">#&gt; [1] bench_1.1.1       dplyr_1.0.1       data.table_1.13.0 tidyfst_0.9.9    </span></span>
-<span id="cb13-20"><a href="#cb13-20"></a><span class="co">#&gt; </span></span>
-<span id="cb13-21"><a href="#cb13-21"></a><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span id="cb13-22"><a href="#cb13-22"></a><span class="co">#&gt;  [1] Rcpp_1.0.5       pillar_1.4.6     compiler_4.0.2   tools_4.0.2     </span></span>
-<span id="cb13-23"><a href="#cb13-23"></a><span class="co">#&gt;  [5] digest_0.6.25    evaluate_0.14    lifecycle_0.2.0  tibble_3.0.3    </span></span>
-<span id="cb13-24"><a href="#cb13-24"></a><span class="co">#&gt;  [9] gtable_0.3.0     pkgconfig_2.0.3  rlang_0.4.7      cli_2.0.2       </span></span>
-<span id="cb13-25"><a href="#cb13-25"></a><span class="co">#&gt; [13] yaml_2.2.1       parallel_4.0.2   xfun_0.16        stringr_1.4.0   </span></span>
-<span id="cb13-26"><a href="#cb13-26"></a><span class="co">#&gt; [17] knitr_1.29       generics_0.0.2   vctrs_0.3.2      grid_4.0.2      </span></span>
-<span id="cb13-27"><a href="#cb13-27"></a><span class="co">#&gt; [21] tidyselect_1.1.0 glue_1.4.1       R6_2.4.1         fansi_0.4.1     </span></span>
-<span id="cb13-28"><a href="#cb13-28"></a><span class="co">#&gt; [25] profmem_0.5.0    rmarkdown_2.3    purrr_0.3.4      ggplot2_3.3.2   </span></span>
-<span id="cb13-29"><a href="#cb13-29"></a><span class="co">#&gt; [29] magrittr_1.5     scales_1.1.1     ellipsis_0.3.1   htmltools_0.5.0 </span></span>
-<span id="cb13-30"><a href="#cb13-30"></a><span class="co">#&gt; [33] fst_0.9.2        assertthat_0.2.1 colorspace_1.4-1 utf8_1.1.4      </span></span>
-<span id="cb13-31"><a href="#cb13-31"></a><span class="co">#&gt; [37] stringi_1.4.6    munsell_0.5.0    crayon_1.3.4</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R version 4.1.1 (2021-08-10)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Running under: Windows 10 x64 (build 19042)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matrix products: default</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; locale:</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] LC_COLLATE=C                              </span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] LC_CTYPE=Chinese (Simplified)_China.936   </span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] LC_MONETARY=Chinese (Simplified)_China.936</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] LC_NUMERIC=C                              </span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] LC_TIME=Chinese (Simplified)_China.936    </span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attached base packages:</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; other attached packages:</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] bench_1.1.1       dplyr_1.0.7       data.table_1.14.0 tidyfst_1.0.0    </span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] Rcpp_1.0.7       pillar_1.6.2     compiler_4.1.1   tools_4.1.1     </span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] digest_0.6.27    gtable_0.3.0     evaluate_0.14    lifecycle_1.0.0 </span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] tibble_3.1.4     pkgconfig_2.0.3  rlang_0.4.11     DBI_1.1.1       </span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] cli_3.0.1        rstudioapi_0.13  yaml_2.2.1       parallel_4.1.1  </span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17] xfun_0.25        fastmap_1.1.0    stringr_1.4.0    knitr_1.33      </span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [21] generics_0.1.0   vctrs_0.3.8      grid_4.1.1       tidyselect_1.1.1</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [25] glue_1.4.2       R6_2.5.1         fansi_0.5.0      profmem_0.6.0   </span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [29] rmarkdown_2.10   ggplot2_3.3.5    purrr_0.3.4      magrittr_2.0.1  </span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [33] scales_1.1.1     ellipsis_0.3.2   htmltools_0.5.2  fst_0.9.4       </span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [37] assertthat_0.2.1 colorspace_2.0-2 utf8_1.2.2       stringi_1.7.4   </span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [41] munsell_0.5.0    crayon_1.4.1</span></span></code></pre></div>
 </div>
 
 

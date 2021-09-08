@@ -31,6 +31,7 @@ transmute_dt = function(.data,...,by){
     .[,id_:=NULL] %>% .[]
 }
 
+globalVariables("id_")
 
 # transmute_dt = function(.data,...,by){
 #   dt = as_dt(.data)
