@@ -1,7 +1,7 @@
 
 #' @title Get the column name of the max/min number each row
 #' @description For a data.frame with numeric values, add a new column
-#' specifying the column name of the max/min value each row.
+#' specifying the column name of the first max/min value each row.
 #' @param .data A data.frame with numeric column(s)
 #' @param .name The column name of the new added column
 #' @return A data.table

@@ -73,7 +73,8 @@ slice_dt = function(.data,...,by = NULL){
   dt = as_dt(.data)
   substitute(by) %>% deparse() -> by_char
   if(by_char == "NULL") dt[eval(substitute(c(...)))]
-  else eval(substitute(
+  else
+    eval(substitute(
     dt[,.SD[c(...)],by]
   ))
 }

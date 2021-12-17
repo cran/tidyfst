@@ -19,7 +19,7 @@ A data.table
 }
 \description{
 For a data.frame with numeric values, add a new column
-specifying the column name of the max/min value each row.
+specifying the column name of the first max/min value each row.
 }
 \examples{
 set.seed(199057)
