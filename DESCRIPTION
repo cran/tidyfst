@@ -1,13 +1,13 @@
 Package: tidyfst
 Title: Tidy Verbs for Fast Data Manipulation
-Version: 1.5.0
+Version: 1.6.0
 Depends: R (>= 3.3.0)
 Authors@R: 
     person(given = "Tian-Yuan",
            family = "Huang",
            role = c("aut", "cre"),
            email = "huang.tian-yuan@qq.com",
-           comment = c(ORCID = "0000-0002-3591-4203"))
+           comment = c(ORCID = "0000-0002-4151-3764"))
 Description: A toolkit of tidy data manipulation verbs with 'data.table' as the backend.
   Combining the merits of syntax elegance from 'dplyr' and computing performance from 'data.table', 
   'tidyfst' intends to provide users with state-of-the-art data manipulation tools with least pain.
@@ -24,8 +24,8 @@ Suggests: knitr, rmarkdown, nycflights13, pryr, tidyr, ggplot2, dplyr,
         bench, testthat
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-12-17 07:58:46 UTC; DELL
-Author: Tian-Yuan Huang [aut, cre] (<https://orcid.org/0000-0002-3591-4203>)
+Packaged: 2022-02-17 06:35:10 UTC; DELL
+Author: Tian-Yuan Huang [aut, cre] (<https://orcid.org/0000-0002-4151-3764>)
 Maintainer: Tian-Yuan Huang <huang.tian-yuan@qq.com>
 Repository: CRAN
-Date/Publication: 2021-12-17 08:40:02 UTC
+Date/Publication: 2022-02-17 10:20:02 UTC
