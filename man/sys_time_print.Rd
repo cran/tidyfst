@@ -11,7 +11,7 @@ sys_time_print(expr)
 }
 \value{
 A character vector of the form HH:MM:SS,
-or SS.MMMsec if under 60 seconds. See examples.
+or SS.MMMsec if under 60 seconds (invisibly for \code{show_time}). See examples.
 }
 \description{
 Convenient printing of time elapsed. A wrapper of

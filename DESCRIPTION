@@ -1,6 +1,6 @@
 Package: tidyfst
 Title: Tidy Verbs for Fast Data Manipulation
-Version: 1.6.0
+Version: 1.6.5
 Depends: R (>= 3.3.0)
 Authors@R: 
     person(given = "Tian-Yuan",
@@ -18,14 +18,14 @@ URL: https://github.com/hope-data-science/tidyfst,
 BugReports: https://github.com/hope-data-science/tidyfst/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports: data.table (>= 1.13.0), fst (>= 0.9.0), stringr (>= 1.4.0)
 Suggests: knitr, rmarkdown, nycflights13, pryr, tidyr, ggplot2, dplyr,
         bench, testthat
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-02-17 06:35:10 UTC; DELL
+Packaged: 2022-04-27 11:38:01 UTC; DELL
 Author: Tian-Yuan Huang [aut, cre] (<https://orcid.org/0000-0002-4151-3764>)
 Maintainer: Tian-Yuan Huang <huang.tian-yuan@qq.com>
 Repository: CRAN
-Date/Publication: 2022-02-17 10:20:02 UTC
+Date/Publication: 2022-04-27 13:30:06 UTC
