@@ -9,6 +9,9 @@
 #' original column name? Default uses \code{TRUE}.
 #' @return data.table
 #' @details If no columns provided, will return the original data frame.
+#'  When NA exist in the input column, they would also be considered. If
+#'  the input character column contains both NA and string "NA", they would be
+#'  merged.
 #' @details This function is inspired by \pkg{fastDummies} package, but provides
 #' simple and precise usage, whereas \code{fastDummies::dummy_cols} provides more
 #' features for statistical usage.
@@ -20,6 +23,17 @@
 #'
 #' mtcars %>% head() %>% dummy_dt(vs,am)
 #' mtcars %>% head() %>% dummy_dt("cyl|gear")
+#'
+#' # when there are NAs in the column
+#' df <- data.table(x = c("a", "b", NA, NA),y = 1:4)
+#' df %>%
+#'   dummy_dt(x)
+#'
+#' # when NA  and "NA" both exist, they would be merged
+#' df <- data.table(x = c("a", "b", NA, "NA"),y = 1:4)
+#' df %>%
+#'   dummy_dt(x)
+#'
 
 #' @export
 dummy_dt = function(.data,...,longname = TRUE){
@@ -40,38 +54,47 @@ dummy_dt = function(.data,...,longname = TRUE){
 
 dummy_col = function(dt,col_name,longname){
 
+  dt[[col_name]] %>% unique() -> old_values
+  if(is.character(old_values) & anyNA(old_values) & "NA" %in% old_values){
+    dt[is.na(dt[[col_name]]),(col_name):="NA"]
+    dt[[col_name]] %>% unique() -> old_values
+  }
+
   dt[[col_name]] %>% unique() %>% as.character()-> old_names
+  old_names[is.na(old_values)] = "NA"
   if(!longname){
-    dt[,(old_names):=lapply(old_names,function(x) x == dt[[col_name]])][
+    dt[,(old_names):=lapply(old_values,function(x) {
+      sapply(as.list(dt[[col_name]]),FUN = identical,x)
+    })][
       ,(old_names):=lapply(.SD,as.numeric),.SDcols = old_names
     ][,(col_name):=NULL][]
   }else{
     str_c(col_name,old_names,sep="_") -> new_names
-    dt[,(old_names):=lapply(old_names,function(x) x == dt[[col_name]])]
+    dt[,(old_names):=lapply(old_values,function(x) {
+      sapply(as.list(dt[[col_name]]),FUN = identical,x)
+    })]
     setnames(dt,old = old_names,new = new_names)[
       ,(new_names):=lapply(.SD,as.numeric),.SDcols = new_names
     ][,(col_name):=NULL][]
   }
 }
 
-
-
+# # for this version, when there are NAs, yields an error
 # dummy_col = function(dt,col_name,longname){
-#   dt[, `:=`(one_=1,id_=1:.N) ]
 #
-#   if(longname){
-#     dt[[col_name]] %>% unique() %>% as.character() -> old_names
-#     str_c(col_name,old_names,sep="_") -> new_names
-#     str_glue("dt=dcast(dt,...~{col_name},value.var = 'one_',fill = 0)") -> to_eval
-#     eval(parse(text = to_eval))
-#     setnames(dt,old_names,new_names)
+#   dt[[col_name]] %>% unique() %>% as.character()-> old_names
+#   if(!longname){
+#     dt[,(old_names):=lapply(old_names,function(x) x == dt[[col_name]])][
+#       ,(old_names):=lapply(.SD,as.numeric),.SDcols = old_names
+#     ][,(col_name):=NULL][]
 #   }else{
-#     str_glue("dt=dcast(dt,...~{col_name},value.var = 'one_',fill = 0)") -> to_eval
-#     eval(parse(text = to_eval))
+#     str_c(col_name,old_names,sep="_") -> new_names
+#     dt[,(old_names):=lapply(old_names,function(x) x == dt[[col_name]])]
+#     setnames(dt,old = old_names,new = new_names)[
+#       ,(new_names):=lapply(.SD,as.numeric),.SDcols = new_names
+#     ][,(col_name):=NULL][]
 #   }
-#   dt[,id_:=NULL][]
 # }
-
 
 
 

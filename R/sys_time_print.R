@@ -17,6 +17,7 @@
 #' })
 #' res
 
+#' @rdname sys_time_print
 #' @export
 sys_time_print = function (expr) {
   started.at = proc.time()
@@ -24,7 +25,9 @@ sys_time_print = function (expr) {
   paste("# Finished in", timetaken(started.at))
 }
 
-
+#' @rdname sys_time_print
+#' @export
+pst = sys_time_print
 
 
 
