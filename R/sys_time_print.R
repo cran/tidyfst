@@ -1,5 +1,6 @@
 
 #' @title Convenient print of time taken
+#' @name sys_time_print
 #' @description Convenient printing of time elapsed. A wrapper of
 #' \code{data.table::timetaken}, but showing the results more directly.
 #' @param expr Valid R expression to be timed.

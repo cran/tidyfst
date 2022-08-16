@@ -1,6 +1,6 @@
-58cdbe7a226381ba77baa628a4728d7d *DESCRIPTION
+0544b83afb519d136defa7c9c6392548 *DESCRIPTION
 fa46fdeb983d6f95819a21a3bebdd744 *LICENSE
-be6ec631bea2572f5e635c7815adcf1c *NAMESPACE
+624c86fd502791ec29975da9cf3d4c27 *NAMESPACE
 887e796ba70a4fd3b9699244a427b980 *R/add_prop.R
 4671b91d1e2d5a948213f0d579cafe7d *R/arrange_dt.R
 e263d028c3597662eeaccca7b2e8a2fa *R/as_fst.R
@@ -29,7 +29,7 @@ c16a7d02b53e6a2751a1397333ea547b *R/mutate_when.R
 c3d2da59e51c69faa3bead750a8fd5d8 *R/object_size.R
 e0b22ab25815f1c8f43cee3150cdca75 *R/on_attach.R
 bdcb46b4b41523c088dabb8d2756487b *R/pairwise.R
-0e52aae5d8b8029cb1722b7a65c9ed91 *R/pkg_load.R
+161a3c9103fc60a169c9e2c3fbfcbc7e *R/pkg_load.R
 61e16e55b4e9dd284e38a363fa1795f3 *R/print.R
 31661defdbb7c0641d37af1bc456a244 *R/pull_dt.R
 3642a894fb34995cdbfe23cccb022503 *R/rec.R
@@ -43,8 +43,8 @@ ee8114e84b11441b2adc0779317ffcf0 *R/select_dt.R
 e44ce7a3e6267b357777b2de41a7bf26 *R/setops.R
 acddcfd50267221d25c8b82a895ec1d4 *R/slice.R
 5fcb6341c0a7ef3bd029d82b1e767d66 *R/sql_join.R
-09d155ea51d489bbcdb9e775dcd82798 *R/summarise_dt.R
-c989e567db4b44d1b70b9553cbacec91 *R/sys_time_print.R
+38ba79330f54c38b8b33c78140b9f512 *R/summarise_dt.R
+080fbbfd67f21005cf5817dcf90f2060 *R/sys_time_print.R
 fb16aa5a6b807c38630830403ec54d72 *R/tidymat.R
 f9d205e9124b442bf83cfe8dd87f4d28 *R/topn_dt.R
 fe0beccd5fc7156b7e5a840fd40a65e3 *R/transpose.R
@@ -56,10 +56,10 @@ c43cf4c86c951e6fdb7a98bdade0ed64 *build/vignette.rds
 982ee58bd449b94151a80ea6ce37f209 *inst/CITATION
 fe10d12db033f8f40f5f6d73e83f55c1 *inst/doc/benchmark.R
 dd03a80267400d0c6de119fca29dfae4 *inst/doc/benchmark.Rmd
-a60bc1747446d51c57c67c0232d48bfa *inst/doc/benchmark.html
+10d3a4a50db080cfe64de2635b145b04 *inst/doc/benchmark.html
 b2b654a78a7b7aa39e88b0759819f566 *inst/doc/chinese_tutorial.R
 b1828f64b4f29294da80e6859269bdae *inst/doc/chinese_tutorial.Rmd
-da0749ca010cb643cdab95eba299d38c *inst/doc/chinese_tutorial.html
+eac33c8861675828aed9f71b1525ebe7 *inst/doc/chinese_tutorial.html
 83d5abdedda0eab98ccc7508fae4ddf8 *inst/doc/english_tutorial.R
 e46a9372ef94f038a70b9420c76578b6 *inst/doc/english_tutorial.Rmd
 36a7d66af625d4af2700cabd3dcd3076 *inst/doc/english_tutorial.html
@@ -96,6 +96,7 @@ bf27f2bb6d027cba33afa72c550b4277 *man/figures/logo.png
 a3d4a6450cb5f4d63bec27804e3df965 *man/filter_dt.Rd
 416acb5f1f39507a7c18a7e3490e17c3 *man/fst.Rd
 c59b4e78a3cb0ed9784c23be44c886e2 *man/fst_io.Rd
+4740e153c83fdb76ab01e584e5964d84 *man/grapes-notin-grapes.Rd
 57c1a26f312862bf9a08d8a44bf86eea *man/group_by.Rd
 64fed23def9b5e454be2a871a218bca2 *man/group_dt.Rd
 2db7e7c6fda5142d9c0d98646cb632e6 *man/impute_dt.Rd
@@ -113,7 +114,7 @@ fb4b8f4047fff446ec34a6db677fa3f4 *man/pairwise.Rd
 36d86166798df8c0e906a3401edcf82c *man/print_options.Rd
 712163eca2b64e73bf73dca98f128864 *man/pull_dt.Rd
 973001751b63406e9a5177ce654daa26 *man/rec.Rd
-c6069e511bb5e5a25ef43e18a55b98ed *man/reexports.Rd
+e93e3b525a61b4975983cc4e8a0b4848 *man/reexports.Rd
 d05c599e6459c2aee4d18acd8416cb4a *man/relocate_dt.Rd
 a9c197e48951276c1c9141b4f177fdd5 *man/rename_dt.Rd
 af40dbc276bbd2f67981ed9840b685f6 *man/replace_dt.Rd
@@ -125,7 +126,7 @@ fc8c29845ab032075cbf2cc43e344057 *man/setops.Rd
 62d93c6195017297fe0d6d1b92ce14a8 *man/slice.Rd
 c26ac4105c403c57f08ba612c7afc593 *man/sql_join.Rd
 994afe1a003b4381b76bf550803945ae *man/summarise_dt.Rd
-e8d18df1bb4a5300193fd34c6a17767d *man/sys_time_print.Rd
+a79c9e97c943bb49f8f5422dc18f5be7 *man/sys_time_print.Rd
 c4379b130d9c0bdb212fe71d698c9e25 *man/t_dt.Rd
 95c24fbec9b0dd0a9ce4dfd9cfa9319c *man/tidymat.Rd
 898d8d67be311b93b019e80a48942979 *man/topn.Rd
