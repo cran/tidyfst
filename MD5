@@ -1,4 +1,4 @@
-20b9e11beb4ad71b154f77eae58daaaa *DESCRIPTION
+efc43bdb720e122d1dcd4e4e10c9e557 *DESCRIPTION
 fa46fdeb983d6f95819a21a3bebdd744 *LICENSE
 61577d29dd85c473e411657f5a34f08d *NAMESPACE
 887e796ba70a4fd3b9699244a427b980 *R/add_prop.R
@@ -11,7 +11,7 @@ e263d028c3597662eeaccca7b2e8a2fa *R/as_fst.R
 0d192b32d580419bda044590893e2572 *R/distinct_dt.R
 d5a7b8c35c9139aa1ea62655ea2f43c2 *R/dt.R
 66e575d7fdb0fe0d37f44273b8ecbd88 *R/dummy_dt.R
-bf3bd28272818b9bc2508331880b45a2 *R/filter_dt.R
+9e6aa836c344b7b35712e5cdf937ed32 *R/filter_dt.R
 436d74ea2a3b69173a84c3697c64ced3 *R/fst.R
 538acb836ec4a36631d24548cf170498 *R/fst_io.R
 cdcd2107fabbe6888bf06413e0628b05 *R/group_by.R
@@ -38,10 +38,10 @@ cd4c69833071097f7261bba92d14cc93 *R/rename_dt.R
 41da488bcf8f630f6f969944bca78b57 *R/replace_dt.R
 a4b8b7bdf6f10d1f2496e691faebfed4 *R/rownames.R
 373face4da829c5cd9939502e37de774 *R/sample.R
-ee8114e84b11441b2adc0779317ffcf0 *R/select_dt.R
+b3f7f14d30ba87b54f40adc652b402fa *R/select_dt.R
 10c0ab9eebb1f2584d22eee134c5a25c *R/separate.R
 e44ce7a3e6267b357777b2de41a7bf26 *R/setops.R
-35e088f6eea12244d7b6fb5c31deea14 *R/slice.R
+1de3822208570e930a70c2a50b1d8efc *R/slice.R
 5fcb6341c0a7ef3bd029d82b1e767d66 *R/sql_join.R
 38ba79330f54c38b8b33c78140b9f512 *R/summarise_dt.R
 080fbbfd67f21005cf5817dcf90f2060 *R/sys_time_print.R
@@ -55,10 +55,10 @@ b37e68a2157db714b842f6a48203e9e6 *R/wider_dt.R
 982ee58bd449b94151a80ea6ce37f209 *inst/CITATION
 fe10d12db033f8f40f5f6d73e83f55c1 *inst/doc/benchmark.R
 dd03a80267400d0c6de119fca29dfae4 *inst/doc/benchmark.Rmd
-a905584283589ad5f3bce9e27e2b0e99 *inst/doc/benchmark.html
+1c3e17514fd30d125cba431a3f255f43 *inst/doc/benchmark.html
 b2b654a78a7b7aa39e88b0759819f566 *inst/doc/chinese_tutorial.R
 b1828f64b4f29294da80e6859269bdae *inst/doc/chinese_tutorial.Rmd
-c20dd31c1ee34e74154155a6aaf967fd *inst/doc/chinese_tutorial.html
+25f2addd1f9f53e8f7596dfd8967da7b *inst/doc/chinese_tutorial.html
 632c1e6e6b3d8fb7036e817016963b4a *inst/doc/english_tutorial.R
 e08b6ca7e83febec63397bd7895592d1 *inst/doc/english_tutorial.Rmd
 4f316bf4b50c4b3145476d6df28d704d *inst/doc/english_tutorial.html
