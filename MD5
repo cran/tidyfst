@@ -1,4 +1,4 @@
-efc43bdb720e122d1dcd4e4e10c9e557 *DESCRIPTION
+040e66038e139b2987c9e0762b50e42f *DESCRIPTION
 fa46fdeb983d6f95819a21a3bebdd744 *LICENSE
 61577d29dd85c473e411657f5a34f08d *NAMESPACE
 887e796ba70a4fd3b9699244a427b980 *R/add_prop.R
@@ -14,6 +14,7 @@ d5a7b8c35c9139aa1ea62655ea2f43c2 *R/dt.R
 9e6aa836c344b7b35712e5cdf937ed32 *R/filter_dt.R
 436d74ea2a3b69173a84c3697c64ced3 *R/fst.R
 538acb836ec4a36631d24548cf170498 *R/fst_io.R
+ebc23ddcc5914cd71b4c31835ca14da2 *R/global_setting.R
 cdcd2107fabbe6888bf06413e0628b05 *R/group_by.R
 4fa7f6d50678ac1d5241eb284112b5ab *R/group_dt.R
 7909b3e1a9d9a9f5c906fc70ca1f7f42 *R/impute_dt.R
@@ -28,7 +29,7 @@ c16a7d02b53e6a2751a1397333ea547b *R/mutate_when.R
 3f205e3ce9fa656041294f29c642f420 *R/nth.R
 c3d2da59e51c69faa3bead750a8fd5d8 *R/object_size.R
 e0b22ab25815f1c8f43cee3150cdca75 *R/on_attach.R
-bdcb46b4b41523c088dabb8d2756487b *R/pairwise.R
+af945873f820ead23f2e12f002f37010 *R/pairwise.R
 161a3c9103fc60a169c9e2c3fbfcbc7e *R/pkg_load.R
 61e16e55b4e9dd284e38a363fa1795f3 *R/print.R
 31661defdbb7c0641d37af1bc456a244 *R/pull_dt.R
@@ -48,17 +49,18 @@ e44ce7a3e6267b357777b2de41a7bf26 *R/setops.R
 fb16aa5a6b807c38630830403ec54d72 *R/tidymat.R
 fe0beccd5fc7156b7e5a840fd40a65e3 *R/transpose.R
 06e923ad00853582fdec2e742c60bcaa *R/uncount.R
-ce3f94777435eed21607d6f9f8516612 *R/unite.R
+9d4c1a57fc87f38b9bfe03c3a5f0749a *R/unite.R
 c6b77b8bd641490f64e7c5c3b4484f3a *R/utf8_encoding.R
 b37e68a2157db714b842f6a48203e9e6 *R/wider_dt.R
+baa112c212d2fb17aadf706f82040109 *README.md
 26543a975e2b28f0fae1d6799d06ae6c *build/vignette.rds
 982ee58bd449b94151a80ea6ce37f209 *inst/CITATION
 fe10d12db033f8f40f5f6d73e83f55c1 *inst/doc/benchmark.R
 dd03a80267400d0c6de119fca29dfae4 *inst/doc/benchmark.Rmd
-1c3e17514fd30d125cba431a3f255f43 *inst/doc/benchmark.html
+c55a9510dcfdc33e71e9bf46b5de230c *inst/doc/benchmark.html
 b2b654a78a7b7aa39e88b0759819f566 *inst/doc/chinese_tutorial.R
 b1828f64b4f29294da80e6859269bdae *inst/doc/chinese_tutorial.Rmd
-25f2addd1f9f53e8f7596dfd8967da7b *inst/doc/chinese_tutorial.html
+a02d7e7c6062f8fdf10d5f61ff80656a *inst/doc/chinese_tutorial.html
 632c1e6e6b3d8fb7036e817016963b4a *inst/doc/english_tutorial.R
 e08b6ca7e83febec63397bd7895592d1 *inst/doc/english_tutorial.Rmd
 4f316bf4b50c4b3145476d6df28d704d *inst/doc/english_tutorial.html
