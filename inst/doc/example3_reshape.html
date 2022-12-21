@@ -120,13 +120,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -370,8 +377,7 @@ load the packages:</p>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18 Unaffiliated      217     299     374     365     341     528     407     321</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 2 more variables: `&gt;150k` &lt;dbl&gt;, `Don&#39;t know/refused` &lt;dbl&gt;, and</span></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   abbreviated variable names ¹​`$10-20k`, ²​`$20-30k`, ³​`$30-40k`, ⁴​`$40-50k`,</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ⁵​`$50-75k`, ⁶​`$75-100k`, ⁷​`$100-150k`</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `colnames()` to see all variable names</span></span></code></pre></div>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   ⁵​`$50-75k`, ⁶​`$75-100k`, ⁷​`$100-150k`</span></span></code></pre></div>
 <p>In <code>tidyr</code>, to get the longer format you need:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>relig_income <span class="sc">%&gt;%</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>religion, <span class="at">names_to =</span> <span class="st">&quot;income&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;count&quot;</span>)</span></code></pre></div>
@@ -432,62 +438,61 @@ different data types and do the coercion automatically.</p>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 4842  BCW2        1</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 4842  MAE         1</span></span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 104 more rows</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="do">## tidyr way:</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>fish_encounters <span class="sc">%&gt;%</span> </span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> station, <span class="at">values_from =</span> seen)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 19 × 12</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 4842        1     1      1     1       1     1     1     1     1     1     1</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 4843        1     1      1     1       1     1     1     1     1     1     1</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 4844        1     1      1     1       1     1     1     1     1     1     1</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 4845        1     1      1     1       1    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 4847        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 4848        1     1      1     1      NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 4849        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 4850        1     1     NA     1       1     1     1    NA    NA    NA    NA</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 4851        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 4854        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 4855        1     1      1     1       1    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 4857        1     1      1     1       1     1     1     1     1    NA    NA</span></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 4858        1     1      1     1       1     1     1     1     1     1     1</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 4859        1     1      1     1       1    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 4861        1     1      1     1       1     1     1     1     1     1     1</span></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16 4862        1     1      1     1       1     1     1     1     1    NA    NA</span></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17 4863        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18 4864        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19 4865        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="do">## tidyfst way:</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>fish_encounters <span class="sc">%&gt;%</span> </span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wider_dt</span>(<span class="at">name =</span> <span class="st">&quot;station&quot;</span>,<span class="at">value =</span> <span class="st">&quot;seen&quot;</span>)</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Key: &lt;fish&gt;</span></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       fish Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2</span></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;fctr&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:   4842       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:   4843       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:   4844       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:   4845       1     1      1     1       1    NA    NA    NA    NA</span></span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:   4847       1     1      1    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:   4848       1     1      1     1      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:   4849       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:   4850       1     1     NA     1       1     1     1    NA    NA</span></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:   4851       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:   4854       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11:   4855       1     1      1     1       1    NA    NA    NA    NA</span></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12:   4857       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13:   4858       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14:   4859       1     1      1     1       1    NA    NA    NA    NA</span></span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15:   4861       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16:   4862       1     1      1     1       1     1     1     1     1</span></span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17:   4863       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18:   4864       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19:   4865       1     1      1    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [MAE &lt;int&gt;, MAW &lt;int&gt;]</span></span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="co"># if no keeped groups are selected, use all except for name and value columns</span></span></code></pre></div>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="do">## tidyr way:</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>fish_encounters <span class="sc">%&gt;%</span> </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> station, <span class="at">values_from =</span> seen)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 19 × 12</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 4842        1     1      1     1       1     1     1     1     1     1     1</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 4843        1     1      1     1       1     1     1     1     1     1     1</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 4844        1     1      1     1       1     1     1     1     1     1     1</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 4845        1     1      1     1       1    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 4847        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 4848        1     1      1     1      NA    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 4849        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 4850        1     1     NA     1       1     1     1    NA    NA    NA    NA</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 4851        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 4854        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 4855        1     1      1     1       1    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 4857        1     1      1     1       1     1     1     1     1    NA    NA</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 4858        1     1      1     1       1     1     1     1     1     1     1</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 4859        1     1      1     1       1    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 4861        1     1      1     1       1     1     1     1     1     1     1</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16 4862        1     1      1     1       1     1     1     1     1    NA    NA</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17 4863        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18 4864        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19 4865        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="do">## tidyfst way:</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>fish_encounters <span class="sc">%&gt;%</span> </span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wider_dt</span>(<span class="at">name =</span> <span class="st">&quot;station&quot;</span>,<span class="at">value =</span> <span class="st">&quot;seen&quot;</span>)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Key: &lt;fish&gt;</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       fish Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;fctr&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1:   4842       1     1      1     1       1     1     1     1     1</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2:   4843       1     1      1     1       1     1     1     1     1</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3:   4844       1     1      1     1       1     1     1     1     1</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4:   4845       1     1      1     1       1    NA    NA    NA    NA</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5:   4847       1     1      1    NA      NA    NA    NA    NA    NA</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6:   4848       1     1      1     1      NA    NA    NA    NA    NA</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7:   4849       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8:   4850       1     1     NA     1       1     1     1    NA    NA</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9:   4851       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10:   4854       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11:   4855       1     1      1     1       1    NA    NA    NA    NA</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12:   4857       1     1      1     1       1     1     1     1     1</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13:   4858       1     1      1     1       1     1     1     1     1</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14:   4859       1     1      1     1       1    NA    NA    NA    NA</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15:   4861       1     1      1     1       1     1     1     1     1</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16:   4862       1     1      1     1       1     1     1     1     1</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17:   4863       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18:   4864       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19:   4865       1     1      1    NA      NA    NA    NA    NA    NA</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [MAE &lt;int&gt;, MAW &lt;int&gt;]</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="co"># if no keeped groups are selected, use all except for name and value columns</span></span></code></pre></div>
 <p>If you want to fill with 0s, use:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fish_encounters <span class="sc">%&gt;%</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wider_dt</span>(<span class="at">name =</span> <span class="st">&quot;station&quot;</span>,<span class="at">value =</span> <span class="st">&quot;seen&quot;</span>,<span class="at">fill =</span> <span class="dv">0</span>)</span>

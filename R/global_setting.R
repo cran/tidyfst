@@ -84,4 +84,7 @@ data.table::set
 data.table::setDT
 
 #' @export
+data.table::setDF
+
+#' @export
 data.table::setnames

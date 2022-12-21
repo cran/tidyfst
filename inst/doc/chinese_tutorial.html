@@ -120,13 +120,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -409,7 +416,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">max_price =</span> <span class="fu">max</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.020s elapsed (0.010s cpu)&quot;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.010s elapsed (0.000s cpu)&quot;</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>r1_1</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           cut color mean_price median_price max_price</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         &lt;ord&gt; &lt;ord&gt;      &lt;num&gt;        &lt;num&gt;     &lt;int&gt;</span></span>
@@ -462,7 +469,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">head</span>(<span class="dv">1</span>)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.040s elapsed (0.050s cpu)&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.060s elapsed (0.090s cpu)&quot;</span></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>r1_2</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               dt carat       cut color clarity depth table price     x</span></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt;</span></span>
@@ -489,7 +496,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  r2_1 <span class="ot">&lt;-</span> dat1 <span class="sc">%&gt;%</span> </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join_dt</span>(dat2,<span class="at">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.090s elapsed (0.120s cpu)&quot;</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>r2_1</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
@@ -513,7 +520,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  mymerge <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="fu">left_join_dt</span>(x, y, <span class="at">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  r2_2 <span class="ot">&lt;-</span> <span class="fu">Reduce</span>(mymerge, <span class="fu">list</span>(dat1, dat2, dat3))</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.070s elapsed (0.080s cpu)&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.030s elapsed (0.030s cpu)&quot;</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>r2_2</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
@@ -545,7 +552,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">name =</span> <span class="st">&quot;color&quot;</span>,</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">fun =</span> <span class="fu">list</span>(mean1,max1))</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.010s elapsed (0.010s cpu)&quot;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.020s elapsed (0.050s cpu)&quot;</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>r3_1</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Key: &lt;cut&gt;</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          cut depth_mean1_D depth_mean1_E depth_mean1_F depth_mean1_G</span></span>
@@ -566,7 +573,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">name =</span> <span class="st">&quot;xyz&quot;</span>,</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">value =</span> <span class="st">&quot;xyzvalue&quot;</span>)</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.010s elapsed (0.020s cpu)&quot;</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>r3_2 </span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               cut color    xyz xyzvalue</span></span>
@@ -621,7 +628,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">sd_price =</span> <span class="fu">sd</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">by =</span> .(cut, color))</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.020s elapsed (0.050s cpu)&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.020s elapsed (0.000s cpu)&quot;</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>dat1</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
@@ -649,7 +656,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_dt</span>(<span class="at">id =</span> <span class="fu">seq</span>(.N))</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="ot">-&gt;</span> dat1</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 1.350s elapsed (1.350s cpu)&quot;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 1.600s elapsed (1.540s cpu)&quot;</span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>dat1</span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt;</span></span>
@@ -680,7 +687,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      )</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> dat1</span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.720s elapsed (0.710s cpu)&quot;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.990s elapsed (0.970s cpu)&quot;</span></span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>dat1</span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         color         dt carat       cut clarity depth table price     x</span></span>
@@ -702,7 +709,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="系统参数" class="section level2">
 <h2>系统参数</h2>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R version 4.2.1 (2022-06-23 ucrt)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R version 4.2.2 (2022-10-31 ucrt)</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Running under: Windows 10 x64 (build 19044)</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
@@ -719,21 +726,21 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; other attached packages:</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] bench_1.1.2       dplyr_1.0.9       data.table_1.14.2 tidyfst_1.7.5    </span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] bench_1.1.2       dplyr_1.0.10      data.table_1.14.2 tidyfst_1.7.6    </span></span>
 <span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] Rcpp_1.0.9       bslib_0.4.0      compiler_4.2.1   pillar_1.8.0    </span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] jquerylib_0.1.4  tools_4.2.1      digest_0.6.29    gtable_0.3.0    </span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] jsonlite_1.8.0   evaluate_0.16    lifecycle_1.0.1  tibble_3.1.8    </span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] fstcore_0.9.12   pkgconfig_2.0.3  rlang_1.0.4      DBI_1.1.3       </span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17] cli_3.3.0        rstudioapi_0.13  yaml_2.3.5       parallel_4.2.1  </span></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [21] xfun_0.32        fastmap_1.1.0    stringr_1.4.0    knitr_1.39      </span></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [25] generics_0.1.3   sass_0.4.2       vctrs_0.4.1      grid_4.2.1      </span></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [29] tidyselect_1.1.2 glue_1.6.2       R6_2.5.1         fansi_1.0.3     </span></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [33] profmem_0.6.0    rmarkdown_2.14   ggplot2_3.3.6    purrr_0.3.4     </span></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [37] magrittr_2.0.3   scales_1.2.0     ellipsis_0.3.2   htmltools_0.5.3 </span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [41] assertthat_0.2.1 fst_0.9.8        colorspace_2.0-3 utf8_1.2.2      </span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [45] stringi_1.7.8    munsell_0.5.0    cachem_1.0.6</span></span></code></pre></div>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] Rcpp_1.0.9       bslib_0.4.1      compiler_4.2.2   pillar_1.8.1    </span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] jquerylib_0.1.4  tools_4.2.2      digest_0.6.30    gtable_0.3.1    </span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] jsonlite_1.8.3   evaluate_0.18    lifecycle_1.0.3  tibble_3.1.8    </span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] fstcore_0.9.12   pkgconfig_2.0.3  rlang_1.0.6      DBI_1.1.3       </span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17] cli_3.4.1        rstudioapi_0.14  yaml_2.3.6       parallel_4.2.2  </span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [21] xfun_0.35        fastmap_1.1.0    withr_2.5.0      stringr_1.5.0   </span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [25] knitr_1.41       generics_0.1.3   vctrs_0.5.1      sass_0.4.2      </span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [29] grid_4.2.2       tidyselect_1.2.0 glue_1.6.2       R6_2.5.1        </span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [33] fansi_1.0.3      profmem_0.6.0    rmarkdown_2.18   ggplot2_3.4.0   </span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [37] magrittr_2.0.3   scales_1.2.1     htmltools_0.5.3  assertthat_0.2.1</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [41] fst_0.9.8        colorspace_2.0-3 utf8_1.2.2       stringi_1.7.8   </span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [45] munsell_0.5.0    cachem_1.0.6</span></span></code></pre></div>
 </div>
 
 

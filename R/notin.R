@@ -1,7 +1,7 @@
 
 #' @title Not in operator
 #'
-#' @description Inverse operation of match (`%in%`)
+#' @description Inverse operation of match.
 #'
 #' @param x vector or NULL
 #' @param y vector or NULL
