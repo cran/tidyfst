@@ -367,57 +367,57 @@ get the results all at once. You do not have to read the data to know
 the structure of data.frame, because we have <code>parse_fst</code>(a
 wrapper for <code>fst</code> in <em>fst</em> package). Now let’s give it
 a try.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyfst)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate some random data frame with 10 million rows and various column types</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>nr_of_rows <span class="ot">&lt;-</span> <span class="fl">1e7</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Logical =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span>), <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>), nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Integer =</span> <span class="fu">sample</span>(1L<span class="sc">:</span>100L, nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Real =</span> <span class="fu">sample</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="dv">20</span>) <span class="sc">/</span> <span class="dv">100</span>, nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Factor =</span> <span class="fu">as.factor</span>(<span class="fu">sample</span>(<span class="fu">labels</span>(UScitiesD), nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># write the fst file, make sure you do not have the file with same name in the directory</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">export_fst</span>(df,<span class="st">&quot;fst_test.fst&quot;</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># remove all variables in the environment</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyfst)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># Generate some random data frame with 10 million rows and various column types</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>nr_of_rows <span class="ot">&lt;-</span> <span class="fl">1e7</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>    <span class="at">Logical =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span>), <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>), nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="at">Integer =</span> <span class="fu">sample</span>(1L<span class="sc">:</span>100L, nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    <span class="at">Real =</span> <span class="fu">sample</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="dv">20</span>) <span class="sc">/</span> <span class="dv">100</span>, nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>    <span class="at">Factor =</span> <span class="fu">as.factor</span>(<span class="fu">sample</span>(<span class="fu">labels</span>(UScitiesD), nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  )</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># write the fst file, make sure you do not have the file with same name in the directory</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="fu">export_fst</span>(df,<span class="st">&quot;fst_test.fst&quot;</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co"># remove all variables in the environment</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code></pre></div>
 <p>Now, we want to know the information in the data frame.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_fst</span>(<span class="st">&quot;fst_test.fst&quot;</span>) <span class="ot">-&gt;</span> ft</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ft</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">parse_fst</span>(<span class="st">&quot;fst_test.fst&quot;</span>) <span class="ot">-&gt;</span> ft</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>ft</span></code></pre></div>
 <p>If we want to get the information in the <code>Factor</code> column,
 use:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ft <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_fst</span>(Factor) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count_dt</span>(Factor) <span class="ot">-&gt;</span> factor_info</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>factor_info</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>ft <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">select_fst</span>(Factor) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">count_dt</span>(Factor) <span class="ot">-&gt;</span> factor_info</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>factor_info</span></code></pre></div>
 <p>If we want to calculate the mean of <code>Integer</code> by the group
 of <code>Factor</code>, use:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ft <span class="sc">%&gt;%</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_fst</span>(Integer,Factor) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_dt</span>(<span class="at">avg =</span> <span class="fu">mean</span>(Integer),<span class="at">by =</span> Factor) <span class="ot">-&gt;</span> avg_info</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>avg_info</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>ft <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">select_fst</span>(Integer,Factor) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">summarise_dt</span>(<span class="at">avg =</span> <span class="fu">mean</span>(Integer),<span class="at">by =</span> Factor) <span class="ot">-&gt;</span> avg_info</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>avg_info</span></code></pre></div>
 <p>In this workflow, we only select/filter/slice the data we need, and
 get the results directly from the pipeline. Therefore, we read the
 minimum needed data into RAM and release it and save only the results we
 want. This workflow could save memory for many exploratory big data
 analysis. Last, let’s delete the output file:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># delete the output file</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unlink</span>(<span class="st">&quot;fst_test.fst&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># delete the output file</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">unlink</span>(<span class="st">&quot;fst_test.fst&quot;</span>)</span></code></pre></div>
 <p>After (&gt;=) version 0.9.3, tidyfst has also added a function
 <code>as_fst()</code>, which can turn any data.frame into a fst table
 and saved the data in the temporary file. This means that we might never
 have to save the object in the RAM ever (as long as it is a data.frame)!
 A small example:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">as_fst</span>() <span class="ot">-&gt;</span> iris_fst</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">as_fst</span>() <span class="ot">-&gt;</span> mtcars_fst</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>iris_fst</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>mtcars_fst</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">as_fst</span>() <span class="ot">-&gt;</span> iris_fst</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">as_fst</span>() <span class="ot">-&gt;</span> mtcars_fst</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>iris_fst</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>mtcars_fst</span></code></pre></div>
 <p>So when you have generated a pretty large data.frame and do not want
 it to consume the cache in your computer, just save it and read it when
 needed using <code>as_fst</code>.</p>

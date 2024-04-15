@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
@@ -52,7 +52,7 @@ bench::mark(
                   by = .(id4,id5)],
   tidyfst = DT %>%
     summarise_dt(
-      by = "id4,id5",
+      by = c("id4", "id5"),
       median_v3 = median(v3),
       sd_v3 = sd(v3)
     ),
