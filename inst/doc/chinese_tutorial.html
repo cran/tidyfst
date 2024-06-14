@@ -49,7 +49,7 @@ overflow: visible;
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -363,20 +363,20 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>                   <span class="at">price2 =</span> <span class="fu">sample</span>(<span class="dv">1000</span>, <span class="fu">min</span>(n<span class="sc">/</span><span class="dv">1000</span>, <span class="fu">length</span>(dtranges)), <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="fu">print</span>(dat1)</span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt;      1:  2.23   Premium     J     VS2  61.0    58 14867  8.39  8.36  5.11</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt;      2:  0.46     Ideal     F     SI2  61.5    54   758  4.98  5.01  3.07</span></span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt;      3:  0.70     Ideal     H    VVS1  60.9    57  3611  5.70  5.78  3.50</span></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt;      4:  1.50   Premium     F     VS2  61.5    58 14719  7.34  7.32  4.51</span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#&gt;      5:  0.40 Very Good     G      IF  61.0    59  1154  4.75  4.79  2.91</span></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt;     ---                                                                  </span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#&gt;  99996:  1.14     Ideal     F     VS2  61.4    56  8017  6.73  6.78  4.14</span></span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co">#&gt;  99997:  0.39     Ideal     F     SI1  61.8    55   886  4.70  4.72  2.91</span></span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt;  99998:  2.00      Good     F     SI1  63.0    64 17869  7.67  7.76  4.86</span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt;  99999:  1.00   Premium     H     VS2  59.7    59  5139  6.57  6.52  3.91</span></span>
-<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; 100000:  0.30     Ideal     G    VVS2  60.6    57   878  4.35  4.33  2.63</span></span>
-<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="co">#&gt; 1 variable not shown: [dt &lt;Date&gt;]</span></span></code></pre></div>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt;      1:  2.23   Premium     J     VS2  61.0    58 14867  8.39  8.36</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt;      2:  0.46     Ideal     F     SI2  61.5    54   758  4.98  5.01</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt;      3:  0.70     Ideal     H    VVS1  60.9    57  3611  5.70  5.78</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt;      4:  1.50   Premium     F     VS2  61.5    58 14719  7.34  7.32</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#&gt;      5:  0.40 Very Good     G      IF  61.0    59  1154  4.75  4.79</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt;     ---                                                            </span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#&gt;  99996:  1.14     Ideal     F     VS2  61.4    56  8017  6.73  6.78</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co">#&gt;  99997:  0.39     Ideal     F     SI1  61.8    55   886  4.70  4.72</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt;  99998:  2.00      Good     F     SI1  63.0    64 17869  7.67  7.76</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt;  99999:  1.00   Premium     H     VS2  59.7    59  5139  6.57  6.52</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; 100000:  0.30     Ideal     G    VVS2  60.6    57   878  4.35  4.33</span></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
 </div>
 <div id="基础" class="section level2">
 <h2>基础</h2>
@@ -385,20 +385,20 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>后面的分析，经常要根据日期进行计算。所以，先对日期进行排序，就能够提高运行速度。在tidyfst中，可以使用<code>arrange_dt</code>函数来对数据进行原位的各种操作，其中就包括排序。</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>dat1 <span class="ot">=</span> <span class="fu">arrange_dt</span>(dat1,dt)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>dat1</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44  2.76</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23  2.70</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66  4.10</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44  3.83</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03  3.28</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt;     ---                                                                  </span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42  2.73</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39  2.75</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19  2.58</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30  2.66</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40  2.74</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; 1 variable not shown: [dt &lt;Date&gt;]</span></span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt;     ---                                                            </span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
 <p>那么，现在dat1的数据就按照日期排好序了。</p>
 </div>
 <div id="聚合" class="section level3">
@@ -468,7 +468,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>      <span class="fu">head</span>(<span class="dv">1</span>)</span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    )</span>
 <span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>})</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.030s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.010s elapsed (0.000s cpu)&quot;</span></span>
 <span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>r1_2</span>
 <span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt;               dt carat       cut color clarity depth table price     x</span></span>
 <span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt;           &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt;</span></span>
@@ -483,7 +483,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; 3286: 2019-12-30  1.55 Very Good     H     VS2  63.3    56 10546  7.38</span></span>
 <span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; 3287: 2019-12-31  1.51 Very Good     F    VVS2  63.1    56 17317  7.32</span></span>
 <span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; 3288: 2020-01-01  2.04   Premium     J     VS2  63.0    58 13734  8.02</span></span>
-<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [y &lt;num&gt;, z &lt;num&gt;]</span></span></code></pre></div>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [y &lt;num&gt;, z &lt;num&gt;]</span></span></code></pre></div>
 </div>
 </div>
 <div id="join" class="section level3">
@@ -511,7 +511,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16</span></span>
 <span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28</span></span>
 <span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38</span></span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; 3 variables not shown: [y &lt;num&gt;, z &lt;num&gt;, price1 &lt;int&gt;]</span></span></code></pre></div>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; 3 variable(s) not shown: [y &lt;num&gt;, z &lt;num&gt;, price1 &lt;int&gt;]</span></span></code></pre></div>
 </div>
 <div id="多重join" class="section level4">
 <h4>2.多重join</h4>
@@ -519,7 +519,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  mymerge <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="fu">left_join_dt</span>(x, y, <span class="at">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  r2_2 <span class="ot">&lt;-</span> <span class="fu">Reduce</span>(mymerge, <span class="fu">list</span>(dat1, dat2, dat3))</span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>})</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.060s elapsed (0.020s cpu)&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.060s elapsed (0.030s cpu)&quot;</span></span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>r2_2</span>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
 <span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
@@ -535,7 +535,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16</span></span>
 <span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28</span></span>
 <span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38</span></span>
-<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; 4 variables not shown: [y &lt;num&gt;, z &lt;num&gt;, price1 &lt;int&gt;, price2 &lt;int&gt;]</span></span></code></pre></div>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; 4 variable(s) not shown: [y &lt;num&gt;, z &lt;num&gt;, price1 &lt;int&gt;, price2 &lt;int&gt;]</span></span></code></pre></div>
 </div>
 </div>
 <div id="长宽表转换" class="section level3">
@@ -551,7 +551,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>             <span class="at">name =</span> <span class="st">&quot;color&quot;</span>,</span>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>             <span class="at">fun =</span> <span class="fu">list</span>(mean1,max1))</span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>})</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.020s elapsed (0.000s cpu)&quot;</span></span>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>r3_1</span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; Key: &lt;cut&gt;</span></span>
 <span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;          cut depth_mean1_D depth_mean1_E depth_mean1_F depth_mean1_G</span></span>
@@ -561,7 +561,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; 3: Very Good      61.70454      61.73751      61.73138      61.83043</span></span>
 <span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; 4:   Premium      61.18875      61.16850      61.25098      61.27894</span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; 5:     Ideal      61.67241      61.68693      61.65616      61.70585</span></span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; 24 variables not shown: [depth_mean1_H &lt;num&gt;, depth_mean1_I &lt;num&gt;, depth_mean1_J &lt;num&gt;, price_mean1_D &lt;num&gt;, price_mean1_E &lt;num&gt;, price_mean1_F &lt;num&gt;, price_mean1_G &lt;num&gt;, price_mean1_H &lt;num&gt;, price_mean1_I &lt;num&gt;, price_mean1_J &lt;num&gt;, ...]</span></span></code></pre></div>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; 24 variable(s) not shown: [depth_mean1_H &lt;num&gt;, depth_mean1_I &lt;num&gt;, depth_mean1_J &lt;num&gt;, price_mean1_D &lt;num&gt;, price_mean1_E &lt;num&gt;, price_mean1_F &lt;num&gt;, price_mean1_G &lt;num&gt;, price_mean1_H &lt;num&gt;, price_mean1_I &lt;num&gt;, price_mean1_J &lt;num&gt;, ...]</span></span></code></pre></div>
 </div>
 <div id="宽表转长表" class="section level4">
 <h4>2.宽表转长表</h4>
@@ -601,20 +601,20 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>})</span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>dat1</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44  2.76</span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23  2.70</span></span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66  4.10</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44  3.83</span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03  3.28</span></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt;     ---                                                                  </span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42  2.73</span></span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39  2.75</span></span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19  2.58</span></span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30  2.66</span></span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40  2.74</span></span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; 1 variable not shown: [dt &lt;Date&gt;]</span></span></code></pre></div>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt;     ---                                                            </span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
 </div>
 <div id="添加子维度聚合结果为新列" class="section level3">
 <h3>添加子维度聚合结果为新列</h3>
@@ -627,23 +627,23 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>           <span class="at">sd_price =</span> <span class="fu">sd</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>           <span class="at">by =</span> .(cut, color))</span>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>})</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.020s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.060s elapsed (0.020s cpu)&quot;</span></span>
 <span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a></span>
 <span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>dat1</span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y     z</span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44  2.76</span></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23  2.70</span></span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66  4.10</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44  3.83</span></span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03  3.28</span></span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt;     ---                                                                  </span></span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42  2.73</span></span>
-<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39  2.75</span></span>
-<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19  2.58</span></span>
-<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30  2.66</span></span>
-<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40  2.74</span></span>
-<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="co">#&gt; 1 variable not shown: [dt &lt;Date&gt;]</span></span></code></pre></div>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt;         &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt;      1:  0.34 Very Good     H     VS2  62.4  60.0   537  4.41  4.44</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt;      2:  0.30      Good     G     VS1  63.6  57.0   776  4.26  4.23</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt;      3:  1.12     Ideal     F    VVS2  61.4  57.0  9634  6.69  6.66</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt;      4:  1.00   Premium     E     SI1  59.1  58.0  4805  6.52  6.44</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt;      5:  0.50      Fair     D    VVS1  65.9  64.0  1792  4.92  5.03</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt;     ---                                                            </span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt;  99996:  0.32     Ideal     J     VS1  62.0  54.7   442  4.39  4.42</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="co">#&gt;  99997:  0.33     Ideal     G     VS2  62.5  57.0   743  4.41  4.39</span></span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
 </div>
 <div id="以dat1为例以dt分组添加一列序号id" class="section level4">
 <h4>2.以dat1为例，以dt分组添加一列序号id</h4>
@@ -655,7 +655,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>    <span class="fu">mutate_dt</span>(<span class="at">id =</span> <span class="fu">seq</span>(.N))</span>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  ) <span class="ot">-&gt;</span> dat1</span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>})</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.750s elapsed (0.210s cpu)&quot;</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.730s elapsed (0.180s cpu)&quot;</span></span>
 <span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>dat1</span>
 <span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
 <span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt;</span></span>
@@ -670,7 +670,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16</span></span>
 <span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28</span></span>
 <span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38</span></span>
-<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; 3 variables not shown: [y &lt;num&gt;, z &lt;num&gt;, id &lt;int&gt;]</span></span></code></pre></div>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; 3 variable(s) not shown: [y &lt;num&gt;, z &lt;num&gt;, id &lt;int&gt;]</span></span></code></pre></div>
 </div>
 </div>
 <div id="移动函数" class="section level3">
@@ -686,7 +686,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>      )</span>
 <span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> dat1</span>
 <span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>})</span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.560s elapsed (0.250s cpu)&quot;</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.410s elapsed (0.110s cpu)&quot;</span></span>
 <span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a></span>
 <span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>dat1</span>
 <span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt;         color         dt carat       cut clarity depth table price     x</span></span>
@@ -702,14 +702,14 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a><span class="co">#&gt;  99998:     I 2019-12-31  0.30     Ideal     SI1  61.3    56   506  4.33</span></span>
 <span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="co">#&gt;  99999:     I 2020-01-01  1.22   Premium     VS2  62.3    59  5832  6.79</span></span>
 <span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a><span class="co">#&gt; 100000:     I 2020-01-01  0.28 Very Good     VS2  61.9    57   379  4.16</span></span>
-<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a><span class="co">#&gt; 5 variables not shown: [y &lt;num&gt;, z &lt;num&gt;, id &lt;int&gt;, MA10_price &lt;num&gt;, MSD10_price &lt;num&gt;]</span></span></code></pre></div>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a><span class="co">#&gt; 5 variable(s) not shown: [y &lt;num&gt;, z &lt;num&gt;, id &lt;int&gt;, MA10_price &lt;num&gt;, MSD10_price &lt;num&gt;]</span></span></code></pre></div>
 </div>
 </div>
 <div id="系统参数" class="section level2">
 <h2>系统参数</h2>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; R version 4.3.2 (2023-10-31 ucrt)</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; R version 4.4.0 (2024-04-24 ucrt)</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64</span></span>
 <span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; Running under: Windows 11 x64 (build 22631)</span></span>
 <span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; Matrix products: default</span></span>
@@ -729,20 +729,20 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a><span class="co">#&gt; other attached packages:</span></span>
-<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co">#&gt; [1] bench_1.1.3       dplyr_1.1.3       data.table_1.14.8 tidyfst_1.7.8    </span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co">#&gt; [1] bench_1.1.3       dplyr_1.1.4       data.table_1.15.4 tidyfst_1.7.9    </span></span>
 <span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="co">#&gt;  [1] gtable_0.3.4      jsonlite_1.8.7    compiler_4.3.2    tidyselect_1.2.0 </span></span>
-<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co">#&gt;  [5] Rcpp_1.0.11       stringr_1.5.0     parallel_4.3.2    jquerylib_0.1.4  </span></span>
-<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="co">#&gt;  [9] scales_1.2.1      yaml_2.3.7        fastmap_1.1.1     ggplot2_3.4.4    </span></span>
-<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="co">#&gt; [13] R6_2.5.1          generics_0.1.3    knitr_1.45        tibble_3.2.1     </span></span>
-<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="co">#&gt; [17] munsell_0.5.0     bslib_0.5.1       pillar_1.9.0      rlang_1.1.1      </span></span>
-<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a><span class="co">#&gt; [21] utf8_1.2.3        cachem_1.0.8      stringi_1.7.12    xfun_0.42        </span></span>
-<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="co">#&gt; [25] sass_0.4.7        cli_3.6.1         withr_2.5.2       magrittr_2.0.3   </span></span>
-<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="co">#&gt; [29] grid_4.3.2        digest_0.6.33     rstudioapi_0.15.0 fst_0.9.8        </span></span>
-<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a><span class="co">#&gt; [33] lifecycle_1.0.3   vctrs_0.6.3       evaluate_0.22     glue_1.6.2       </span></span>
-<span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a><span class="co">#&gt; [37] colorspace_2.1-0  profmem_0.6.0     fansi_1.0.5       fstcore_0.9.14   </span></span>
-<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a><span class="co">#&gt; [41] rmarkdown_2.25    tools_4.3.2       pkgconfig_2.0.3   htmltools_0.5.6.1</span></span></code></pre></div>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="co">#&gt;  [1] gtable_0.3.5      jsonlite_1.8.8    compiler_4.4.0    tidyselect_1.2.1 </span></span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co">#&gt;  [5] Rcpp_1.0.12       stringr_1.5.1     parallel_4.4.0    jquerylib_0.1.4  </span></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="co">#&gt;  [9] scales_1.3.0      yaml_2.3.8        fastmap_1.2.0     ggplot2_3.5.1    </span></span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="co">#&gt; [13] R6_2.5.1          generics_0.1.3    knitr_1.46        tibble_3.2.1     </span></span>
+<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="co">#&gt; [17] munsell_0.5.1     bslib_0.7.0       pillar_1.9.0      rlang_1.1.3      </span></span>
+<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a><span class="co">#&gt; [21] utf8_1.2.4        cachem_1.1.0      stringi_1.8.3     xfun_0.43        </span></span>
+<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="co">#&gt; [25] sass_0.4.9        cli_3.6.2         withr_3.0.0       magrittr_2.0.3   </span></span>
+<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="co">#&gt; [29] grid_4.4.0        digest_0.6.35     rstudioapi_0.16.0 fst_0.9.8        </span></span>
+<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a><span class="co">#&gt; [33] lifecycle_1.0.4   vctrs_0.6.5       evaluate_0.23     glue_1.7.0       </span></span>
+<span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a><span class="co">#&gt; [37] colorspace_2.1-0  profmem_0.6.0     fansi_1.0.6       fstcore_0.9.18   </span></span>
+<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a><span class="co">#&gt; [41] rmarkdown_2.27    tools_4.4.0       pkgconfig_2.0.3   htmltools_0.5.8.1</span></span></code></pre></div>
 </div>
 
 

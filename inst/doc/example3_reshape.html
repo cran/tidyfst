@@ -49,7 +49,7 @@ overflow: visible;
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -488,7 +488,7 @@ different data types and do the coercion automatically.</p>
 <span id="cb6-66"><a href="#cb6-66" tabindex="-1"></a><span class="co">#&gt; 17:   4863       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
 <span id="cb6-67"><a href="#cb6-67" tabindex="-1"></a><span class="co">#&gt; 18:   4864       1     1     NA    NA      NA    NA    NA    NA    NA</span></span>
 <span id="cb6-68"><a href="#cb6-68" tabindex="-1"></a><span class="co">#&gt; 19:   4865       1     1      1    NA      NA    NA    NA    NA    NA</span></span>
-<span id="cb6-69"><a href="#cb6-69" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [MAE &lt;int&gt;, MAW &lt;int&gt;]</span></span>
+<span id="cb6-69"><a href="#cb6-69" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [MAE &lt;int&gt;, MAW &lt;int&gt;]</span></span>
 <span id="cb6-70"><a href="#cb6-70" tabindex="-1"></a></span>
 <span id="cb6-71"><a href="#cb6-71" tabindex="-1"></a><span class="co"># if no keeped groups are selected, use all except for name and value columns</span></span></code></pre></div>
 <p>If you want to fill with 0s, use:</p>
@@ -516,7 +516,7 @@ different data types and do the coercion automatically.</p>
 <span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; 17:   4863       1     1      0     0       0     0     0     0     0</span></span>
 <span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt; 18:   4864       1     1      0     0       0     0     0     0     0</span></span>
 <span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt; 19:   4865       1     1      1     0       0     0     0     0     0</span></span>
-<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [MAE &lt;int&gt;, MAW &lt;int&gt;]</span></span></code></pre></div>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [MAE &lt;int&gt;, MAW &lt;int&gt;]</span></span></code></pre></div>
 <p>Note that the parameter of <code>name</code> and <code>value</code>
 should always be provided and should be explicit called (with the
 parameter names attached).</p>
@@ -541,7 +541,7 @@ example. If we have a data.frame as below:</p>
 <span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; 3:         3         26 2002-07-11 2004-04-05 2007-09-02             2</span></span>
 <span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; 4:         4         32 2004-10-10 2009-08-27 2012-07-21             1</span></span>
 <span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; 5:         5         29 2000-12-05 2005-02-28       &lt;NA&gt;             2</span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [gender_child2 &lt;int&gt;, gender_child3 &lt;int&gt;]</span></span></code></pre></div>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [gender_child2 &lt;int&gt;, gender_child3 &lt;int&gt;]</span></span></code></pre></div>
 <p>And want to reshape the data.table to be like this:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">#     family_id age_mother  child        dob gender</span></span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#         &lt;int&gt;      &lt;int&gt; &lt;char&gt;     &lt;char&gt; &lt;char&gt;</span></span>

@@ -49,7 +49,7 @@ overflow: visible;
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -374,7 +374,7 @@ a try.</p>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>    <span class="at">Logical =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span>), <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>), nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="at">Integer =</span> <span class="fu">sample</span>(1L<span class="sc">:</span>100L, nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="at">Integer =</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="dt">L</span><span class="sc">:</span><span class="dv">100</span><span class="dt">L</span>, nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    <span class="at">Real =</span> <span class="fu">sample</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="dv">20</span>) <span class="sc">/</span> <span class="dv">100</span>, nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>    <span class="at">Factor =</span> <span class="fu">as.factor</span>(<span class="fu">sample</span>(<span class="fu">labels</span>(UScitiesD), nr_of_rows, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  )</span>

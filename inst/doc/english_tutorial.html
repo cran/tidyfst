@@ -49,7 +49,7 @@ overflow: visible;
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -358,10 +358,10 @@ Now let’s begin.</p>
 <h2>Create example data</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyfst)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">set.seed</span>(1L)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span><span class="dt">L</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="do">## Create a data table</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>DF <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">V1 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(1L, 2L), <span class="dv">5</span>)[<span class="sc">-</span><span class="dv">10</span>],</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>DF <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">V1 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>), <span class="dv">5</span>)[<span class="sc">-</span><span class="dv">10</span>],</span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>                <span class="at">V2 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,</span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>                <span class="at">V3 =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="fl">1.5</span>),</span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>                <span class="at">V4 =</span> <span class="fu">rep</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">3</span>))</span>
@@ -1453,12 +1453,12 @@ Now let’s begin.</p>
 <div id="join" class="section level2">
 <h2>Join</h2>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">Id  =</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;C&quot;</span>),</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>                <span class="at">X1  =</span> <span class="fu">c</span>(1L, 3L, 5L, 7L),</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>                <span class="at">X1  =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>, <span class="dv">5</span><span class="dt">L</span>, <span class="dv">7</span><span class="dt">L</span>),</span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>                <span class="at">XY  =</span> <span class="fu">c</span>(<span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x6&quot;</span>, <span class="st">&quot;x8&quot;</span>),</span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>                <span class="at">key =</span> <span class="st">&quot;Id&quot;</span>)</span>
 <span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a></span>
 <span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">Id  =</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;D&quot;</span>),</span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>                <span class="at">Y1  =</span> <span class="fu">c</span>(1L, 3L, 5L, 7L),</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>                <span class="at">Y1  =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>, <span class="dv">5</span><span class="dt">L</span>, <span class="dv">7</span><span class="dt">L</span>),</span>
 <span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>                <span class="at">XY  =</span> <span class="fu">c</span>(<span class="st">&quot;y1&quot;</span>, <span class="st">&quot;y3&quot;</span>, <span class="st">&quot;y5&quot;</span>, <span class="st">&quot;y7&quot;</span>),</span>
 <span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>                <span class="at">key =</span> <span class="st">&quot;Id&quot;</span>)</span>
 <span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a></span>
@@ -1524,7 +1524,7 @@ Now let’s begin.</p>
 <h2>Bind</h2>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>, 0L)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>, <span class="dv">0</span><span class="dt">L</span>)</span>
 <span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="do">### Bind rows</span></span>
 <span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="fu">rbind</span>(x, y)</span>
 <span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt;       V1</span></span>
