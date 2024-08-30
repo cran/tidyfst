@@ -495,7 +495,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  r2_1 <span class="ot">&lt;-</span> dat1 <span class="sc">%&gt;%</span> </span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="fu">left_join_dt</span>(dat2,<span class="at">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>})</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.010s elapsed (0.000s cpu)&quot;</span></span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>r2_1</span>
 <span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
@@ -519,7 +519,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  mymerge <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="fu">left_join_dt</span>(x, y, <span class="at">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  r2_2 <span class="ot">&lt;-</span> <span class="fu">Reduce</span>(mymerge, <span class="fu">list</span>(dat1, dat2, dat3))</span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>})</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.060s elapsed (0.030s cpu)&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.060s elapsed (0.020s cpu)&quot;</span></span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>r2_2</span>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
 <span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
@@ -627,7 +627,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>           <span class="at">sd_price =</span> <span class="fu">sd</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>           <span class="at">by =</span> .(cut, color))</span>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>})</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.060s elapsed (0.020s cpu)&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.020s elapsed (0.000s cpu)&quot;</span></span>
 <span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a></span>
 <span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>dat1</span>
 <span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y</span></span>
@@ -655,7 +655,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>    <span class="fu">mutate_dt</span>(<span class="at">id =</span> <span class="fu">seq</span>(.N))</span>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  ) <span class="ot">-&gt;</span> dat1</span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>})</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.730s elapsed (0.180s cpu)&quot;</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.770s elapsed (0.220s cpu)&quot;</span></span>
 <span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>dat1</span>
 <span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
 <span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt;</span></span>
@@ -686,7 +686,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>      )</span>
 <span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> dat1</span>
 <span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>})</span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.410s elapsed (0.110s cpu)&quot;</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.450s elapsed (0.110s cpu)&quot;</span></span>
 <span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a></span>
 <span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>dat1</span>
 <span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt;         color         dt carat       cut clarity depth table price     x</span></span>
@@ -708,7 +708,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="系统参数" class="section level2">
 <h2>系统参数</h2>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; R version 4.4.0 (2024-04-24 ucrt)</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; R version 4.4.1 (2024-06-14 ucrt)</span></span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64</span></span>
 <span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; Running under: Windows 11 x64 (build 22631)</span></span>
 <span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
@@ -729,20 +729,20 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a><span class="co">#&gt; other attached packages:</span></span>
-<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co">#&gt; [1] bench_1.1.3       dplyr_1.1.4       data.table_1.15.4 tidyfst_1.7.9    </span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co">#&gt; [1] bench_1.1.3       dplyr_1.1.4       data.table_1.15.4 tidyfst_1.8.0    </span></span>
 <span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="co">#&gt;  [1] gtable_0.3.5      jsonlite_1.8.8    compiler_4.4.0    tidyselect_1.2.1 </span></span>
-<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co">#&gt;  [5] Rcpp_1.0.12       stringr_1.5.1     parallel_4.4.0    jquerylib_0.1.4  </span></span>
-<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="co">#&gt;  [9] scales_1.3.0      yaml_2.3.8        fastmap_1.2.0     ggplot2_3.5.1    </span></span>
-<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="co">#&gt; [13] R6_2.5.1          generics_0.1.3    knitr_1.46        tibble_3.2.1     </span></span>
-<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="co">#&gt; [17] munsell_0.5.1     bslib_0.7.0       pillar_1.9.0      rlang_1.1.3      </span></span>
-<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a><span class="co">#&gt; [21] utf8_1.2.4        cachem_1.1.0      stringi_1.8.3     xfun_0.43        </span></span>
-<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="co">#&gt; [25] sass_0.4.9        cli_3.6.2         withr_3.0.0       magrittr_2.0.3   </span></span>
-<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="co">#&gt; [29] grid_4.4.0        digest_0.6.35     rstudioapi_0.16.0 fst_0.9.8        </span></span>
-<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a><span class="co">#&gt; [33] lifecycle_1.0.4   vctrs_0.6.5       evaluate_0.23     glue_1.7.0       </span></span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="co">#&gt;  [1] gtable_0.3.5      jsonlite_1.8.8    compiler_4.4.1    tidyselect_1.2.1 </span></span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co">#&gt;  [5] Rcpp_1.0.13       stringr_1.5.1     parallel_4.4.1    jquerylib_0.1.4  </span></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="co">#&gt;  [9] scales_1.3.0      yaml_2.3.9        fastmap_1.2.0     ggplot2_3.5.1    </span></span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="co">#&gt; [13] R6_2.5.1          generics_0.1.3    knitr_1.48        tibble_3.2.1     </span></span>
+<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="co">#&gt; [17] munsell_0.5.1     bslib_0.7.0       pillar_1.9.0      rlang_1.1.4      </span></span>
+<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a><span class="co">#&gt; [21] utf8_1.2.4        cachem_1.1.0      stringi_1.8.4     xfun_0.46        </span></span>
+<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="co">#&gt; [25] sass_0.4.9        cli_3.6.3         withr_3.0.1       magrittr_2.0.3   </span></span>
+<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="co">#&gt; [29] grid_4.4.1        digest_0.6.36     rstudioapi_0.16.0 fst_0.9.8        </span></span>
+<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a><span class="co">#&gt; [33] lifecycle_1.0.4   vctrs_0.6.5       evaluate_0.24.0   glue_1.7.0       </span></span>
 <span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a><span class="co">#&gt; [37] colorspace_2.1-0  profmem_0.6.0     fansi_1.0.6       fstcore_0.9.18   </span></span>
-<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a><span class="co">#&gt; [41] rmarkdown_2.27    tools_4.4.0       pkgconfig_2.0.3   htmltools_0.5.8.1</span></span></code></pre></div>
+<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a><span class="co">#&gt; [41] rmarkdown_2.27    tools_4.4.1       pkgconfig_2.0.3   htmltools_0.5.8.1</span></span></code></pre></div>
 </div>
 
 
