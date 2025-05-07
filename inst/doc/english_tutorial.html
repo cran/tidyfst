@@ -430,98 +430,95 @@ Now let’s begin.</p>
 <span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="co">#&gt; 6:     1     9   1.5      C</span></span>
 <span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a></span>
 <span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="do">### Filter rows using multiple conditions</span></span>
-<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="fu">filter_dt</span>(DF, V1 <span class="sc">==</span> <span class="dv">1</span>, V4 <span class="sc">==</span> <span class="st">&quot;A&quot;</span>)</span>
-<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE FALSE FALSE  TRUE FALSE</span></span>
-<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co"># equals to</span></span>
-<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="fu">filter_dt</span>(DF, V1 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> V4 <span class="sc">==</span> <span class="st">&quot;A&quot;</span>)</span>
-<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
-<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">#&gt; 2:     1     7   0.5      A</span></span>
-<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="do">### Filter unique rows</span></span>
-<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="fu">distinct_dt</span>(DF) <span class="co"># unique(DF)</span></span>
-<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V1&gt;, &lt;V4__V1&gt;</span></span>
-<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
-<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a><span class="co">#&gt; 2:     2     2   1.0      B</span></span>
-<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="co">#&gt; 3:     1     3   1.5      C</span></span>
-<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="co">#&gt; 4:     2     4   0.5      A</span></span>
-<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a><span class="co">#&gt; 5:     1     5   1.0      B</span></span>
-<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a><span class="co">#&gt; 6:     2     6   1.5      C</span></span>
-<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a><span class="co">#&gt; 7:     1     7   0.5      A</span></span>
-<span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a><span class="co">#&gt; 8:     2     8   1.0      B</span></span>
-<span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a><span class="co">#&gt; 9:     1     9   1.5      C</span></span>
-<span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a><span class="fu">distinct_dt</span>(DF, V1,V4)</span>
-<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a><span class="co">#&gt;       V1     V4</span></span>
-<span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;char&gt;</span></span>
-<span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a><span class="co">#&gt; 1:     1      A</span></span>
-<span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a><span class="co">#&gt; 2:     2      B</span></span>
-<span id="cb2-73"><a href="#cb2-73" tabindex="-1"></a><span class="co">#&gt; 3:     1      C</span></span>
-<span id="cb2-74"><a href="#cb2-74" tabindex="-1"></a><span class="co">#&gt; 4:     2      A</span></span>
-<span id="cb2-75"><a href="#cb2-75" tabindex="-1"></a><span class="co">#&gt; 5:     1      B</span></span>
-<span id="cb2-76"><a href="#cb2-76" tabindex="-1"></a><span class="co">#&gt; 6:     2      C</span></span>
-<span id="cb2-77"><a href="#cb2-77" tabindex="-1"></a></span>
-<span id="cb2-78"><a href="#cb2-78" tabindex="-1"></a><span class="do">### Discard rows with missing values</span></span>
-<span id="cb2-79"><a href="#cb2-79" tabindex="-1"></a><span class="fu">drop_na_dt</span>(DF) <span class="co"># na.omit(DF)</span></span>
-<span id="cb2-80"><a href="#cb2-80" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V1&gt;, &lt;V4__V1&gt;</span></span>
-<span id="cb2-81"><a href="#cb2-81" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb2-82"><a href="#cb2-82" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb2-83"><a href="#cb2-83" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
-<span id="cb2-84"><a href="#cb2-84" tabindex="-1"></a><span class="co">#&gt; 2:     2     2   1.0      B</span></span>
-<span id="cb2-85"><a href="#cb2-85" tabindex="-1"></a><span class="co">#&gt; 3:     1     3   1.5      C</span></span>
-<span id="cb2-86"><a href="#cb2-86" tabindex="-1"></a><span class="co">#&gt; 4:     2     4   0.5      A</span></span>
-<span id="cb2-87"><a href="#cb2-87" tabindex="-1"></a><span class="co">#&gt; 5:     1     5   1.0      B</span></span>
-<span id="cb2-88"><a href="#cb2-88" tabindex="-1"></a><span class="co">#&gt; 6:     2     6   1.5      C</span></span>
-<span id="cb2-89"><a href="#cb2-89" tabindex="-1"></a><span class="co">#&gt; 7:     1     7   0.5      A</span></span>
-<span id="cb2-90"><a href="#cb2-90" tabindex="-1"></a><span class="co">#&gt; 8:     2     8   1.0      B</span></span>
-<span id="cb2-91"><a href="#cb2-91" tabindex="-1"></a><span class="co">#&gt; 9:     1     9   1.5      C</span></span>
-<span id="cb2-92"><a href="#cb2-92" tabindex="-1"></a></span>
-<span id="cb2-93"><a href="#cb2-93" tabindex="-1"></a><span class="do">### Other filters</span></span>
-<span id="cb2-94"><a href="#cb2-94" tabindex="-1"></a><span class="fu">sample_n_dt</span>(DF, <span class="dv">3</span>)      <span class="co"># n random rows</span></span>
-<span id="cb2-95"><a href="#cb2-95" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb2-96"><a href="#cb2-96" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb2-97"><a href="#cb2-97" tabindex="-1"></a><span class="co">#&gt; 1:     1     9   1.5      C</span></span>
-<span id="cb2-98"><a href="#cb2-98" tabindex="-1"></a><span class="co">#&gt; 2:     2     4   0.5      A</span></span>
-<span id="cb2-99"><a href="#cb2-99" tabindex="-1"></a><span class="co">#&gt; 3:     1     7   0.5      A</span></span>
-<span id="cb2-100"><a href="#cb2-100" tabindex="-1"></a><span class="fu">sample_frac_dt</span>(DF, <span class="fl">0.5</span>) <span class="co"># fraction of random rows</span></span>
-<span id="cb2-101"><a href="#cb2-101" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb2-102"><a href="#cb2-102" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb2-103"><a href="#cb2-103" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
-<span id="cb2-104"><a href="#cb2-104" tabindex="-1"></a><span class="co">#&gt; 2:     2     2   1.0      B</span></span>
-<span id="cb2-105"><a href="#cb2-105" tabindex="-1"></a><span class="co">#&gt; 3:     1     5   1.0      B</span></span>
-<span id="cb2-106"><a href="#cb2-106" tabindex="-1"></a><span class="co">#&gt; 4:     1     3   1.5      C</span></span>
-<span id="cb2-107"><a href="#cb2-107" tabindex="-1"></a><span class="fu">slice_max_dt</span>(DF, V1,<span class="dv">1</span>)     <span class="co"># top n entries (includes equals)</span></span>
-<span id="cb2-108"><a href="#cb2-108" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb2-109"><a href="#cb2-109" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb2-110"><a href="#cb2-110" tabindex="-1"></a><span class="co">#&gt; 1:     2     2   1.0      B</span></span>
-<span id="cb2-111"><a href="#cb2-111" tabindex="-1"></a><span class="co">#&gt; 2:     2     4   0.5      A</span></span>
-<span id="cb2-112"><a href="#cb2-112" tabindex="-1"></a><span class="co">#&gt; 3:     2     6   1.5      C</span></span>
-<span id="cb2-113"><a href="#cb2-113" tabindex="-1"></a><span class="co">#&gt; 4:     2     8   1.0      B</span></span>
-<span id="cb2-114"><a href="#cb2-114" tabindex="-1"></a></span>
-<span id="cb2-115"><a href="#cb2-115" tabindex="-1"></a><span class="fu">filter_dt</span>(DT,V4 <span class="sc">%like%</span> <span class="st">&quot;^B&quot;</span>)</span>
-<span id="cb2-116"><a href="#cb2-116" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb2-117"><a href="#cb2-117" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb2-118"><a href="#cb2-118" tabindex="-1"></a><span class="co">#&gt; 1:     2     2     1      B</span></span>
-<span id="cb2-119"><a href="#cb2-119" tabindex="-1"></a><span class="co">#&gt; 2:     1     5     1      B</span></span>
-<span id="cb2-120"><a href="#cb2-120" tabindex="-1"></a><span class="co">#&gt; 3:     2     8     1      B</span></span>
-<span id="cb2-121"><a href="#cb2-121" tabindex="-1"></a><span class="fu">filter_dt</span>(DT,V2 <span class="sc">%between%</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>))</span>
-<span id="cb2-122"><a href="#cb2-122" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb2-123"><a href="#cb2-123" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb2-124"><a href="#cb2-124" tabindex="-1"></a><span class="co">#&gt; 1:     1     3   1.5      C</span></span>
-<span id="cb2-125"><a href="#cb2-125" tabindex="-1"></a><span class="co">#&gt; 2:     2     4   0.5      A</span></span>
-<span id="cb2-126"><a href="#cb2-126" tabindex="-1"></a><span class="co">#&gt; 3:     1     5   1.0      B</span></span>
-<span id="cb2-127"><a href="#cb2-127" tabindex="-1"></a><span class="fu">filter_dt</span>(DT,<span class="fu">between</span>(V2, <span class="dv">3</span>, <span class="dv">5</span>, <span class="at">incbounds =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb2-128"><a href="#cb2-128" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb2-129"><a href="#cb2-129" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb2-130"><a href="#cb2-130" tabindex="-1"></a><span class="co">#&gt; 1:     2     4   0.5      A</span></span>
-<span id="cb2-131"><a href="#cb2-131" tabindex="-1"></a><span class="fu">filter_dt</span>(DT,V2 <span class="sc">%inrange%</span> <span class="fu">list</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))  <span class="co"># see also ?inrange</span></span>
-<span id="cb2-132"><a href="#cb2-132" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb2-133"><a href="#cb2-133" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb2-134"><a href="#cb2-134" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
-<span id="cb2-135"><a href="#cb2-135" tabindex="-1"></a><span class="co">#&gt; 2:     2     2   1.0      B</span></span>
-<span id="cb2-136"><a href="#cb2-136" tabindex="-1"></a><span class="co">#&gt; 3:     1     3   1.5      C</span></span></code></pre></div>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="fu">filter_dt</span>(DF, V1 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> V4 <span class="sc">==</span> <span class="st">&quot;A&quot;</span>)</span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="co">#&gt; 2:     1     7   0.5      A</span></span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="do">### Filter unique rows</span></span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="fu">distinct_dt</span>(DF) <span class="co"># unique(DF)</span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V4__V1&gt;</span></span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
+<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="co">#&gt; 2:     2     2   1.0      B</span></span>
+<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="co">#&gt; 3:     1     3   1.5      C</span></span>
+<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a><span class="co">#&gt; 4:     2     4   0.5      A</span></span>
+<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a><span class="co">#&gt; 5:     1     5   1.0      B</span></span>
+<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="co">#&gt; 6:     2     6   1.5      C</span></span>
+<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="co">#&gt; 7:     1     7   0.5      A</span></span>
+<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a><span class="co">#&gt; 8:     2     8   1.0      B</span></span>
+<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a><span class="co">#&gt; 9:     1     9   1.5      C</span></span>
+<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a><span class="fu">distinct_dt</span>(DF, V1,V4)</span>
+<span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a><span class="co">#&gt;       V1     V4</span></span>
+<span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;char&gt;</span></span>
+<span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a><span class="co">#&gt; 1:     1      A</span></span>
+<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a><span class="co">#&gt; 2:     2      B</span></span>
+<span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a><span class="co">#&gt; 3:     1      C</span></span>
+<span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a><span class="co">#&gt; 4:     2      A</span></span>
+<span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a><span class="co">#&gt; 5:     1      B</span></span>
+<span id="cb2-73"><a href="#cb2-73" tabindex="-1"></a><span class="co">#&gt; 6:     2      C</span></span>
+<span id="cb2-74"><a href="#cb2-74" tabindex="-1"></a></span>
+<span id="cb2-75"><a href="#cb2-75" tabindex="-1"></a><span class="do">### Discard rows with missing values</span></span>
+<span id="cb2-76"><a href="#cb2-76" tabindex="-1"></a><span class="fu">drop_na_dt</span>(DF) <span class="co"># na.omit(DF)</span></span>
+<span id="cb2-77"><a href="#cb2-77" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V4__V1&gt;</span></span>
+<span id="cb2-78"><a href="#cb2-78" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb2-79"><a href="#cb2-79" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb2-80"><a href="#cb2-80" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
+<span id="cb2-81"><a href="#cb2-81" tabindex="-1"></a><span class="co">#&gt; 2:     2     2   1.0      B</span></span>
+<span id="cb2-82"><a href="#cb2-82" tabindex="-1"></a><span class="co">#&gt; 3:     1     3   1.5      C</span></span>
+<span id="cb2-83"><a href="#cb2-83" tabindex="-1"></a><span class="co">#&gt; 4:     2     4   0.5      A</span></span>
+<span id="cb2-84"><a href="#cb2-84" tabindex="-1"></a><span class="co">#&gt; 5:     1     5   1.0      B</span></span>
+<span id="cb2-85"><a href="#cb2-85" tabindex="-1"></a><span class="co">#&gt; 6:     2     6   1.5      C</span></span>
+<span id="cb2-86"><a href="#cb2-86" tabindex="-1"></a><span class="co">#&gt; 7:     1     7   0.5      A</span></span>
+<span id="cb2-87"><a href="#cb2-87" tabindex="-1"></a><span class="co">#&gt; 8:     2     8   1.0      B</span></span>
+<span id="cb2-88"><a href="#cb2-88" tabindex="-1"></a><span class="co">#&gt; 9:     1     9   1.5      C</span></span>
+<span id="cb2-89"><a href="#cb2-89" tabindex="-1"></a></span>
+<span id="cb2-90"><a href="#cb2-90" tabindex="-1"></a><span class="do">### Other filters</span></span>
+<span id="cb2-91"><a href="#cb2-91" tabindex="-1"></a><span class="fu">sample_n_dt</span>(DF, <span class="dv">3</span>)      <span class="co"># n random rows</span></span>
+<span id="cb2-92"><a href="#cb2-92" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb2-93"><a href="#cb2-93" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb2-94"><a href="#cb2-94" tabindex="-1"></a><span class="co">#&gt; 1:     1     9   1.5      C</span></span>
+<span id="cb2-95"><a href="#cb2-95" tabindex="-1"></a><span class="co">#&gt; 2:     2     4   0.5      A</span></span>
+<span id="cb2-96"><a href="#cb2-96" tabindex="-1"></a><span class="co">#&gt; 3:     1     7   0.5      A</span></span>
+<span id="cb2-97"><a href="#cb2-97" tabindex="-1"></a><span class="fu">sample_frac_dt</span>(DF, <span class="fl">0.5</span>) <span class="co"># fraction of random rows</span></span>
+<span id="cb2-98"><a href="#cb2-98" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb2-99"><a href="#cb2-99" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb2-100"><a href="#cb2-100" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
+<span id="cb2-101"><a href="#cb2-101" tabindex="-1"></a><span class="co">#&gt; 2:     2     2   1.0      B</span></span>
+<span id="cb2-102"><a href="#cb2-102" tabindex="-1"></a><span class="co">#&gt; 3:     1     5   1.0      B</span></span>
+<span id="cb2-103"><a href="#cb2-103" tabindex="-1"></a><span class="co">#&gt; 4:     1     3   1.5      C</span></span>
+<span id="cb2-104"><a href="#cb2-104" tabindex="-1"></a><span class="fu">slice_max_dt</span>(DF, V1,<span class="dv">1</span>)     <span class="co"># top n entries (includes equals)</span></span>
+<span id="cb2-105"><a href="#cb2-105" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb2-106"><a href="#cb2-106" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb2-107"><a href="#cb2-107" tabindex="-1"></a><span class="co">#&gt; 1:     2     2   1.0      B</span></span>
+<span id="cb2-108"><a href="#cb2-108" tabindex="-1"></a><span class="co">#&gt; 2:     2     4   0.5      A</span></span>
+<span id="cb2-109"><a href="#cb2-109" tabindex="-1"></a><span class="co">#&gt; 3:     2     6   1.5      C</span></span>
+<span id="cb2-110"><a href="#cb2-110" tabindex="-1"></a><span class="co">#&gt; 4:     2     8   1.0      B</span></span>
+<span id="cb2-111"><a href="#cb2-111" tabindex="-1"></a></span>
+<span id="cb2-112"><a href="#cb2-112" tabindex="-1"></a><span class="fu">filter_dt</span>(DT,V4 <span class="sc">%like%</span> <span class="st">&quot;^B&quot;</span>)</span>
+<span id="cb2-113"><a href="#cb2-113" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb2-114"><a href="#cb2-114" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb2-115"><a href="#cb2-115" tabindex="-1"></a><span class="co">#&gt; 1:     2     2     1      B</span></span>
+<span id="cb2-116"><a href="#cb2-116" tabindex="-1"></a><span class="co">#&gt; 2:     1     5     1      B</span></span>
+<span id="cb2-117"><a href="#cb2-117" tabindex="-1"></a><span class="co">#&gt; 3:     2     8     1      B</span></span>
+<span id="cb2-118"><a href="#cb2-118" tabindex="-1"></a><span class="fu">filter_dt</span>(DT,V2 <span class="sc">%between%</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>))</span>
+<span id="cb2-119"><a href="#cb2-119" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb2-120"><a href="#cb2-120" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb2-121"><a href="#cb2-121" tabindex="-1"></a><span class="co">#&gt; 1:     1     3   1.5      C</span></span>
+<span id="cb2-122"><a href="#cb2-122" tabindex="-1"></a><span class="co">#&gt; 2:     2     4   0.5      A</span></span>
+<span id="cb2-123"><a href="#cb2-123" tabindex="-1"></a><span class="co">#&gt; 3:     1     5   1.0      B</span></span>
+<span id="cb2-124"><a href="#cb2-124" tabindex="-1"></a><span class="fu">filter_dt</span>(DT,<span class="fu">between</span>(V2, <span class="dv">3</span>, <span class="dv">5</span>, <span class="at">incbounds =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb2-125"><a href="#cb2-125" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb2-126"><a href="#cb2-126" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb2-127"><a href="#cb2-127" tabindex="-1"></a><span class="co">#&gt; 1:     2     4   0.5      A</span></span>
+<span id="cb2-128"><a href="#cb2-128" tabindex="-1"></a><span class="fu">filter_dt</span>(DT,V2 <span class="sc">%inrange%</span> <span class="fu">list</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))  <span class="co"># see also ?inrange</span></span>
+<span id="cb2-129"><a href="#cb2-129" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb2-130"><a href="#cb2-130" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb2-131"><a href="#cb2-131" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
+<span id="cb2-132"><a href="#cb2-132" tabindex="-1"></a><span class="co">#&gt; 2:     2     2   1.0      B</span></span>
+<span id="cb2-133"><a href="#cb2-133" tabindex="-1"></a><span class="co">#&gt; 3:     1     3   1.5      C</span></span></code></pre></div>
 </div>
 <div id="sort-rows" class="section level2">
 <h2>Sort rows</h2>
@@ -629,7 +626,7 @@ Now let’s begin.</p>
 <span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a></span>
 <span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a><span class="do">### Exclude columns</span></span>
 <span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="sc">-</span>V2, <span class="sc">-</span>V3)</span>
-<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V1&gt;, &lt;V4__V1&gt;</span></span>
+<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V4__V1&gt;</span></span>
 <span id="cb4-62"><a href="#cb4-62" tabindex="-1"></a><span class="co">#&gt;       V1     V4</span></span>
 <span id="cb4-63"><a href="#cb4-63" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;char&gt;</span></span>
 <span id="cb4-64"><a href="#cb4-64" tabindex="-1"></a><span class="co">#&gt; 1:     1      A</span></span>
@@ -657,7 +654,7 @@ Now let’s begin.</p>
 <span id="cb4-86"><a href="#cb4-86" tabindex="-1"></a><span class="co">#&gt; 8:     8   1.0</span></span>
 <span id="cb4-87"><a href="#cb4-87" tabindex="-1"></a><span class="co">#&gt; 9:     9   1.5</span></span>
 <span id="cb4-88"><a href="#cb4-88" tabindex="-1"></a><span class="fu">select_dt</span>(DF,<span class="at">cols =</span> cols,<span class="at">negate =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-89"><a href="#cb4-89" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V1&gt;, &lt;V4__V1&gt;</span></span>
+<span id="cb4-89"><a href="#cb4-89" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V4__V1&gt;</span></span>
 <span id="cb4-90"><a href="#cb4-90" tabindex="-1"></a><span class="co">#&gt;       V1     V4</span></span>
 <span id="cb4-91"><a href="#cb4-91" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;char&gt;</span></span>
 <span id="cb4-92"><a href="#cb4-92" tabindex="-1"></a><span class="co">#&gt; 1:     1      A</span></span>
@@ -672,92 +669,91 @@ Now let’s begin.</p>
 <span id="cb4-101"><a href="#cb4-101" tabindex="-1"></a></span>
 <span id="cb4-102"><a href="#cb4-102" tabindex="-1"></a><span class="do">### Other selections</span></span>
 <span id="cb4-103"><a href="#cb4-103" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="at">cols =</span> <span class="fu">paste0</span>(<span class="st">&quot;V&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>))</span>
-<span id="cb4-104"><a href="#cb4-104" tabindex="-1"></a><span class="co">#&gt; Index: &lt;V1&gt;</span></span>
-<span id="cb4-105"><a href="#cb4-105" tabindex="-1"></a><span class="co">#&gt;       V1    V2</span></span>
-<span id="cb4-106"><a href="#cb4-106" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb4-107"><a href="#cb4-107" tabindex="-1"></a><span class="co">#&gt; 1:     1     1</span></span>
-<span id="cb4-108"><a href="#cb4-108" tabindex="-1"></a><span class="co">#&gt; 2:     2     2</span></span>
-<span id="cb4-109"><a href="#cb4-109" tabindex="-1"></a><span class="co">#&gt; 3:     1     3</span></span>
-<span id="cb4-110"><a href="#cb4-110" tabindex="-1"></a><span class="co">#&gt; 4:     2     4</span></span>
-<span id="cb4-111"><a href="#cb4-111" tabindex="-1"></a><span class="co">#&gt; 5:     1     5</span></span>
-<span id="cb4-112"><a href="#cb4-112" tabindex="-1"></a><span class="co">#&gt; 6:     2     6</span></span>
-<span id="cb4-113"><a href="#cb4-113" tabindex="-1"></a><span class="co">#&gt; 7:     1     7</span></span>
-<span id="cb4-114"><a href="#cb4-114" tabindex="-1"></a><span class="co">#&gt; 8:     2     8</span></span>
-<span id="cb4-115"><a href="#cb4-115" tabindex="-1"></a><span class="co">#&gt; 9:     1     9</span></span>
-<span id="cb4-116"><a href="#cb4-116" tabindex="-1"></a><span class="fu">relocate_dt</span>(DF, V4) <span class="co"># reorder columns</span></span>
-<span id="cb4-117"><a href="#cb4-117" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V1&gt;, &lt;V4__V1&gt;</span></span>
-<span id="cb4-118"><a href="#cb4-118" tabindex="-1"></a><span class="co">#&gt;        V4    V1    V2    V3</span></span>
-<span id="cb4-119"><a href="#cb4-119" tabindex="-1"></a><span class="co">#&gt;    &lt;char&gt; &lt;int&gt; &lt;int&gt; &lt;num&gt;</span></span>
-<span id="cb4-120"><a href="#cb4-120" tabindex="-1"></a><span class="co">#&gt; 1:      A     1     1   0.5</span></span>
-<span id="cb4-121"><a href="#cb4-121" tabindex="-1"></a><span class="co">#&gt; 2:      B     2     2   1.0</span></span>
-<span id="cb4-122"><a href="#cb4-122" tabindex="-1"></a><span class="co">#&gt; 3:      C     1     3   1.5</span></span>
-<span id="cb4-123"><a href="#cb4-123" tabindex="-1"></a><span class="co">#&gt; 4:      A     2     4   0.5</span></span>
-<span id="cb4-124"><a href="#cb4-124" tabindex="-1"></a><span class="co">#&gt; 5:      B     1     5   1.0</span></span>
-<span id="cb4-125"><a href="#cb4-125" tabindex="-1"></a><span class="co">#&gt; 6:      C     2     6   1.5</span></span>
-<span id="cb4-126"><a href="#cb4-126" tabindex="-1"></a><span class="co">#&gt; 7:      A     1     7   0.5</span></span>
-<span id="cb4-127"><a href="#cb4-127" tabindex="-1"></a><span class="co">#&gt; 8:      B     2     8   1.0</span></span>
-<span id="cb4-128"><a href="#cb4-128" tabindex="-1"></a><span class="co">#&gt; 9:      C     1     9   1.5</span></span>
-<span id="cb4-129"><a href="#cb4-129" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="st">&quot;V&quot;</span>)</span>
-<span id="cb4-130"><a href="#cb4-130" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
-<span id="cb4-131"><a href="#cb4-131" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb4-132"><a href="#cb4-132" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
-<span id="cb4-133"><a href="#cb4-133" tabindex="-1"></a><span class="co">#&gt; 2:     2     2   1.0      B</span></span>
-<span id="cb4-134"><a href="#cb4-134" tabindex="-1"></a><span class="co">#&gt; 3:     1     3   1.5      C</span></span>
-<span id="cb4-135"><a href="#cb4-135" tabindex="-1"></a><span class="co">#&gt; 4:     2     4   0.5      A</span></span>
-<span id="cb4-136"><a href="#cb4-136" tabindex="-1"></a><span class="co">#&gt; 5:     1     5   1.0      B</span></span>
-<span id="cb4-137"><a href="#cb4-137" tabindex="-1"></a><span class="co">#&gt; 6:     2     6   1.5      C</span></span>
-<span id="cb4-138"><a href="#cb4-138" tabindex="-1"></a><span class="co">#&gt; 7:     1     7   0.5      A</span></span>
-<span id="cb4-139"><a href="#cb4-139" tabindex="-1"></a><span class="co">#&gt; 8:     2     8   1.0      B</span></span>
-<span id="cb4-140"><a href="#cb4-140" tabindex="-1"></a><span class="co">#&gt; 9:     1     9   1.5      C</span></span>
-<span id="cb4-141"><a href="#cb4-141" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="st">&quot;3$&quot;</span>)</span>
-<span id="cb4-142"><a href="#cb4-142" tabindex="-1"></a><span class="co">#&gt;       V3</span></span>
-<span id="cb4-143"><a href="#cb4-143" tabindex="-1"></a><span class="co">#&gt;    &lt;num&gt;</span></span>
-<span id="cb4-144"><a href="#cb4-144" tabindex="-1"></a><span class="co">#&gt; 1:   0.5</span></span>
-<span id="cb4-145"><a href="#cb4-145" tabindex="-1"></a><span class="co">#&gt; 2:   1.0</span></span>
-<span id="cb4-146"><a href="#cb4-146" tabindex="-1"></a><span class="co">#&gt; 3:   1.5</span></span>
-<span id="cb4-147"><a href="#cb4-147" tabindex="-1"></a><span class="co">#&gt; 4:   0.5</span></span>
-<span id="cb4-148"><a href="#cb4-148" tabindex="-1"></a><span class="co">#&gt; 5:   1.0</span></span>
-<span id="cb4-149"><a href="#cb4-149" tabindex="-1"></a><span class="co">#&gt; 6:   1.5</span></span>
-<span id="cb4-150"><a href="#cb4-150" tabindex="-1"></a><span class="co">#&gt; 7:   0.5</span></span>
-<span id="cb4-151"><a href="#cb4-151" tabindex="-1"></a><span class="co">#&gt; 8:   1.0</span></span>
-<span id="cb4-152"><a href="#cb4-152" tabindex="-1"></a><span class="co">#&gt; 9:   1.5</span></span>
-<span id="cb4-153"><a href="#cb4-153" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="st">&quot;.2&quot;</span>)</span>
-<span id="cb4-154"><a href="#cb4-154" tabindex="-1"></a><span class="co">#&gt;       V2</span></span>
-<span id="cb4-155"><a href="#cb4-155" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt;</span></span>
-<span id="cb4-156"><a href="#cb4-156" tabindex="-1"></a><span class="co">#&gt; 1:     1</span></span>
-<span id="cb4-157"><a href="#cb4-157" tabindex="-1"></a><span class="co">#&gt; 2:     2</span></span>
-<span id="cb4-158"><a href="#cb4-158" tabindex="-1"></a><span class="co">#&gt; 3:     3</span></span>
-<span id="cb4-159"><a href="#cb4-159" tabindex="-1"></a><span class="co">#&gt; 4:     4</span></span>
-<span id="cb4-160"><a href="#cb4-160" tabindex="-1"></a><span class="co">#&gt; 5:     5</span></span>
-<span id="cb4-161"><a href="#cb4-161" tabindex="-1"></a><span class="co">#&gt; 6:     6</span></span>
-<span id="cb4-162"><a href="#cb4-162" tabindex="-1"></a><span class="co">#&gt; 7:     7</span></span>
-<span id="cb4-163"><a href="#cb4-163" tabindex="-1"></a><span class="co">#&gt; 8:     8</span></span>
-<span id="cb4-164"><a href="#cb4-164" tabindex="-1"></a><span class="co">#&gt; 9:     9</span></span>
-<span id="cb4-165"><a href="#cb4-165" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="st">&quot;V1&quot;</span>)</span>
-<span id="cb4-166"><a href="#cb4-166" tabindex="-1"></a><span class="co">#&gt;       V1</span></span>
-<span id="cb4-167"><a href="#cb4-167" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt;</span></span>
-<span id="cb4-168"><a href="#cb4-168" tabindex="-1"></a><span class="co">#&gt; 1:     1</span></span>
-<span id="cb4-169"><a href="#cb4-169" tabindex="-1"></a><span class="co">#&gt; 2:     2</span></span>
-<span id="cb4-170"><a href="#cb4-170" tabindex="-1"></a><span class="co">#&gt; 3:     1</span></span>
-<span id="cb4-171"><a href="#cb4-171" tabindex="-1"></a><span class="co">#&gt; 4:     2</span></span>
-<span id="cb4-172"><a href="#cb4-172" tabindex="-1"></a><span class="co">#&gt; 5:     1</span></span>
-<span id="cb4-173"><a href="#cb4-173" tabindex="-1"></a><span class="co">#&gt; 6:     2</span></span>
-<span id="cb4-174"><a href="#cb4-174" tabindex="-1"></a><span class="co">#&gt; 7:     1</span></span>
-<span id="cb4-175"><a href="#cb4-175" tabindex="-1"></a><span class="co">#&gt; 8:     2</span></span>
-<span id="cb4-176"><a href="#cb4-176" tabindex="-1"></a><span class="co">#&gt; 9:     1</span></span>
-<span id="cb4-177"><a href="#cb4-177" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="sc">-</span><span class="st">&quot;^V2&quot;</span>)</span>
-<span id="cb4-178"><a href="#cb4-178" tabindex="-1"></a><span class="co">#&gt;       V1    V3     V4</span></span>
-<span id="cb4-179"><a href="#cb4-179" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
-<span id="cb4-180"><a href="#cb4-180" tabindex="-1"></a><span class="co">#&gt; 1:     1   0.5      A</span></span>
-<span id="cb4-181"><a href="#cb4-181" tabindex="-1"></a><span class="co">#&gt; 2:     2   1.0      B</span></span>
-<span id="cb4-182"><a href="#cb4-182" tabindex="-1"></a><span class="co">#&gt; 3:     1   1.5      C</span></span>
-<span id="cb4-183"><a href="#cb4-183" tabindex="-1"></a><span class="co">#&gt; 4:     2   0.5      A</span></span>
-<span id="cb4-184"><a href="#cb4-184" tabindex="-1"></a><span class="co">#&gt; 5:     1   1.0      B</span></span>
-<span id="cb4-185"><a href="#cb4-185" tabindex="-1"></a><span class="co">#&gt; 6:     2   1.5      C</span></span>
-<span id="cb4-186"><a href="#cb4-186" tabindex="-1"></a><span class="co">#&gt; 7:     1   0.5      A</span></span>
-<span id="cb4-187"><a href="#cb4-187" tabindex="-1"></a><span class="co">#&gt; 8:     2   1.0      B</span></span>
-<span id="cb4-188"><a href="#cb4-188" tabindex="-1"></a><span class="co">#&gt; 9:     1   1.5      C</span></span>
-<span id="cb4-189"><a href="#cb4-189" tabindex="-1"></a><span class="co"># remove variables using &quot;-&quot; prior to function</span></span></code></pre></div>
+<span id="cb4-104"><a href="#cb4-104" tabindex="-1"></a><span class="co">#&gt;       V1    V2</span></span>
+<span id="cb4-105"><a href="#cb4-105" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt;</span></span>
+<span id="cb4-106"><a href="#cb4-106" tabindex="-1"></a><span class="co">#&gt; 1:     1     1</span></span>
+<span id="cb4-107"><a href="#cb4-107" tabindex="-1"></a><span class="co">#&gt; 2:     2     2</span></span>
+<span id="cb4-108"><a href="#cb4-108" tabindex="-1"></a><span class="co">#&gt; 3:     1     3</span></span>
+<span id="cb4-109"><a href="#cb4-109" tabindex="-1"></a><span class="co">#&gt; 4:     2     4</span></span>
+<span id="cb4-110"><a href="#cb4-110" tabindex="-1"></a><span class="co">#&gt; 5:     1     5</span></span>
+<span id="cb4-111"><a href="#cb4-111" tabindex="-1"></a><span class="co">#&gt; 6:     2     6</span></span>
+<span id="cb4-112"><a href="#cb4-112" tabindex="-1"></a><span class="co">#&gt; 7:     1     7</span></span>
+<span id="cb4-113"><a href="#cb4-113" tabindex="-1"></a><span class="co">#&gt; 8:     2     8</span></span>
+<span id="cb4-114"><a href="#cb4-114" tabindex="-1"></a><span class="co">#&gt; 9:     1     9</span></span>
+<span id="cb4-115"><a href="#cb4-115" tabindex="-1"></a><span class="fu">relocate_dt</span>(DF, V4) <span class="co"># reorder columns</span></span>
+<span id="cb4-116"><a href="#cb4-116" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V4__V1&gt;</span></span>
+<span id="cb4-117"><a href="#cb4-117" tabindex="-1"></a><span class="co">#&gt;        V4    V1    V2    V3</span></span>
+<span id="cb4-118"><a href="#cb4-118" tabindex="-1"></a><span class="co">#&gt;    &lt;char&gt; &lt;int&gt; &lt;int&gt; &lt;num&gt;</span></span>
+<span id="cb4-119"><a href="#cb4-119" tabindex="-1"></a><span class="co">#&gt; 1:      A     1     1   0.5</span></span>
+<span id="cb4-120"><a href="#cb4-120" tabindex="-1"></a><span class="co">#&gt; 2:      B     2     2   1.0</span></span>
+<span id="cb4-121"><a href="#cb4-121" tabindex="-1"></a><span class="co">#&gt; 3:      C     1     3   1.5</span></span>
+<span id="cb4-122"><a href="#cb4-122" tabindex="-1"></a><span class="co">#&gt; 4:      A     2     4   0.5</span></span>
+<span id="cb4-123"><a href="#cb4-123" tabindex="-1"></a><span class="co">#&gt; 5:      B     1     5   1.0</span></span>
+<span id="cb4-124"><a href="#cb4-124" tabindex="-1"></a><span class="co">#&gt; 6:      C     2     6   1.5</span></span>
+<span id="cb4-125"><a href="#cb4-125" tabindex="-1"></a><span class="co">#&gt; 7:      A     1     7   0.5</span></span>
+<span id="cb4-126"><a href="#cb4-126" tabindex="-1"></a><span class="co">#&gt; 8:      B     2     8   1.0</span></span>
+<span id="cb4-127"><a href="#cb4-127" tabindex="-1"></a><span class="co">#&gt; 9:      C     1     9   1.5</span></span>
+<span id="cb4-128"><a href="#cb4-128" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="st">&quot;V&quot;</span>)</span>
+<span id="cb4-129"><a href="#cb4-129" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4</span></span>
+<span id="cb4-130"><a href="#cb4-130" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb4-131"><a href="#cb4-131" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A</span></span>
+<span id="cb4-132"><a href="#cb4-132" tabindex="-1"></a><span class="co">#&gt; 2:     2     2   1.0      B</span></span>
+<span id="cb4-133"><a href="#cb4-133" tabindex="-1"></a><span class="co">#&gt; 3:     1     3   1.5      C</span></span>
+<span id="cb4-134"><a href="#cb4-134" tabindex="-1"></a><span class="co">#&gt; 4:     2     4   0.5      A</span></span>
+<span id="cb4-135"><a href="#cb4-135" tabindex="-1"></a><span class="co">#&gt; 5:     1     5   1.0      B</span></span>
+<span id="cb4-136"><a href="#cb4-136" tabindex="-1"></a><span class="co">#&gt; 6:     2     6   1.5      C</span></span>
+<span id="cb4-137"><a href="#cb4-137" tabindex="-1"></a><span class="co">#&gt; 7:     1     7   0.5      A</span></span>
+<span id="cb4-138"><a href="#cb4-138" tabindex="-1"></a><span class="co">#&gt; 8:     2     8   1.0      B</span></span>
+<span id="cb4-139"><a href="#cb4-139" tabindex="-1"></a><span class="co">#&gt; 9:     1     9   1.5      C</span></span>
+<span id="cb4-140"><a href="#cb4-140" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="st">&quot;3$&quot;</span>)</span>
+<span id="cb4-141"><a href="#cb4-141" tabindex="-1"></a><span class="co">#&gt;       V3</span></span>
+<span id="cb4-142"><a href="#cb4-142" tabindex="-1"></a><span class="co">#&gt;    &lt;num&gt;</span></span>
+<span id="cb4-143"><a href="#cb4-143" tabindex="-1"></a><span class="co">#&gt; 1:   0.5</span></span>
+<span id="cb4-144"><a href="#cb4-144" tabindex="-1"></a><span class="co">#&gt; 2:   1.0</span></span>
+<span id="cb4-145"><a href="#cb4-145" tabindex="-1"></a><span class="co">#&gt; 3:   1.5</span></span>
+<span id="cb4-146"><a href="#cb4-146" tabindex="-1"></a><span class="co">#&gt; 4:   0.5</span></span>
+<span id="cb4-147"><a href="#cb4-147" tabindex="-1"></a><span class="co">#&gt; 5:   1.0</span></span>
+<span id="cb4-148"><a href="#cb4-148" tabindex="-1"></a><span class="co">#&gt; 6:   1.5</span></span>
+<span id="cb4-149"><a href="#cb4-149" tabindex="-1"></a><span class="co">#&gt; 7:   0.5</span></span>
+<span id="cb4-150"><a href="#cb4-150" tabindex="-1"></a><span class="co">#&gt; 8:   1.0</span></span>
+<span id="cb4-151"><a href="#cb4-151" tabindex="-1"></a><span class="co">#&gt; 9:   1.5</span></span>
+<span id="cb4-152"><a href="#cb4-152" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="st">&quot;.2&quot;</span>)</span>
+<span id="cb4-153"><a href="#cb4-153" tabindex="-1"></a><span class="co">#&gt;       V2</span></span>
+<span id="cb4-154"><a href="#cb4-154" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt;</span></span>
+<span id="cb4-155"><a href="#cb4-155" tabindex="-1"></a><span class="co">#&gt; 1:     1</span></span>
+<span id="cb4-156"><a href="#cb4-156" tabindex="-1"></a><span class="co">#&gt; 2:     2</span></span>
+<span id="cb4-157"><a href="#cb4-157" tabindex="-1"></a><span class="co">#&gt; 3:     3</span></span>
+<span id="cb4-158"><a href="#cb4-158" tabindex="-1"></a><span class="co">#&gt; 4:     4</span></span>
+<span id="cb4-159"><a href="#cb4-159" tabindex="-1"></a><span class="co">#&gt; 5:     5</span></span>
+<span id="cb4-160"><a href="#cb4-160" tabindex="-1"></a><span class="co">#&gt; 6:     6</span></span>
+<span id="cb4-161"><a href="#cb4-161" tabindex="-1"></a><span class="co">#&gt; 7:     7</span></span>
+<span id="cb4-162"><a href="#cb4-162" tabindex="-1"></a><span class="co">#&gt; 8:     8</span></span>
+<span id="cb4-163"><a href="#cb4-163" tabindex="-1"></a><span class="co">#&gt; 9:     9</span></span>
+<span id="cb4-164"><a href="#cb4-164" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="st">&quot;V1&quot;</span>)</span>
+<span id="cb4-165"><a href="#cb4-165" tabindex="-1"></a><span class="co">#&gt;       V1</span></span>
+<span id="cb4-166"><a href="#cb4-166" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt;</span></span>
+<span id="cb4-167"><a href="#cb4-167" tabindex="-1"></a><span class="co">#&gt; 1:     1</span></span>
+<span id="cb4-168"><a href="#cb4-168" tabindex="-1"></a><span class="co">#&gt; 2:     2</span></span>
+<span id="cb4-169"><a href="#cb4-169" tabindex="-1"></a><span class="co">#&gt; 3:     1</span></span>
+<span id="cb4-170"><a href="#cb4-170" tabindex="-1"></a><span class="co">#&gt; 4:     2</span></span>
+<span id="cb4-171"><a href="#cb4-171" tabindex="-1"></a><span class="co">#&gt; 5:     1</span></span>
+<span id="cb4-172"><a href="#cb4-172" tabindex="-1"></a><span class="co">#&gt; 6:     2</span></span>
+<span id="cb4-173"><a href="#cb4-173" tabindex="-1"></a><span class="co">#&gt; 7:     1</span></span>
+<span id="cb4-174"><a href="#cb4-174" tabindex="-1"></a><span class="co">#&gt; 8:     2</span></span>
+<span id="cb4-175"><a href="#cb4-175" tabindex="-1"></a><span class="co">#&gt; 9:     1</span></span>
+<span id="cb4-176"><a href="#cb4-176" tabindex="-1"></a><span class="fu">select_dt</span>(DF, <span class="sc">-</span><span class="st">&quot;^V2&quot;</span>)</span>
+<span id="cb4-177"><a href="#cb4-177" tabindex="-1"></a><span class="co">#&gt;       V1    V3     V4</span></span>
+<span id="cb4-178"><a href="#cb4-178" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;num&gt; &lt;char&gt;</span></span>
+<span id="cb4-179"><a href="#cb4-179" tabindex="-1"></a><span class="co">#&gt; 1:     1   0.5      A</span></span>
+<span id="cb4-180"><a href="#cb4-180" tabindex="-1"></a><span class="co">#&gt; 2:     2   1.0      B</span></span>
+<span id="cb4-181"><a href="#cb4-181" tabindex="-1"></a><span class="co">#&gt; 3:     1   1.5      C</span></span>
+<span id="cb4-182"><a href="#cb4-182" tabindex="-1"></a><span class="co">#&gt; 4:     2   0.5      A</span></span>
+<span id="cb4-183"><a href="#cb4-183" tabindex="-1"></a><span class="co">#&gt; 5:     1   1.0      B</span></span>
+<span id="cb4-184"><a href="#cb4-184" tabindex="-1"></a><span class="co">#&gt; 6:     2   1.5      C</span></span>
+<span id="cb4-185"><a href="#cb4-185" tabindex="-1"></a><span class="co">#&gt; 7:     1   0.5      A</span></span>
+<span id="cb4-186"><a href="#cb4-186" tabindex="-1"></a><span class="co">#&gt; 8:     2   1.0      B</span></span>
+<span id="cb4-187"><a href="#cb4-187" tabindex="-1"></a><span class="co">#&gt; 9:     1   1.5      C</span></span>
+<span id="cb4-188"><a href="#cb4-188" tabindex="-1"></a><span class="co"># remove variables using &quot;-&quot; prior to function</span></span></code></pre></div>
 </div>
 <div id="summarise-data" class="section level2">
 <h2>Summarise data</h2>
@@ -901,7 +897,7 @@ Now let’s begin.</p>
 <span id="cb6-82"><a href="#cb6-82" tabindex="-1"></a></span>
 <span id="cb6-83"><a href="#cb6-83" tabindex="-1"></a><span class="do">### Add a column with number of observations for each group</span></span>
 <span id="cb6-84"><a href="#cb6-84" tabindex="-1"></a><span class="fu">add_count_dt</span>(DF, V1)</span>
-<span id="cb6-85"><a href="#cb6-85" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V1&gt;, &lt;V4__V1&gt;</span></span>
+<span id="cb6-85"><a href="#cb6-85" tabindex="-1"></a><span class="co">#&gt; Indices: &lt;V4&gt;, &lt;V4__V1&gt;</span></span>
 <span id="cb6-86"><a href="#cb6-86" tabindex="-1"></a><span class="co">#&gt;       V1    V2    V3     V4     n</span></span>
 <span id="cb6-87"><a href="#cb6-87" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;char&gt; &lt;int&gt;</span></span>
 <span id="cb6-88"><a href="#cb6-88" tabindex="-1"></a><span class="co">#&gt; 1:     1     1   0.5      A     5</span></span>

@@ -33,8 +33,6 @@ filter_dt(DF, V4 %in% c("A", "C"))
 filter_dt(DF, V4 %chin% c("A", "C")) # fast %in% for character
 
 ### Filter rows using multiple conditions
-filter_dt(DF, V1 == 1, V4 == "A")
-# equals to
 filter_dt(DF, V1 == 1 & V4 == "A")
 
 ### Filter unique rows
@@ -307,28 +305,28 @@ data.table::groupingsets(DT,
 
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  ### Write data to a csv file
-#  fwrite(DT, "DT.csv")
-#  
-#  ### Write data to a tab-delimited file
-#  fwrite(DT, "DT.txt", sep = "\t")
-#  
-#  ### Write list-column data to a csv file
-#  fwrite(setDT(list(0, list(1:5))), "DT2.csv")
-#  #
-#  ### Read a csv / tab-delimited file
-#  fread("DT.csv")
-#  # fread("DT.csv", verbose = TRUE) # full details
-#  fread("DT.txt", sep = "\t")
-#  
-#  ### Read a csv file selecting / droping columns
-#  fread("DT.csv", select = c("V1", "V4"))
-#  fread("DT.csv", drop = "V4")
-#  # NA
-#  ### Read and rbind several files
-#  rbindlist(lapply(c("DT.csv", "DT.csv"), fread))
-#  # c("DT.csv", "DT.csv") %>% lapply(fread) %>% rbindlist
-#  
+# ### Write data to a csv file
+# fwrite(DT, "DT.csv")
+# 
+# ### Write data to a tab-delimited file
+# fwrite(DT, "DT.txt", sep = "\t")
+# 
+# ### Write list-column data to a csv file
+# fwrite(setDT(list(0, list(1:5))), "DT2.csv")
+# #
+# ### Read a csv / tab-delimited file
+# fread("DT.csv")
+# # fread("DT.csv", verbose = TRUE) # full details
+# fread("DT.txt", sep = "\t")
+# 
+# ### Read a csv file selecting / droping columns
+# fread("DT.csv", select = c("V1", "V4"))
+# fread("DT.csv", drop = "V4")
+# # NA
+# ### Read and rbind several files
+# rbindlist(lapply(c("DT.csv", "DT.csv"), fread))
+# # c("DT.csv", "DT.csv") %>% lapply(fread) %>% rbindlist
+# 
 
 ## -----------------------------------------------------------------------------
 ### Melt data (from wide to long)

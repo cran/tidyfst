@@ -12,33 +12,33 @@ library(tidyr)
 relig_income
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  relig_income %>%
-#    pivot_longer(-religion, names_to = "income", values_to = "count")
+# relig_income %>%
+#   pivot_longer(-religion, names_to = "income", values_to = "count")
 
 ## ----warning=FALSE------------------------------------------------------------
 relig_income %>% 
   longer_dt("religion",name = "income",value = "count")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  billboard
-#  
-#  # tidyr way:
-#   billboard %>%
-#     pivot_longer(
-#       cols = starts_with("wk"),
-#       names_to = "week",
-#       values_to = "rank",
-#       values_drop_na = TRUE
-#     )
-#  
-#  # tidyfst way:
+# billboard
+# 
+# # tidyr way:
 #  billboard %>%
-#    longer_dt(-"wk",
-#              name = "week",
-#              value = "rank",
-#              na.rm = TRUE
-#              )
-#  # regex could select the groups to keep, and minus could select the reverse
+#    pivot_longer(
+#      cols = starts_with("wk"),
+#      names_to = "week",
+#      values_to = "rank",
+#      values_drop_na = TRUE
+#    )
+# 
+# # tidyfst way:
+# billboard %>%
+#   longer_dt(-"wk",
+#             name = "week",
+#             value = "rank",
+#             na.rm = TRUE
+#             )
+# # regex could select the groups to keep, and minus could select the reverse
 
 ## -----------------------------------------------------------------------------
 ## data
