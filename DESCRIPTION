@@ -1,6 +1,6 @@
 Package: tidyfst
 Title: Tidy Verbs for Fast Data Manipulation
-Version: 1.8.2
+Version: 1.8.3
 Depends: R (>= 4.1.0)
 Authors@R: 
     person(given = "Tian-Yuan",
@@ -24,9 +24,9 @@ Suggests: knitr, rmarkdown, nycflights13, pryr, tidyr, ggplot2, dplyr,
         bench, testthat, tidytext
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2025-05-07 04:55:13 UTC; Admin
+Packaged: 2025-12-16 14:22:57 UTC; Admin
 Author: Tian-Yuan Huang [aut, cre] (ORCID:
     <https://orcid.org/0000-0002-4151-3764>)
 Maintainer: Tian-Yuan Huang <huang.tian-yuan@qq.com>
 Repository: CRAN
-Date/Publication: 2025-05-07 05:20:02 UTC
+Date/Publication: 2025-12-16 18:10:02 UTC
