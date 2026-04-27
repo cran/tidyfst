@@ -377,7 +377,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt;  99998:  2.00      Good     F     SI1  63.0    64 17869  7.67  7.76</span></span>
 <span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt;  99999:  1.00   Premium     H     VS2  59.7    59  5139  6.57  6.52</span></span>
 <span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; 100000:  0.30     Ideal     G    VVS2  60.6    57   878  4.35  4.33</span></span>
-<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
 </div>
 <div id="基础" class="section level2">
 <h2>基础</h2>
@@ -399,7 +399,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
 <span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
 <span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
 <p>那么，现在dat1的数据就按照日期排好序了。</p>
 </div>
 <div id="聚合" class="section level3">
@@ -416,7 +416,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>      <span class="at">max_price =</span> <span class="fu">max</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    )</span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>})</span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.040s elapsed (0.030s cpu)&quot;</span></span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>r1_1</span>
 <span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt;           cut color mean_price median_price max_price</span></span>
 <span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt;         &lt;ord&gt; &lt;ord&gt;      &lt;num&gt;        &lt;num&gt;     &lt;int&gt;</span></span>
@@ -455,7 +455,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-46"><a href="#cb3-46" tabindex="-1"></a><span class="co">#&gt; 33:      Fair     I   4278.831       3022.0     18242</span></span>
 <span id="cb3-47"><a href="#cb3-47" tabindex="-1"></a><span class="co">#&gt; 34:      Good     J   4578.490       3690.0     18325</span></span>
 <span id="cb3-48"><a href="#cb3-48" tabindex="-1"></a><span class="co">#&gt; 35:      Fair     E   3834.358       2996.5     15584</span></span>
-<span id="cb3-49"><a href="#cb3-49" tabindex="-1"></a><span class="co">#&gt;           cut color mean_price median_price max_price</span></span></code></pre></div>
+<span id="cb3-49"><a href="#cb3-49" tabindex="-1"></a><span class="co">#&gt;           cut color mean_price median_price max_price</span></span>
+<span id="cb3-50"><a href="#cb3-50" tabindex="-1"></a><span class="co">#&gt;         &lt;ord&gt; &lt;ord&gt;      &lt;num&gt;        &lt;num&gt;     &lt;int&gt;</span></span></code></pre></div>
 <p>tidyfst是永远不可能比data.table快的，但是如果你觉得上面的代码更容易掌握、更容易读懂，而在日常工作中多花零点几秒的运行时间没有太大问题（实际上节省了大家的交流时间，甚至就是节省将来自己再次读懂自己代码的时间），tidyfst就值得拥有。</p>
 </div>
 <div id="求每天最高出售价格对应的那笔订单" class="section level4">
@@ -469,7 +470,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>      <span class="fu">head</span>(<span class="dv">1</span>)</span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    )</span>
 <span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>})</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.000s elapsed (0.020s cpu)&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
 <span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>r1_2</span>
 <span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt;               dt carat       cut color clarity depth table price     x</span></span>
 <span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt;           &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt;</span></span>
@@ -484,7 +485,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; 3286: 2019-12-30  1.55 Very Good     H     VS2  63.3    56 10546  7.38</span></span>
 <span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; 3287: 2019-12-31  1.51 Very Good     F    VVS2  63.1    56 17317  7.32</span></span>
 <span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; 3288: 2020-01-01  2.04   Premium     J     VS2  63.0    58 13734  8.02</span></span>
-<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [y &lt;num&gt;, z &lt;num&gt;]</span></span></code></pre></div>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [y &lt;num&gt;, z &lt;num&gt;]</span></span></code></pre></div>
 </div>
 </div>
 <div id="join" class="section level3">
@@ -496,7 +497,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  r2_1 <span class="ot">&lt;-</span> dat1 <span class="sc">%&gt;%</span> </span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="fu">left_join_dt</span>(dat2,<span class="at">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>})</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.050s elapsed (0.030s cpu)&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.010s elapsed (0.000s cpu)&quot;</span></span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>r2_1</span>
 <span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
@@ -512,7 +513,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16</span></span>
 <span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28</span></span>
 <span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38</span></span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; 3 variable(s) not shown: [y &lt;num&gt;, z &lt;num&gt;, price1 &lt;int&gt;]</span></span></code></pre></div>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; 3 variables not shown: [y &lt;num&gt;, z &lt;num&gt;, price1 &lt;int&gt;]</span></span></code></pre></div>
 </div>
 <div id="多重join" class="section level4">
 <h4>2.多重join</h4>
@@ -520,7 +521,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  mymerge <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="fu">left_join_dt</span>(x, y, <span class="at">by =</span> <span class="st">&quot;dt&quot;</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  r2_2 <span class="ot">&lt;-</span> <span class="fu">Reduce</span>(mymerge, <span class="fu">list</span>(dat1, dat2, dat3))</span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>})</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.010s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.080s elapsed (0.050s cpu)&quot;</span></span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>r2_2</span>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; Key: &lt;dt&gt;</span></span>
 <span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
@@ -536,7 +537,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16</span></span>
 <span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28</span></span>
 <span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38</span></span>
-<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; 4 variable(s) not shown: [y &lt;num&gt;, z &lt;num&gt;, price1 &lt;int&gt;, price2 &lt;int&gt;]</span></span></code></pre></div>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; 4 variables not shown: [y &lt;num&gt;, z &lt;num&gt;, price1 &lt;int&gt;, price2 &lt;int&gt;]</span></span></code></pre></div>
 </div>
 </div>
 <div id="长宽表转换" class="section level3">
@@ -552,7 +553,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>             <span class="at">name =</span> <span class="st">&quot;color&quot;</span>,</span>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>             <span class="at">fun =</span> <span class="fu">list</span>(mean1,max1))</span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>})</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.010s elapsed (0.010s cpu)&quot;</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>r3_1</span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; Key: &lt;cut&gt;</span></span>
 <span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;          cut depth_mean1_D depth_mean1_E depth_mean1_F depth_mean1_G</span></span>
@@ -562,7 +563,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; 3: Very Good      61.70454      61.73751      61.73138      61.83043</span></span>
 <span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; 4:   Premium      61.18875      61.16850      61.25098      61.27894</span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; 5:     Ideal      61.67241      61.68693      61.65616      61.70585</span></span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; 24 variable(s) not shown: [depth_mean1_H &lt;num&gt;, depth_mean1_I &lt;num&gt;, depth_mean1_J &lt;num&gt;, price_mean1_D &lt;num&gt;, price_mean1_E &lt;num&gt;, price_mean1_F &lt;num&gt;, price_mean1_G &lt;num&gt;, price_mean1_H &lt;num&gt;, price_mean1_I &lt;num&gt;, price_mean1_J &lt;num&gt;, ...]</span></span></code></pre></div>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; 24 variables not shown: [depth_mean1_H &lt;num&gt;, depth_mean1_I &lt;num&gt;, depth_mean1_J &lt;num&gt;, price_mean1_D &lt;num&gt;, price_mean1_E &lt;num&gt;, price_mean1_F &lt;num&gt;, price_mean1_G &lt;num&gt;, price_mean1_H &lt;num&gt;, price_mean1_I &lt;num&gt;, price_mean1_J &lt;num&gt;, ...]</span></span></code></pre></div>
 </div>
 <div id="宽表转长表" class="section level4">
 <h4>2.宽表转长表</h4>
@@ -573,7 +574,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>              <span class="at">name =</span> <span class="st">&quot;xyz&quot;</span>,</span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>              <span class="at">value =</span> <span class="st">&quot;xyzvalue&quot;</span>)</span>
 <span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>})</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.000s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.010s elapsed (0.010s cpu)&quot;</span></span>
 <span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>r3_2 </span>
 <span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt;               cut color    xyz xyzvalue</span></span>
@@ -615,7 +616,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
 <span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
 <span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
 </div>
 <div id="添加子维度聚合结果为新列" class="section level3">
 <h3>添加子维度聚合结果为新列</h3>
@@ -628,7 +629,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>           <span class="at">sd_price =</span> <span class="fu">sd</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>           <span class="at">by =</span> .(cut, color))</span>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>})</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.020s elapsed (0.000s cpu)&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.070s elapsed (0.040s cpu)&quot;</span></span>
 <span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a></span>
 <span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>dat1</span>
 <span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt;         carat       cut color clarity depth table price     x     y</span></span>
@@ -644,7 +645,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">#&gt;  99998:  0.28 Very Good     I     VS2  61.9  57.0   379  4.16  4.19</span></span>
 <span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#&gt;  99999:  0.30     Ideal     G     VS2  62.0  56.0   556  4.28  4.30</span></span>
 <span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co">#&gt; 100000:  0.32     Ideal     F     VS2  62.4  54.0   645  4.38  4.40</span></span>
-<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="co">#&gt; 2 variable(s) not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="co">#&gt; 2 variables not shown: [z &lt;num&gt;, dt &lt;Date&gt;]</span></span></code></pre></div>
 </div>
 <div id="以dat1为例以dt分组添加一列序号id" class="section level4">
 <h4>2.以dat1为例，以dt分组添加一列序号id</h4>
@@ -656,7 +657,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>    <span class="fu">mutate_dt</span>(<span class="at">id =</span> <span class="fu">seq</span>(.N))</span>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  ) <span class="ot">-&gt;</span> dat1</span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>})</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.910s elapsed (0.890s cpu)&quot;</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 1.440s elapsed (1.420s cpu)&quot;</span></span>
 <span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>dat1</span>
 <span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt;                 dt carat       cut color clarity depth table price     x</span></span>
 <span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt;             &lt;Date&gt; &lt;num&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;num&gt;</span></span>
@@ -671,7 +672,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt;  99998: 2020-01-01  0.28 Very Good     I     VS2  61.9  57.0   379  4.16</span></span>
 <span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt;  99999: 2020-01-01  0.30     Ideal     G     VS2  62.0  56.0   556  4.28</span></span>
 <span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; 100000: 2020-01-01  0.32     Ideal     F     VS2  62.4  54.0   645  4.38</span></span>
-<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; 3 variable(s) not shown: [y &lt;num&gt;, z &lt;num&gt;, id &lt;int&gt;]</span></span></code></pre></div>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; 3 variables not shown: [y &lt;num&gt;, z &lt;num&gt;, id &lt;int&gt;]</span></span></code></pre></div>
 </div>
 </div>
 <div id="移动函数" class="section level3">
@@ -687,7 +688,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>      )</span>
 <span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> dat1</span>
 <span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>})</span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.460s elapsed (0.440s cpu)&quot;</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; [1] &quot;# Finished in 0.720s elapsed (0.730s cpu)&quot;</span></span>
 <span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a></span>
 <span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>dat1</span>
 <span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt;         color         dt carat       cut clarity depth table price     x</span></span>
@@ -703,13 +704,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a><span class="co">#&gt;  99998:     I 2019-12-31  0.30     Ideal     SI1  61.3    56   506  4.33</span></span>
 <span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="co">#&gt;  99999:     I 2020-01-01  1.22   Premium     VS2  62.3    59  5832  6.79</span></span>
 <span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a><span class="co">#&gt; 100000:     I 2020-01-01  0.28 Very Good     VS2  61.9    57   379  4.16</span></span>
-<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a><span class="co">#&gt; 5 variable(s) not shown: [y &lt;num&gt;, z &lt;num&gt;, id &lt;int&gt;, MA10_price &lt;num&gt;, MSD10_price &lt;num&gt;]</span></span></code></pre></div>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a><span class="co">#&gt; 5 variables not shown: [y &lt;num&gt;, z &lt;num&gt;, id &lt;int&gt;, MA10_price &lt;num&gt;, MSD10_price &lt;num&gt;]</span></span></code></pre></div>
 </div>
 </div>
 <div id="系统参数" class="section level2">
 <h2>系统参数</h2>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; R version 4.5.1 (2025-06-13 ucrt)</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; R version 4.6.0 (2026-04-24 ucrt)</span></span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64</span></span>
 <span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; Running under: Windows 11 x64 (build 26100)</span></span>
 <span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
@@ -730,20 +731,22 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a><span class="co">#&gt; other attached packages:</span></span>
-<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co">#&gt; [1] bench_1.1.3       dplyr_1.1.4       data.table_1.16.4 tidyfst_1.8.3    </span></span>
-<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="co">#&gt;  [1] gtable_0.3.6      jsonlite_1.8.9    compiler_4.5.1    tidyselect_1.2.1 </span></span>
-<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co">#&gt;  [5] Rcpp_1.1.0        stringr_1.5.1     parallel_4.5.1    jquerylib_0.1.4  </span></span>
-<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="co">#&gt;  [9] scales_1.3.0      yaml_2.3.10       fastmap_1.2.0     ggplot2_3.5.2    </span></span>
-<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="co">#&gt; [13] R6_2.5.1          generics_0.1.3    knitr_1.49        tibble_3.2.1     </span></span>
-<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="co">#&gt; [17] munsell_0.5.1     bslib_0.8.0       pillar_1.11.1     rlang_1.1.6      </span></span>
-<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a><span class="co">#&gt; [21] utf8_1.2.4        cachem_1.1.0      stringi_1.8.4     xfun_0.49        </span></span>
-<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="co">#&gt; [25] sass_0.4.9        cli_3.6.5         withr_3.0.2       magrittr_2.0.3   </span></span>
-<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="co">#&gt; [29] digest_0.6.37     grid_4.5.1        rstudioapi_0.17.1 fst_0.9.8        </span></span>
-<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a><span class="co">#&gt; [33] lifecycle_1.0.4   vctrs_0.6.5       evaluate_1.0.1    glue_1.8.0       </span></span>
-<span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a><span class="co">#&gt; [37] colorspace_2.1-1  profmem_0.6.0     fstcore_0.9.18    rmarkdown_2.29   </span></span>
-<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a><span class="co">#&gt; [41] tools_4.5.1       pkgconfig_2.0.3   htmltools_0.5.8.1</span></span></code></pre></div>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co">#&gt; [1] bench_1.1.4         dplyr_1.2.1         data.table_1.18.2.1</span></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="co">#&gt; [4] tidyfst_1.8.4      </span></span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co">#&gt;  [1] gtable_0.3.6       jsonlite_2.0.0     compiler_4.6.0     tidyselect_1.2.1  </span></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="co">#&gt;  [5] Rcpp_1.1.1-1.1     stringr_1.6.0      parallel_4.6.0     jquerylib_0.1.4   </span></span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="co">#&gt;  [9] scales_1.4.0       yaml_2.3.12        fastmap_1.2.0      ggplot2_4.0.3     </span></span>
+<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="co">#&gt; [13] R6_2.6.1           pak_0.9.4          generics_0.1.4     knitr_1.51        </span></span>
+<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a><span class="co">#&gt; [17] tibble_3.3.1       RColorBrewer_1.1-3 bslib_0.10.0       pillar_1.11.1     </span></span>
+<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="co">#&gt; [21] rlang_1.2.0        utf8_1.2.6         cachem_1.1.0       stringi_1.8.7     </span></span>
+<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="co">#&gt; [25] xfun_0.57          S7_0.2.2           sass_0.4.10        otel_0.2.0        </span></span>
+<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a><span class="co">#&gt; [29] cli_3.6.6          withr_3.0.2        magrittr_2.0.5     grid_4.6.0        </span></span>
+<span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a><span class="co">#&gt; [33] digest_0.6.39      rstudioapi_0.18.0  fst_0.9.8          lifecycle_1.0.5   </span></span>
+<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a><span class="co">#&gt; [37] vctrs_0.7.3        evaluate_1.0.5     glue_1.8.1         farver_2.1.2      </span></span>
+<span id="cb13-37"><a href="#cb13-37" tabindex="-1"></a><span class="co">#&gt; [41] profmem_0.7.0      fstcore_0.10.0     rmarkdown_2.31     tools_4.6.0       </span></span>
+<span id="cb13-38"><a href="#cb13-38" tabindex="-1"></a><span class="co">#&gt; [45] pkgconfig_2.0.3    htmltools_0.5.9</span></span></code></pre></div>
 </div>
 
 
